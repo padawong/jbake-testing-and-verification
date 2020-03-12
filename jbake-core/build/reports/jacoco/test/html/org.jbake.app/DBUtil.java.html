@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DBUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-core</a> &gt; <a href="index.source.html" class="el_package">org.jbake.app</a> &gt; <span class="el_source">DBUtil.java</span></div><h1>DBUtil.java</h1><pre class="source lang-java linenums">package org.jbake.app;
+
+import com.orientechnologies.orient.core.db.record.OTrackedList;
+import com.orientechnologies.orient.core.record.OElement;
+import com.orientechnologies.orient.core.sql.executor.OResult;
+import org.jbake.app.configuration.JBakeConfiguration;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+<span class="nc" id="L12">public class DBUtil {</span>
+    private static ContentStore contentStore;
+
+    @Deprecated
+    public static ContentStore createDataStore(final String type, String name) {
+<span class="nc bnc" id="L17" title="All 2 branches missed.">        if (contentStore == null) {</span>
+<span class="nc" id="L18">            contentStore = new ContentStore(type, name);</span>
+        }
+<span class="nc" id="L20">        return contentStore;</span>
+    }
+
+    @Deprecated
+    public static void updateSchema(final ContentStore db) {
+<span class="nc" id="L25">        db.updateSchema();</span>
+<span class="nc" id="L26">    }</span>
+
+    public static ContentStore createDataStore(JBakeConfiguration configuration) {
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if (contentStore == null) {</span>
+<span class="fc" id="L30">            contentStore = new ContentStore(configuration.getDatabaseStore(), configuration.getDatabasePath());</span>
+        }
+
+<span class="fc" id="L33">        return contentStore;</span>
+    }
+
+    public static void closeDataStore() {
+<span class="fc" id="L37">        contentStore = null;</span>
+<span class="fc" id="L38">    }</span>
+
+    public static Map&lt;String, Object&gt; documentToModel(OResult doc) {
+<span class="fc" id="L41">        Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L42">        Iterator&lt;String&gt; fieldIterator = doc.getPropertyNames().iterator();</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        while (fieldIterator.hasNext()) {</span>
+<span class="fc" id="L44">            String entry = fieldIterator.next();</span>
+<span class="fc" id="L45">            result.put(entry, doc.getProperty(entry));</span>
+<span class="fc" id="L46">        }</span>
+<span class="fc" id="L47">        return result;</span>
+    }
+
+    /**
+     * Converts a DB list into a String array
+     *
+     * @param entry Entry input to be converted
+     * @return input entry as String[]
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public static String[] toStringArray(Object entry) {
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (entry instanceof String[]) {</span>
+<span class="fc" id="L59">            return (String[]) entry;</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        } else if (entry instanceof OTrackedList) {</span>
+<span class="nc" id="L61">            OTrackedList&lt;String&gt; list = (OTrackedList&lt;String&gt;) entry;</span>
+<span class="nc" id="L62">            return list.toArray(new String[list.size()]);</span>
+        }
+<span class="fc" id="L64">        return new String[0];</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

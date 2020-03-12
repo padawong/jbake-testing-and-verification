@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Implementation-Title: jbake-core
+Build-Date: 2020-03-10
+Implementation-Version: 2.7.0-SNAPSHOT
+Built-By: jgarc271
+Specification-Vendor: jbake-core
+Specification-Title: jbake-core
+Build-Time: 19:55:05.531-0700
+Created-By: 1.8.0_242 (Oracle Corporation 25.242-b08)
+Specification-Version: 2.7.0-SNAPSHOT
+Implementation-Vendor: jbake-core
+

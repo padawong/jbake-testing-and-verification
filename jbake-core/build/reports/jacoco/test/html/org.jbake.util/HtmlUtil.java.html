@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HtmlUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-core</a> &gt; <a href="index.source.html" class="el_package">org.jbake.util</a> &gt; <span class="el_source">HtmlUtil.java</span></div><h1>HtmlUtil.java</h1><pre class="source lang-java linenums">package org.jbake.util;
+
+import org.jbake.app.Crawler.Attributes;
+import org.jbake.app.configuration.JBakeConfiguration;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.util.Map;
+
+/**
+ * @author Manik Magar
+ */
+public class HtmlUtil {
+
+    private HtmlUtil() {
+    }
+
+    /**
+     * Image paths are specified as w.r.t. assets folder. This function prefix site host to all img src except
+     * the ones that starts with http://, https://.
+     * &lt;p&gt;
+     * If image path starts with &quot;./&quot;, i.e. relative to the source file, then it first replace that with output file directory and the add site host.
+     *
+     * @param fileContents  Map representing file contents
+     * @param configuration Configuration object
+     */
+    public static void fixImageSourceUrls(Map&lt;String, Object&gt; fileContents, JBakeConfiguration configuration) {
+<span class="fc" id="L30">        String htmlContent = fileContents.get(Attributes.BODY).toString();</span>
+<span class="fc" id="L31">        boolean prependSiteHost = configuration.getImgPathPrependHost();</span>
+<span class="fc" id="L32">        String siteHost = configuration.getSiteHost();</span>
+<span class="fc" id="L33">        String uri = getDocumentUri(fileContents);</span>
+
+<span class="fc" id="L35">        Document document = Jsoup.parseBodyFragment(htmlContent);</span>
+<span class="fc" id="L36">        Elements allImgs = document.getElementsByTag(&quot;img&quot;);</span>
+
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        for (Element img : allImgs) {</span>
+<span class="fc" id="L39">            transformImageSource(img, uri, siteHost, prependSiteHost);</span>
+<span class="fc" id="L40">        }</span>
+
+        //Use body().html() to prevent adding &lt;body&gt;&lt;/body&gt; from parsed fragment.
+<span class="fc" id="L43">        fileContents.put(Attributes.BODY, document.body().html());</span>
+<span class="fc" id="L44">    }</span>
+
+    private static String getDocumentUri(Map&lt;String, Object&gt; fileContents) {
+<span class="fc" id="L47">        String uri = fileContents.get(Attributes.URI).toString();</span>
+
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (fileContents.get(Attributes.NO_EXTENSION_URI) != null) {</span>
+<span class="fc" id="L50">            uri = fileContents.get(Attributes.NO_EXTENSION_URI).toString();</span>
+<span class="fc" id="L51">            uri = removeTrailingSlash(uri);</span>
+        }
+
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if (uri.contains(&quot;/&quot;)) {</span>
+<span class="fc" id="L55">            uri = removeFilename(uri);</span>
+        }
+<span class="fc" id="L57">        return uri;</span>
+    }
+
+    private static void transformImageSource(Element img, String uri, String siteHost, boolean prependSiteHost) {
+<span class="fc" id="L61">        String source = img.attr(&quot;src&quot;);</span>
+
+        // Now add the root path
+<span class="fc bfc" id="L64" title="All 4 branches covered.">        if (!source.startsWith(&quot;http://&quot;) &amp;&amp; !source.startsWith(&quot;https://&quot;)) {</span>
+
+<span class="fc bfc" id="L66" title="All 2 branches covered.">            if (isRelative(source)) {</span>
+<span class="fc" id="L67">                source = uri + source.replaceFirst(&quot;\\./&quot;, &quot;&quot;);</span>
+            }
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            if (prependSiteHost) {</span>
+<span class="pc bpc" id="L71" title="1 of 4 branches missed.">                if (!siteHost.endsWith(&quot;/&quot;) &amp;&amp; isRelative(source)) {</span>
+<span class="fc" id="L72">                    siteHost = siteHost.concat(&quot;/&quot;);</span>
+                }
+<span class="fc" id="L74">                source = siteHost + source;</span>
+            }
+
+<span class="fc" id="L77">            img.attr(&quot;src&quot;, source);</span>
+        }
+<span class="fc" id="L79">    }</span>
+
+    private static String removeFilename(String uri) {
+<span class="fc" id="L82">        uri = uri.substring(0, uri.lastIndexOf('/') + 1);</span>
+<span class="fc" id="L83">        return uri;</span>
+    }
+
+    private static String removeTrailingSlash(String uri) {
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        if (uri.endsWith(&quot;/&quot;)) {</span>
+<span class="fc" id="L88">            uri = uri.substring(0, uri.length() - 1);</span>
+        }
+<span class="fc" id="L90">        return uri;</span>
+    }
+
+    private static boolean isRelative(String source) {
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        return !source.startsWith(&quot;/&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

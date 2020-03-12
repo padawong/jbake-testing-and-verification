@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContentStore.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-core</a> &gt; <a href="index.source.html" class="el_package">org.jbake.app</a> &gt; <span class="el_source">ContentStore.java</span></div><h1>ContentStore.java</h1><pre class="source lang-java linenums">/*
+ * The MIT License
+ *
+ * Copyright 2015 jdlee.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.jbake.app;
+
+import com.orientechnologies.common.log.OLogManager;
+import com.orientechnologies.orient.core.Orient;
+import com.orientechnologies.orient.core.db.ODatabaseSession;
+import com.orientechnologies.orient.core.db.ODatabaseType;
+import com.orientechnologies.orient.core.db.OrientDB;
+import com.orientechnologies.orient.core.db.OrientDBConfig;
+import com.orientechnologies.orient.core.metadata.schema.OClass;
+import com.orientechnologies.orient.core.metadata.schema.OSchema;
+import com.orientechnologies.orient.core.metadata.schema.OType;
+import com.orientechnologies.orient.core.record.impl.ODocument;
+import com.orientechnologies.orient.core.sql.OCommandSQL;
+import com.orientechnologies.orient.core.sql.executor.OResultSet;
+import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
+import org.jbake.model.DocumentAttributes;
+import org.jbake.model.DocumentTypes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+
+/**
+ * @author jdlee
+ */
+public class ContentStore {
+
+    private static final String STATEMENT_GET_PUBLISHED_POST_BY_TYPE_AND_TAG = &quot;select * from %s where status='published' and ? in tags order by date desc&quot;;
+    private static final String STATEMENT_GET_DOCUMENT_STATUS_BY_DOCTYPE_AND_URI = &quot;select sha1,rendered from %s where sourceuri=?&quot;;
+    private static final String STATEMENT_GET_PUBLISHED_COUNT = &quot;select count(*) as count from %s where status='published'&quot;;
+    private static final String STATEMENT_MARK_CONTENT_AS_RENDERD = &quot;update %s set rendered=true where rendered=false and cached=true&quot;;
+    private static final String STATEMENT_DELETE_DOCTYPE_BY_SOURCEURI = &quot;delete from %s where sourceuri=?&quot;;
+    private static final String STATEMENT_GET_UNDRENDERED_CONTENT = &quot;select * from %s where rendered=false order by date desc&quot;;
+    private static final String STATEMENT_GET_SIGNATURE_FOR_TEMPLATES = &quot;select sha1 from Signatures where key='templates'&quot;;
+    private static final String STATEMENT_GET_TAGS_FROM_PUBLISHED_POSTS = &quot;select tags from post where status='published'&quot;;
+    private static final String STATEMENT_GET_ALL_CONTENT_BY_DOCTYPE = &quot;select * from %s order by date desc&quot;;
+    private static final String STATEMENT_GET_PUBLISHED_CONTENT_BY_DOCTYPE = &quot;select * from %s where status='published' order by date desc&quot;;
+    private static final String STATEMENT_GET_PUBLISHED_POSTS_BY_TAG = &quot;select * from post where status='published' and ? in tags order by date desc&quot;;
+    private static final String STATEMENT_GET_TAGS_BY_DOCTYPE = &quot;select tags from %s where status='published'&quot;;
+    private static final String STATEMENT_INSERT_TEMPLATES_SIGNATURE = &quot;insert into Signatures(key,sha1) values('templates',?)&quot;;
+    private static final String STATEMENT_DELETE_ALL = &quot;delete from %s&quot;;
+    private static final String STATEMENT_UPDATE_TEMPLATE_SIGNATURE = &quot;update Signatures set sha1=? where key='templates'&quot;;
+
+<span class="fc" id="L73">    private final Logger logger = LoggerFactory.getLogger(ContentStore.class);</span>
+    private final String type;
+    private final String name;
+
+    private ODatabaseSession db;
+
+<span class="fc" id="L79">    private long start = -1;</span>
+<span class="fc" id="L80">    private long limit = -1;</span>
+    private OrientDB orient;
+
+<span class="fc" id="L83">    public ContentStore(final String type, String name) {</span>
+<span class="fc" id="L84">        this.type = type;</span>
+<span class="fc" id="L85">        this.name = name;</span>
+<span class="fc" id="L86">    }</span>
+
+
+    public void startup() {
+<span class="fc" id="L90">        startupIfEnginesAreMissing();</span>
+
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (type.equalsIgnoreCase(ODatabaseType.PLOCAL.name())) {</span>
+<span class="fc" id="L93">            orient = new OrientDB(type + &quot;:&quot; + name, OrientDBConfig.defaultConfig());</span>
+        } else {
+<span class="fc" id="L95">            orient = new OrientDB(type + &quot;:&quot;, OrientDBConfig.defaultConfig());</span>
+        }
+
+<span class="fc" id="L98">        orient.createIfNotExists(name, ODatabaseType.valueOf(type.toUpperCase()));</span>
+
+<span class="fc" id="L100">        db = orient.open(name, &quot;admin&quot;, &quot;admin&quot;);</span>
+
+<span class="fc" id="L102">        activateOnCurrentThread();</span>
+
+<span class="fc" id="L104">        updateSchema();</span>
+<span class="fc" id="L105">    }</span>
+
+    public long getStart() {
+<span class="nc" id="L108">        return start;</span>
+    }
+
+    public void setStart(int start) {
+<span class="fc" id="L112">        this.start = start;</span>
+<span class="fc" id="L113">    }</span>
+
+    public long getLimit() {
+<span class="nc" id="L116">        return limit;</span>
+    }
+
+    public void setLimit(int limit) {
+<span class="fc" id="L120">        this.limit = limit;</span>
+<span class="fc" id="L121">    }</span>
+
+    public void resetPagination() {
+<span class="fc" id="L124">        this.start = -1;</span>
+<span class="fc" id="L125">        this.limit = -1;</span>
+<span class="fc" id="L126">    }</span>
+
+    public final void updateSchema() {
+
+<span class="fc" id="L130">        OSchema schema = db.getMetadata().getSchema();</span>
+
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        for (String docType : DocumentTypes.getDocumentTypes()) {</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">            if (!schema.existsClass(docType)) {</span>
+<span class="fc" id="L134">                createDocType(schema, docType);</span>
+            }
+        }
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        if (!schema.existsClass(&quot;Signatures&quot;)) {</span>
+<span class="fc" id="L138">            createSignatureType(schema);</span>
+        }
+<span class="fc" id="L140">    }</span>
+
+    public void close() {
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        if (db != null) {</span>
+<span class="fc" id="L144">            activateOnCurrentThread();</span>
+<span class="fc" id="L145">            db.close();</span>
+        }
+
+<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (orient != null) {</span>
+<span class="fc" id="L149">            orient.close();</span>
+        }
+<span class="fc" id="L151">        DBUtil.closeDataStore();</span>
+<span class="fc" id="L152">    }</span>
+
+    public void shutdown() {
+
+//        Orient.instance().shutdown();
+<span class="fc" id="L157">    }</span>
+
+    private void startupIfEnginesAreMissing() {
+        // Using a jdk which doesn't bundle a javascript engine
+        // throws a NoClassDefFoundError while logging the warning
+        // see https://github.com/orientechnologies/orientdb/issues/5855
+<span class="fc" id="L163">        OLogManager.instance().setWarnEnabled(false);</span>
+
+        // If an instance of Orient was previously shutdown all engines are removed.
+        // We need to startup Orient again.
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">        if (Orient.instance().getEngines().isEmpty()) {</span>
+<span class="nc" id="L168">            Orient.instance().startup();</span>
+        }
+<span class="fc" id="L170">        OLogManager.instance().setWarnEnabled(true);</span>
+<span class="fc" id="L171">    }</span>
+
+    public void drop() {
+<span class="fc" id="L174">        activateOnCurrentThread();</span>
+//        db.drop();
+
+<span class="fc" id="L177">        orient.drop(name);</span>
+<span class="fc" id="L178">    }</span>
+
+    private void activateOnCurrentThread() {
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">        if (db != null)</span>
+<span class="fc" id="L182">            db.activateOnCurrentThread();</span>
+        else
+<span class="nc" id="L184">            System.out.println(&quot;db is null on activate&quot;);</span>
+<span class="fc" id="L185">    }</span>
+
+
+    /**
+     * Get a document by sourceUri and update it from the given map.
+     * @param incomingDocMap The document's db columns.
+     * @return The saved document.
+     * @throws IllegalArgumentException if sourceUri or docType are null, or if the document doesn't exist.
+     */
+    public ODocument mergeDocument(Map&lt;String, ? extends Object&gt; incomingDocMap)
+    {
+<span class="fc" id="L196">        String sourceUri = (String) incomingDocMap.get(DocumentAttributes.SOURCE_URI.toString());</span>
+<span class="pc bpc" id="L197" title="1 of 2 branches missed.">        if (null == sourceUri)</span>
+<span class="nc" id="L198">            throw new IllegalArgumentException(&quot;Document sourceUri is null.&quot;);</span>
+<span class="fc" id="L199">        String docType = (String) incomingDocMap.get(Crawler.Attributes.TYPE);</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">        if (null == docType)</span>
+<span class="nc" id="L201">            throw new IllegalArgumentException(&quot;Document docType is null.&quot;);</span>
+
+        // Get a document by sourceUri
+<span class="fc" id="L204">        String sql = &quot;SELECT * FROM &quot; + docType + &quot; WHERE sourceuri=?&quot;;</span>
+<span class="fc" id="L205">        activateOnCurrentThread();</span>
+<span class="fc" id="L206">        List&lt;ODocument&gt; results = db.command(new OSQLSynchQuery&lt;ODocument&gt;(sql)).execute(sourceUri);</span>
+<span class="pc bpc" id="L207" title="1 of 2 branches missed.">        if (results.size() == 0)</span>
+<span class="nc" id="L208">            throw new JBakeException(&quot;No document with sourceUri '&quot;+sourceUri+&quot;'.&quot;);</span>
+
+        // Update it from the given map.
+<span class="fc" id="L211">        ODocument incomingDoc = new ODocument(docType);</span>
+<span class="fc" id="L212">        incomingDoc.fromMap(incomingDocMap);</span>
+<span class="fc" id="L213">        ODocument merged = results.get(0).merge(incomingDoc, true, false);</span>
+<span class="fc" id="L214">        return merged;</span>
+    }
+
+
+    public long getDocumentCount(String docType) {
+<span class="fc" id="L219">        activateOnCurrentThread();</span>
+<span class="fc" id="L220">        return db.countClass(docType);</span>
+    }
+
+    public long getPublishedCount(String docType) {
+<span class="fc" id="L224">        String statement = String.format(STATEMENT_GET_PUBLISHED_COUNT, docType);</span>
+<span class="fc" id="L225">        return (Long) query(statement).get(0).get(&quot;count&quot;);</span>
+    }
+
+    /*
+     * In fact, the URI should be the only input as there can only be one document at given URI; but the DB is split per document type for some reason.
+     */
+    public DocumentList getDocumentByUri(String docType, String uri) {
+<span class="fc" id="L232">        return query(&quot;select * from &quot; + docType + &quot; where sourceuri=?&quot;, uri);</span>
+    }
+
+    public DocumentList getDocumentStatus(String docType, String uri) {
+<span class="fc" id="L236">        String statement = String.format(STATEMENT_GET_DOCUMENT_STATUS_BY_DOCTYPE_AND_URI, docType);</span>
+<span class="fc" id="L237">        return query(statement, uri);</span>
+    }
+
+    public DocumentList getPublishedPosts() {
+<span class="fc" id="L241">        return getPublishedContent(&quot;post&quot;);</span>
+    }
+
+    public DocumentList getPublishedPosts(boolean applyPaging) {
+<span class="fc" id="L245">        return getPublishedContent(&quot;post&quot;, applyPaging);</span>
+    }
+
+    public DocumentList getPublishedPostsByTag(String tag) {
+<span class="fc" id="L249">        return query(STATEMENT_GET_PUBLISHED_POSTS_BY_TAG, tag);</span>
+    }
+
+    public DocumentList getPublishedDocumentsByTag(String tag) {
+<span class="fc" id="L253">        final DocumentList documents = new DocumentList();</span>
+
+<span class="fc bfc" id="L255" title="All 2 branches covered.">        for (final String docType : DocumentTypes.getDocumentTypes()) {</span>
+<span class="fc" id="L256">            String statement = String.format(STATEMENT_GET_PUBLISHED_POST_BY_TYPE_AND_TAG, docType);</span>
+<span class="fc" id="L257">            DocumentList documentsByTag = query(statement, tag);</span>
+<span class="fc" id="L258">            documents.addAll(documentsByTag);</span>
+        }
+<span class="fc" id="L260">        return documents;</span>
+    }
+
+    public DocumentList getPublishedPages() {
+<span class="fc" id="L264">        return getPublishedContent(&quot;page&quot;);</span>
+    }
+
+    public DocumentList getPublishedContent(String docType) {
+<span class="fc" id="L268">        return getPublishedContent(docType, false);</span>
+    }
+
+    private DocumentList getPublishedContent(String docType, boolean applyPaging) {
+<span class="fc" id="L272">        String query = String.format(STATEMENT_GET_PUBLISHED_CONTENT_BY_DOCTYPE, docType);</span>
+<span class="fc bfc" id="L273" title="All 4 branches covered.">        if (applyPaging &amp;&amp; hasStartAndLimitBoundary()) {</span>
+<span class="fc" id="L274">            query += &quot; SKIP &quot; + start + &quot; LIMIT &quot; + limit;</span>
+        }
+<span class="fc" id="L276">        return query(query);</span>
+    }
+
+    public DocumentList getAllContent(String docType) {
+<span class="fc" id="L280">        return getAllContent(docType, false);</span>
+    }
+
+    public DocumentList getAllContent(String docType, boolean applyPaging) {
+<span class="fc" id="L284">        String query = String.format(STATEMENT_GET_ALL_CONTENT_BY_DOCTYPE, docType);</span>
+<span class="pc bpc" id="L285" title="3 of 4 branches missed.">        if (applyPaging &amp;&amp; hasStartAndLimitBoundary()) {</span>
+<span class="nc" id="L286">            query += &quot; SKIP &quot; + start + &quot; LIMIT &quot; + limit;</span>
+        }
+<span class="fc" id="L288">        return query(query);</span>
+    }
+
+    private boolean hasStartAndLimitBoundary() {
+<span class="pc bpc" id="L292" title="1 of 4 branches missed.">        return (start &gt;= 0) &amp;&amp; (limit &gt; -1);</span>
+    }
+
+    private DocumentList getAllTagsFromPublishedPosts() {
+<span class="nc" id="L296">        return query(STATEMENT_GET_TAGS_FROM_PUBLISHED_POSTS);</span>
+    }
+
+    private DocumentList getSignaturesForTemplates() {
+<span class="fc" id="L300">        return query(STATEMENT_GET_SIGNATURE_FOR_TEMPLATES);</span>
+    }
+
+    public DocumentList getUnrenderedContent(String docType) {
+<span class="fc" id="L304">        String statement = String.format(STATEMENT_GET_UNDRENDERED_CONTENT, docType);</span>
+<span class="fc" id="L305">        return query(statement);</span>
+    }
+
+    public void deleteContent(String docType, String uri) {
+<span class="fc" id="L309">        String statement = String.format(STATEMENT_DELETE_DOCTYPE_BY_SOURCEURI, docType);</span>
+<span class="fc" id="L310">        executeCommand(statement, uri);</span>
+<span class="fc" id="L311">    }</span>
+
+    public void markContentAsRendered(String docType) {
+<span class="fc" id="L314">        String statement = String.format(STATEMENT_MARK_CONTENT_AS_RENDERD, docType);</span>
+<span class="fc" id="L315">        executeCommand(statement);</span>
+<span class="fc" id="L316">    }</span>
+
+    private void updateSignatures(String currentTemplatesSignature) {
+<span class="nc" id="L319">        executeCommand(STATEMENT_UPDATE_TEMPLATE_SIGNATURE, currentTemplatesSignature);</span>
+<span class="nc" id="L320">    }</span>
+
+    public void deleteAllByDocType(String docType) {
+<span class="fc" id="L323">        String statement = String.format(STATEMENT_DELETE_ALL, docType);</span>
+<span class="fc" id="L324">        executeCommand(statement);</span>
+<span class="fc" id="L325">    }</span>
+
+    private void insertTemplatesSignature(String currentTemplatesSignature) {
+<span class="fc" id="L328">        executeCommand(STATEMENT_INSERT_TEMPLATES_SIGNATURE, currentTemplatesSignature);</span>
+<span class="fc" id="L329">    }</span>
+
+    private DocumentList query(String sql) {
+<span class="fc" id="L332">        activateOnCurrentThread();</span>
+<span class="fc" id="L333">        OResultSet results = db.query(sql);</span>
+<span class="fc" id="L334">        return DocumentList.wrap(results);</span>
+    }
+
+    private DocumentList query(String sql, Object... args) {
+<span class="fc" id="L338">        activateOnCurrentThread();</span>
+<span class="fc" id="L339">        OResultSet results = db.command(sql, args);</span>
+<span class="fc" id="L340">        return DocumentList.wrap(results);</span>
+    }
+
+    private void executeCommand(String query, Object... args) {
+<span class="fc" id="L344">        activateOnCurrentThread();</span>
+<span class="fc" id="L345">        db.command(new OCommandSQL(query)).execute(args);</span>
+<span class="fc" id="L346">    }</span>
+
+    public Set&lt;String&gt; getTags() {
+<span class="nc" id="L349">        DocumentList docs = this.getAllTagsFromPublishedPosts();</span>
+<span class="nc" id="L350">        Set&lt;String&gt; result = new HashSet&lt;&gt;();</span>
+<span class="nc bnc" id="L351" title="All 2 branches missed.">        for (Map&lt;String, Object&gt; document : docs) {</span>
+<span class="nc" id="L352">            String[] tags = DBUtil.toStringArray(document.get(Crawler.Attributes.TAGS));</span>
+<span class="nc" id="L353">            Collections.addAll(result, tags);</span>
+<span class="nc" id="L354">        }</span>
+<span class="nc" id="L355">        return result;</span>
+    }
+
+    public Set&lt;String&gt; getAllTags() {
+<span class="fc" id="L359">        Set&lt;String&gt; result = new HashSet&lt;&gt;();</span>
+<span class="fc bfc" id="L360" title="All 2 branches covered.">        for (String docType : DocumentTypes.getDocumentTypes()) {</span>
+<span class="fc" id="L361">            String statement = String.format(STATEMENT_GET_TAGS_BY_DOCTYPE, docType);</span>
+<span class="fc" id="L362">            DocumentList docs = query(statement);</span>
+<span class="fc bfc" id="L363" title="All 2 branches covered.">            for (Map&lt;String, Object&gt; document : docs) {</span>
+<span class="fc" id="L364">                String[] tags = DBUtil.toStringArray(document.get(Crawler.Attributes.TAGS));</span>
+<span class="fc" id="L365">                Collections.addAll(result, tags);</span>
+<span class="fc" id="L366">            }</span>
+        }
+<span class="fc" id="L368">        return result;</span>
+    }
+
+    private void createDocType(final OSchema schema, final String docType) {
+<span class="fc" id="L372">        logger.debug(&quot;Create document class '{}'&quot;, docType);</span>
+
+
+<span class="fc" id="L375">        OClass page = schema.createClass(docType);</span>
+
+        // Primary key
+<span class="fc" id="L378">        String attribName = DocumentAttributes.SOURCE_URI.toString();</span>
+<span class="fc" id="L379">        page.createProperty(attribName, OType.STRING).setNotNull(true);</span>
+<span class="fc" id="L380">        page.createIndex(docType + &quot;sourceUriIndex&quot;, OClass.INDEX_TYPE.UNIQUE, attribName);</span>
+
+<span class="fc" id="L382">        attribName = DocumentAttributes.SHA1.toString();</span>
+<span class="fc" id="L383">        page.createProperty(attribName, OType.STRING).setNotNull(true);</span>
+<span class="fc" id="L384">        page.createIndex(docType + &quot;sha1Index&quot;, OClass.INDEX_TYPE.NOTUNIQUE, attribName);</span>
+
+<span class="fc" id="L386">        attribName = DocumentAttributes.CACHED.toString();</span>
+<span class="fc" id="L387">        page.createProperty(attribName, OType.BOOLEAN).setNotNull(true);</span>
+<span class="fc" id="L388">        page.createIndex(docType + &quot;cachedIndex&quot;, OClass.INDEX_TYPE.NOTUNIQUE, attribName);</span>
+
+<span class="fc" id="L390">        attribName = DocumentAttributes.RENDERED.toString();</span>
+<span class="fc" id="L391">        page.createProperty(attribName, OType.BOOLEAN).setNotNull(true);</span>
+<span class="fc" id="L392">        page.createIndex(docType + &quot;renderedIndex&quot;, OClass.INDEX_TYPE.NOTUNIQUE, attribName);</span>
+
+<span class="fc" id="L394">        attribName = DocumentAttributes.STATUS.toString();</span>
+<span class="fc" id="L395">        page.createProperty(attribName, OType.STRING).setNotNull(true);</span>
+<span class="fc" id="L396">        page.createIndex(docType + &quot;statusIndex&quot;, OClass.INDEX_TYPE.NOTUNIQUE, attribName);</span>
+<span class="fc" id="L397">    }</span>
+
+    private void createSignatureType(OSchema schema) {
+<span class="fc" id="L400">        OClass signatures = schema.createClass(&quot;Signatures&quot;);</span>
+<span class="fc" id="L401">        signatures.createProperty(String.valueOf(DocumentAttributes.SHA1), OType.STRING).setNotNull(true);</span>
+<span class="fc" id="L402">        signatures.createIndex(&quot;sha1Idx&quot;, OClass.INDEX_TYPE.UNIQUE, DocumentAttributes.SHA1.toString());</span>
+<span class="fc" id="L403">    }</span>
+
+    public void updateAndClearCacheIfNeeded(boolean needed, File templateFolder) {
+
+<span class="fc" id="L407">        boolean clearCache = needed;</span>
+
+<span class="pc bpc" id="L409" title="1 of 2 branches missed.">        if (!needed) {</span>
+<span class="fc" id="L410">            clearCache = updateTemplateSignatureIfChanged(templateFolder);</span>
+        }
+
+<span class="pc bpc" id="L413" title="1 of 2 branches missed.">        if (clearCache) {</span>
+<span class="fc" id="L414">            deleteAllDocumentTypes();</span>
+<span class="fc" id="L415">            this.updateSchema();</span>
+        }
+<span class="fc" id="L417">    }</span>
+
+    private boolean updateTemplateSignatureIfChanged(File templateFolder) {
+<span class="fc" id="L420">        boolean templateSignatureChanged = false;</span>
+
+<span class="fc" id="L422">        DocumentList docs = this.getSignaturesForTemplates();</span>
+        String currentTemplatesSignature;
+        try {
+<span class="fc" id="L425">            currentTemplatesSignature = FileUtil.sha1(templateFolder);</span>
+<span class="nc" id="L426">        } catch (Exception e) {</span>
+<span class="nc" id="L427">            currentTemplatesSignature = &quot;&quot;;</span>
+<span class="fc" id="L428">        }</span>
+<span class="pc bpc" id="L429" title="1 of 2 branches missed.">        if (!docs.isEmpty()) {</span>
+<span class="nc" id="L430">            String sha1 = (String) docs.get(0).get(String.valueOf(DocumentAttributes.SHA1));</span>
+<span class="nc bnc" id="L431" title="All 2 branches missed.">            if (!sha1.equals(currentTemplatesSignature)) {</span>
+<span class="nc" id="L432">                this.updateSignatures(currentTemplatesSignature);</span>
+<span class="nc" id="L433">                templateSignatureChanged = true;</span>
+            }
+<span class="nc" id="L435">        } else {</span>
+            // first computation of templates signature
+<span class="fc" id="L437">            this.insertTemplatesSignature(currentTemplatesSignature);</span>
+<span class="fc" id="L438">            templateSignatureChanged = true;</span>
+        }
+<span class="fc" id="L440">        return templateSignatureChanged;</span>
+    }
+
+    private void deleteAllDocumentTypes() {
+<span class="fc bfc" id="L444" title="All 2 branches covered.">        for (String docType : DocumentTypes.getDocumentTypes()) {</span>
+            try {
+<span class="fc" id="L446">                this.deleteAllByDocType(docType);</span>
+<span class="nc" id="L447">            } catch (Exception e) {</span>
+                // maybe a non existing document type
+<span class="fc" id="L449">            }</span>
+        }
+<span class="fc" id="L451">    }</span>
+
+    public boolean isActive() {
+<span class="fc" id="L454">        return db.isActiveOnCurrentThread();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DocumentAttributes.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-core</a> &gt; <a href="index.source.html" class="el_package">org.jbake.model</a> &gt; <span class="el_source">DocumentAttributes.java</span></div><h1>DocumentAttributes.java</h1><pre class="source lang-java linenums">package org.jbake.model;
+
+<span class="fc" id="L3">public enum DocumentAttributes {</span>
+<span class="fc" id="L4">    SHA1(&quot;sha1&quot;),</span>
+<span class="fc" id="L5">    SOURCE_URI(&quot;sourceuri&quot;),</span>
+<span class="fc" id="L6">    RENDERED(&quot;rendered&quot;),</span>
+<span class="fc" id="L7">    CACHED(&quot;cached&quot;),</span>
+<span class="fc" id="L8">    STATUS(&quot;status&quot;),</span>
+<span class="fc" id="L9">    NAME(&quot;name&quot;);</span>
+
+    private String label;
+
+<span class="fc" id="L13">    DocumentAttributes(String label) {</span>
+<span class="fc" id="L14">        this.label = label;</span>
+<span class="fc" id="L15">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L19">        return label;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

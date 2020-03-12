@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jbake.template.ModelExtractorsDocumentTypeListenerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-11T02:06:46" hostname="bolt.cs.ucr.edu" time="0.003">
+  <properties/>
+  <testcase name="shouldRegisterExtractorsForCustomType" classname="org.jbake.template.ModelExtractorsDocumentTypeListenerTest" time="0.003"/>
+  <system-out><![CDATA[19:06:46.693 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: project
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

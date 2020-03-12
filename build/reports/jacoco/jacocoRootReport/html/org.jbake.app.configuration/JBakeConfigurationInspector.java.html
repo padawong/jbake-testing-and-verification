@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JBakeConfigurationInspector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.app.configuration</a> &gt; <span class="el_source">JBakeConfigurationInspector.java</span></div><h1>JBakeConfigurationInspector.java</h1><pre class="source lang-java linenums">package org.jbake.app.configuration;
+
+import org.jbake.app.FileUtil;
+import org.jbake.app.JBakeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+
+public class JBakeConfigurationInspector {
+
+<span class="fc" id="L12">    private static final Logger LOGGER = LoggerFactory.getLogger(JBakeConfigurationInspector.class);</span>
+
+    private final JBakeConfiguration configuration;
+
+<span class="fc" id="L16">    public JBakeConfigurationInspector(JBakeConfiguration configuration) {</span>
+<span class="fc" id="L17">        this.configuration = configuration;</span>
+<span class="fc" id="L18">    }</span>
+
+    public void inspect() throws JBakeException {
+<span class="fc" id="L21">        ensureSource();</span>
+<span class="fc" id="L22">        ensureTemplateFolder();</span>
+<span class="fc" id="L23">        ensureContentFolder();</span>
+<span class="fc" id="L24">        ensureDestination();</span>
+<span class="fc" id="L25">        checkAssetFolder();</span>
+<span class="fc" id="L26">    }</span>
+
+    private void ensureSource() throws JBakeException {
+<span class="fc" id="L29">        File source = configuration.getSourceFolder();</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (!FileUtil.isExistingFolder(source)) {</span>
+<span class="fc" id="L31">            throw new JBakeException(&quot;Error: Source folder must exist: &quot; + source.getAbsolutePath());</span>
+        }
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (!configuration.getSourceFolder().canRead()) {</span>
+<span class="fc" id="L34">            throw new JBakeException(&quot;Error: Source folder is not readable: &quot; + source.getAbsolutePath());</span>
+        }
+<span class="fc" id="L36">    }</span>
+
+    private void ensureTemplateFolder() {
+<span class="fc" id="L39">        File path = configuration.getTemplateFolder();</span>
+<span class="fc" id="L40">        checkRequiredFolderExists(configuration.getTemplateFolderName(), path);</span>
+<span class="fc" id="L41">    }</span>
+
+    private void ensureContentFolder() {
+<span class="fc" id="L44">        File path = configuration.getContentFolder();</span>
+<span class="fc" id="L45">        checkRequiredFolderExists(configuration.getContentFolderName(), path);</span>
+<span class="fc" id="L46">    }</span>
+
+    private void ensureDestination() {
+<span class="fc" id="L49">        File destination = configuration.getDestinationFolder();</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (!destination.exists()) {</span>
+<span class="fc" id="L51">            destination.mkdirs();</span>
+        }
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (!destination.canWrite()) {</span>
+<span class="fc" id="L54">            throw new JBakeException(&quot;Error: Destination folder is not writable: &quot; + destination.getAbsolutePath());</span>
+        }
+<span class="fc" id="L56">    }</span>
+
+    private void checkAssetFolder() {
+<span class="fc" id="L59">        File path = configuration.getAssetFolder();</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (!path.exists()) {</span>
+<span class="fc" id="L61">            LOGGER.warn(&quot;No asset folder '{}' was found!&quot;, path.getAbsolutePath());</span>
+        }
+<span class="fc" id="L63">    }</span>
+
+    private void checkRequiredFolderExists(String folderName, File path) {
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (!FileUtil.isExistingFolder(path)) {</span>
+<span class="fc" id="L67">            throw new JBakeException(&quot;Error: Required folder cannot be found! Expected to find [&quot; + folderName + &quot;] at: &quot; + path.getAbsolutePath());</span>
+        }
+<span class="fc" id="L69">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Baker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.launcher</a> &gt; <span class="el_source">Baker.java</span></div><h1>Baker.java</h1><pre class="source lang-java linenums">package org.jbake.launcher;
+
+import org.apache.commons.configuration.CompositeConfiguration;
+import org.jbake.app.JBakeException;
+import org.jbake.app.Oven;
+import org.jbake.app.configuration.JBakeConfiguration;
+import org.jbake.app.configuration.JBakeConfigurationFactory;
+
+import java.text.MessageFormat;
+import java.util.List;
+
+/**
+ * Delegate class responsible for launching a Bake.
+ *
+ * @author jmcgarr@gmail.com
+ */
+<span class="nc" id="L17">public class Baker {</span>
+
+    /**
+     * @param options The given cli options
+     * @param config  The project configuration
+     * @deprecated use {@link Baker#bake(JBakeConfiguration)} instead
+     */
+    @Deprecated
+    public void bake(final LaunchOptions options, final CompositeConfiguration config) {
+<span class="nc" id="L26">        JBakeConfiguration configuration = new JBakeConfigurationFactory().createDefaultJbakeConfiguration(options.getSource(), options.getDestination(), config, options.isClearCache());</span>
+<span class="nc" id="L27">        bake(configuration);</span>
+<span class="nc" id="L28">    }</span>
+
+    public void bake(final JBakeConfiguration config) {
+<span class="nc" id="L31">        final Oven oven = new Oven(config);</span>
+<span class="nc" id="L32">        oven.bake();</span>
+
+<span class="nc" id="L34">        final List&lt;Throwable&gt; errors = oven.getErrors();</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if (!errors.isEmpty()) {</span>
+<span class="nc" id="L36">            final StringBuilder msg = new StringBuilder();</span>
+            // TODO: decide, if we want the all errors here
+<span class="nc" id="L38">            msg.append( MessageFormat.format(&quot;JBake failed with {0} errors:\n&quot;, errors.size()));</span>
+<span class="nc" id="L39">            int errNr = 1;</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">            for (final Throwable error : errors) {</span>
+<span class="nc" id="L41">                msg.append(MessageFormat.format(&quot;{0}. {1}\n&quot;, errNr, error.getMessage()));</span>
+<span class="nc" id="L42">                ++errNr;</span>
+<span class="nc" id="L43">            }</span>
+<span class="nc" id="L44">            throw new JBakeException(msg.toString(), errors.get(0));</span>
+        }
+<span class="nc" id="L46">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

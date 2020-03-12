@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BakeWatcher.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.launcher</a> &gt; <span class="el_source">BakeWatcher.java</span></div><h1>BakeWatcher.java</h1><pre class="source lang-java linenums">package org.jbake.launcher;
+
+import org.apache.commons.configuration.CompositeConfiguration;
+import org.apache.commons.vfs2.FileObject;
+import org.apache.commons.vfs2.FileSystemException;
+import org.apache.commons.vfs2.FileSystemManager;
+import org.apache.commons.vfs2.VFS;
+import org.apache.commons.vfs2.impl.DefaultFileMonitor;
+import org.jbake.app.configuration.JBakeConfiguration;
+import org.jbake.app.configuration.JBakeConfigurationFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Delegate responsible for watching the file system for changes.
+ *
+ * @author jmcgarr@gmail.com
+ */
+<span class="nc" id="L19">public class BakeWatcher {</span>
+
+<span class="nc" id="L21">    private Logger logger = LoggerFactory.getLogger(BakeWatcher.class);</span>
+
+    /**
+     * Starts watching the file system for changes to trigger a bake.
+     *
+     * @deprecated use {@link BakeWatcher#start(JBakeConfiguration)} instead
+     *
+     * @param res    Commandline options
+     * @param config Configuration settings
+     */
+    @Deprecated
+    public void start(final LaunchOptions res, CompositeConfiguration config) {
+<span class="nc" id="L33">        JBakeConfiguration configuration = new JBakeConfigurationFactory().createDefaultJbakeConfiguration(res.getSource(), config);</span>
+<span class="nc" id="L34">        start(configuration);</span>
+<span class="nc" id="L35">    }</span>
+
+    /**
+     * Starts watching the file system for changes to trigger a bake.
+     *
+     * @param config JBakeConfiguration settings
+     */
+    public void start(JBakeConfiguration config) {
+        try {
+<span class="nc" id="L44">            FileSystemManager fsMan = VFS.getManager();</span>
+<span class="nc" id="L45">            FileObject listenPath = fsMan.resolveFile(config.getContentFolder().toURI());</span>
+<span class="nc" id="L46">            FileObject templateListenPath = fsMan.resolveFile(config.getTemplateFolder().toURI());</span>
+<span class="nc" id="L47">            FileObject assetPath = fsMan.resolveFile(config.getAssetFolder().toURI());</span>
+
+<span class="nc" id="L49">            logger.info(&quot;Watching for (content, template, asset) changes in [{}]&quot;, config.getSourceFolder().getPath());</span>
+<span class="nc" id="L50">            DefaultFileMonitor monitor = new DefaultFileMonitor(new CustomFSChangeListener(config));</span>
+<span class="nc" id="L51">            monitor.setRecursive(true);</span>
+<span class="nc" id="L52">            monitor.addFile(listenPath);</span>
+<span class="nc" id="L53">            monitor.addFile(templateListenPath);</span>
+<span class="nc" id="L54">            monitor.addFile(assetPath);</span>
+<span class="nc" id="L55">            monitor.start();</span>
+<span class="nc" id="L56">        } catch (FileSystemException e) {</span>
+<span class="nc" id="L57">            logger.error(&quot;Problems watching filesystem changes&quot;, e);</span>
+<span class="nc" id="L58">        }</span>
+<span class="nc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

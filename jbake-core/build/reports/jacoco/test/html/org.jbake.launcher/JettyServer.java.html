@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JettyServer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-core</a> &gt; <a href="index.source.html" class="el_package">org.jbake.launcher</a> &gt; <span class="el_source">JettyServer.java</span></div><h1>JettyServer.java</h1><pre class="source lang-java linenums">package org.jbake.launcher;
+
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.handler.DefaultHandler;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+/**
+ * Provides Jetty server related functions
+ *
+ * @author Jonathan Bullock &lt;a href=&quot;mailto:jonbullock@gmail.com&quot;&gt;jonbullock@gmail.com&lt;/a&gt;
+ */
+<span class="nc" id="L18">public class JettyServer {</span>
+<span class="fc" id="L19">    private static final Logger LOGGER = LoggerFactory.getLogger(JettyServer.class);</span>
+
+    /**
+     * Run Jetty web server serving out supplied path on supplied port
+     *
+     * @param path Base directory for resourced to be served
+     * @param port Required server port
+     */
+    public void run(String path, String port) {
+<span class="nc" id="L28">        Server server = new Server();</span>
+<span class="nc" id="L29">        ServerConnector connector = new ServerConnector(server);</span>
+<span class="nc" id="L30">        connector.setHost(&quot;localhost&quot;);</span>
+<span class="nc" id="L31">        connector.setPort(Integer.parseInt(port));</span>
+<span class="nc" id="L32">        server.addConnector(connector);</span>
+
+<span class="nc" id="L34">        ResourceHandler resource_handler = new ResourceHandler();</span>
+<span class="nc" id="L35">        resource_handler.setDirectoriesListed(true);</span>
+<span class="nc" id="L36">        resource_handler.setWelcomeFiles(new String[]{&quot;index.html&quot;});</span>
+
+<span class="nc" id="L38">        resource_handler.setResourceBase(path);</span>
+
+<span class="nc" id="L40">        HandlerList handlers = new HandlerList();</span>
+<span class="nc" id="L41">        handlers.setHandlers(new Handler[]{resource_handler, new DefaultHandler()});</span>
+<span class="nc" id="L42">        server.setHandler(handlers);</span>
+
+<span class="nc" id="L44">        LOGGER.info(&quot;Serving out contents of: [{}] on http://localhost:{}/&quot;, path, port);</span>
+<span class="nc" id="L45">        LOGGER.info(&quot;(To stop server hit CTRL-C)&quot;);</span>
+
+        try {
+<span class="nc" id="L48">            server.start();</span>
+<span class="nc" id="L49">            server.join();</span>
+<span class="nc" id="L50">        } catch (Exception e) {</span>
+<span class="nc" id="L51">            LOGGER.error(&quot;unable to start server&quot;, e);</span>
+<span class="nc" id="L52">        }</span>
+<span class="nc" id="L53">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ErrorEngine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-core</a> &gt; <a href="index.source.html" class="el_package">org.jbake.parser</a> &gt; <span class="el_source">ErrorEngine.java</span></div><h1>ErrorEngine.java</h1><pre class="source lang-java linenums">package org.jbake.parser;
+
+import org.jbake.app.Crawler.Attributes;
+
+import java.util.Date;
+import java.util.Map;
+
+/**
+ * An internal rendering engine used to notify the user that the markup format he used requires an engine that couldn't
+ * be loaded.
+ *
+ * @author Cédric Champeau
+ */
+public class ErrorEngine extends MarkupEngine {
+    private final String engineName;
+
+    public ErrorEngine() {
+<span class="nc" id="L18">        this(&quot;unknown&quot;);</span>
+<span class="nc" id="L19">    }</span>
+
+<span class="nc" id="L21">    public ErrorEngine(final String name) {</span>
+<span class="nc" id="L22">        engineName = name;</span>
+<span class="nc" id="L23">    }</span>
+
+    @Override
+    public void processHeader(final ParserContext context) {
+<span class="nc" id="L27">        Map&lt;String, Object&gt; contents = context.getDocumentModel();</span>
+<span class="nc" id="L28">        contents.put(Attributes.TYPE, &quot;post&quot;);</span>
+<span class="nc" id="L29">        contents.put(Attributes.STATUS, &quot;published&quot;);</span>
+<span class="nc" id="L30">        contents.put(Attributes.TITLE, &quot;Rendering engine missing&quot;);</span>
+<span class="nc" id="L31">        contents.put(Attributes.DATE, new Date());</span>
+<span class="nc" id="L32">        contents.put(Attributes.TAGS, new String[0]);</span>
+<span class="nc" id="L33">        contents.put(Attributes.ID, context.getFile().getName());</span>
+<span class="nc" id="L34">    }</span>
+
+    @Override
+    public void processBody(final ParserContext context) {
+<span class="nc" id="L38">        context.setBody(&quot;The markup engine [&quot; + engineName + &quot;] for [&quot; + context.getFile() + &quot;] couldn't be loaded&quot;);</span>
+<span class="nc" id="L39">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ZipUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.app</a> &gt; <span class="el_source">ZipUtil.java</span></div><h1>ZipUtil.java</h1><pre class="source lang-java linenums">package org.jbake.app;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
+/**
+ * Provides Zip file related functions
+ *
+ * @author Jonathan Bullock &lt;a href=&quot;mailto:jonbullock@gmail.com&quot;&gt;jonbullock@gmail.com&lt;/a&gt;
+ *
+ */
+<span class="nc" id="L16">public class ZipUtil {</span>
+
+    /**
+     * Extracts content of Zip file to specified output path.
+     *
+     * @param is             {@link InputStream} InputStream of Zip file
+     * @param outputFolder    folder where Zip file should be extracted to
+     * @throws IOException    if IOException occurs
+     */
+    public static void extract(InputStream is, File outputFolder) throws IOException {
+<span class="fc" id="L26">        ZipInputStream zis = new ZipInputStream(is);</span>
+        ZipEntry entry;
+<span class="fc" id="L28">        byte[] buffer = new byte[1024];</span>
+
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        while ((entry = zis.getNextEntry()) != null) {</span>
+<span class="fc" id="L31">            File outputFile = new File(outputFolder.getCanonicalPath() + File.separatorChar + entry.getName());</span>
+<span class="fc" id="L32">            File outputParent = new File(outputFile.getParent());</span>
+<span class="fc" id="L33">            outputParent.mkdirs();</span>
+
+<span class="fc bfc" id="L35" title="All 2 branches covered.">            if (entry.isDirectory()) {</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">                if (!outputFile.exists()) {</span>
+<span class="fc" id="L37">                    outputFile.mkdir();</span>
+                }
+            } else {
+<span class="fc" id="L40">                try (FileOutputStream fos = new FileOutputStream(outputFile)) {</span>
+                    int len;
+<span class="fc bfc" id="L42" title="All 2 branches covered.">                    while ((len = zis.read(buffer)) &gt; 0) {</span>
+<span class="fc" id="L43">                        fos.write(buffer, 0, len);</span>
+                    }
+                }
+            }
+<span class="fc" id="L47">        }</span>
+<span class="fc" id="L48">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

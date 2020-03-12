@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AsciidoctorEngine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-core</a> &gt; <a href="index.source.html" class="el_package">org.jbake.parser</a> &gt; <span class="el_source">AsciidoctorEngine.java</span></div><h1>AsciidoctorEngine.java</h1><pre class="source lang-java linenums">package org.jbake.parser;
+
+import org.asciidoctor.Asciidoctor;
+import org.asciidoctor.AttributesBuilder;
+import org.asciidoctor.Options;
+import org.asciidoctor.ast.DocumentHeader;
+import org.jbake.app.configuration.JBakeConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import static org.asciidoctor.AttributesBuilder.attributes;
+import static org.asciidoctor.OptionsBuilder.options;
+import static org.asciidoctor.SafeMode.UNSAFE;
+
+/**
+ * Renders documents in the asciidoc format using the Asciidoctor engine.
+ *
+ * @author Cédric Champeau
+ */
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">public class AsciidoctorEngine extends MarkupEngine {</span>
+<span class="fc" id="L31">    private static final Logger LOGGER = LoggerFactory.getLogger(AsciidoctorEngine.class);</span>
+    public static final String JBAKE_PREFIX = &quot;jbake-&quot;;
+    public static final String REVDATE_KEY = &quot;revdate&quot;;
+
+<span class="fc" id="L35">    private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();</span>
+
+    private Asciidoctor engine;
+    /* comma separated file paths to additional gems */
+    private static final String OPT_GEM_PATH = &quot;gemPath&quot;;
+    /* comma separated gem names */
+    private static final String OPT_REQUIRES = &quot;requires&quot;;
+
+<span class="fc" id="L43">    public AsciidoctorEngine() {</span>
+<span class="fc" id="L44">        Class engineClass = Asciidoctor.class;</span>
+<span class="pc bpc" id="L45" title="2 of 4 branches missed.">        assert engineClass != null;</span>
+<span class="fc" id="L46">    }</span>
+
+    private Asciidoctor getEngine(Options options) {
+        try {
+<span class="fc" id="L50">            lock.readLock().lock();</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">            if (engine == null) {</span>
+<span class="fc" id="L52">                lock.readLock().unlock();</span>
+                try {
+<span class="fc" id="L54">                    lock.writeLock().lock();</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">                    if (engine == null) {</span>
+<span class="fc" id="L56">                        LOGGER.info(&quot;Initializing Asciidoctor engine...&quot;);</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">                        if (options.map().containsKey(OPT_GEM_PATH)) {</span>
+<span class="nc" id="L58">                            engine = Asciidoctor.Factory.create(String.valueOf(options.map().get(OPT_GEM_PATH)));</span>
+                        } else {
+<span class="fc" id="L60">                            engine = Asciidoctor.Factory.create();</span>
+                        }
+
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">                        if (options.map().containsKey(OPT_REQUIRES)) {</span>
+<span class="nc" id="L64">                            String[] requires = String.valueOf(options.map().get(OPT_REQUIRES)).split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">                            if (requires.length != 0) {</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">                                for (String require : requires) {</span>
+<span class="nc" id="L67">                                    engine.requireLibrary(require);</span>
+                                }
+                            }
+                        }
+
+<span class="fc" id="L72">                        LOGGER.info(&quot;Asciidoctor engine initialized.&quot;);</span>
+                    }
+                } finally {
+<span class="fc" id="L75">                    lock.readLock().lock();</span>
+<span class="fc" id="L76">                    lock.writeLock().unlock();</span>
+                }
+            }
+        } finally {
+<span class="fc" id="L80">            lock.readLock().unlock();</span>
+        }
+<span class="fc" id="L82">        return engine;</span>
+    }
+
+    @Override
+    public void processHeader(final ParserContext context) {
+<span class="fc" id="L87">        Options options = getAsciiDocOptionsAndAttributes(context);</span>
+<span class="fc" id="L88">        final Asciidoctor asciidoctor = getEngine(options);</span>
+<span class="fc" id="L89">        DocumentHeader header = asciidoctor.readDocumentHeader(context.getFile());</span>
+<span class="fc" id="L90">        Map&lt;String, Object&gt; documentModel = context.getDocumentModel();</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if (header.getDocumentTitle() != null) {</span>
+<span class="fc" id="L92">            documentModel.put(&quot;title&quot;, header.getDocumentTitle().getCombined());</span>
+        }
+<span class="fc" id="L94">        Map&lt;String, Object&gt; attributes = header.getAttributes();</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        for (Map.Entry&lt;String, Object&gt; attribute : attributes.entrySet()) {</span>
+<span class="fc" id="L96">            String key = attribute.getKey();</span>
+<span class="fc" id="L97">            Object value = attribute.getValue();</span>
+
+<span class="fc bfc" id="L99" title="All 2 branches covered.">            if (hasJBakePrefix(key)) {</span>
+<span class="fc" id="L100">                String pKey = key.substring(6);</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">                if(canCastToString(value)) {</span>
+<span class="fc" id="L102">                    storeHeaderValue(pKey, (String) value, documentModel);</span>
+                } else {
+<span class="nc" id="L104">                    documentModel.put(pKey, value);</span>
+                }
+            }
+<span class="pc bpc" id="L107" title="1 of 4 branches missed.">            if (hasRevdate(key) &amp;&amp; canCastToString(value)) {</span>
+
+<span class="fc" id="L109">                String dateFormat = context.getConfig().getDateFormat();</span>
+<span class="fc" id="L110">                DateFormat df = new SimpleDateFormat(dateFormat);</span>
+                try {
+<span class="fc" id="L112">                    Date date = df.parse((String) value);</span>
+<span class="fc" id="L113">                    context.setDate(date);</span>
+<span class="nc" id="L114">                } catch (ParseException e) {</span>
+<span class="nc" id="L115">                    LOGGER.error(&quot;Unable to parse revdate. Expected {}&quot;, dateFormat, e);</span>
+<span class="fc" id="L116">                }</span>
+            }
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">            if (key.equals(&quot;jbake-tags&quot;)) {</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">                if (canCastToString(value)) {</span>
+<span class="nc" id="L120">                    context.setTags(((String) value).split(&quot;,&quot;));</span>
+                } else {
+<span class="nc" id="L122">                    LOGGER.error(&quot;Wrong value of 'jbake-tags'. Expected a String got '{}'&quot;, getValueClassName(value));</span>
+                }
+            } else {
+<span class="fc" id="L125">                documentModel.put(key, attributes.get(key));</span>
+            }
+<span class="fc" id="L127">        }</span>
+<span class="fc" id="L128">    }</span>
+
+    private boolean canCastToString(Object value) {
+<span class="fc" id="L131">        return value instanceof String;</span>
+    }
+
+    private String getValueClassName(Object value) {
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        return (value == null) ? &quot;null&quot; : value.getClass().getCanonicalName();</span>
+    }
+
+    private boolean hasRevdate(String key) {
+<span class="fc" id="L139">        return key.equals(REVDATE_KEY);</span>
+    }
+
+    private boolean hasJBakePrefix(String key) {
+<span class="fc" id="L143">        return key.startsWith(JBAKE_PREFIX);</span>
+    }
+
+    // TODO: write tests with options and attributes
+    @Override
+    public void processBody(ParserContext context) {
+<span class="fc" id="L149">        StringBuilder body = new StringBuilder(context.getBody().length());</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        if (!context.hasHeader()) {</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">            for (String line : context.getFileLines()) {</span>
+<span class="fc" id="L152">                body.append(line).append(&quot;\n&quot;);</span>
+<span class="fc" id="L153">            }</span>
+<span class="fc" id="L154">            context.setBody(body.toString());</span>
+        }
+<span class="fc" id="L156">        processAsciiDoc(context);</span>
+<span class="fc" id="L157">    }</span>
+
+    private void processAsciiDoc(ParserContext context) {
+<span class="fc" id="L160">        Options options = getAsciiDocOptionsAndAttributes(context);</span>
+<span class="fc" id="L161">        final Asciidoctor asciidoctor = getEngine(options);</span>
+<span class="fc" id="L162">        context.setBody(asciidoctor.render(context.getBody(), options));</span>
+<span class="fc" id="L163">    }</span>
+
+    private Options getAsciiDocOptionsAndAttributes(ParserContext context) {
+<span class="fc" id="L166">        JBakeConfiguration config = context.getConfig();</span>
+<span class="fc" id="L167">        List&lt;String&gt; asciidoctorAttributes = config.getAsciidoctorAttributes();</span>
+<span class="fc" id="L168">        final AttributesBuilder attributes = attributes(asciidoctorAttributes.toArray(new String[asciidoctorAttributes.size()]));</span>
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">        if (config.getExportAsciidoctorAttributes()) {</span>
+<span class="fc" id="L170">            final String prefix = config.getAttributesExportPrefixForAsciidoctor();</span>
+
+<span class="fc bfc" id="L172" title="All 2 branches covered.">            for (final Iterator&lt;String&gt; it = config.getKeys(); it.hasNext(); ) {</span>
+<span class="fc" id="L173">                final String key = it.next();</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">                if (!key.startsWith(&quot;asciidoctor&quot;)) {</span>
+<span class="fc" id="L175">                    attributes.attribute(prefix + key.replace(&quot;.&quot;, &quot;_&quot;), config.get(key));</span>
+                }
+<span class="fc" id="L177">            }</span>
+        }
+
+<span class="fc" id="L180">        final List&lt;String&gt; optionsSubset = config.getAsciidoctorOptionKeys();</span>
+<span class="fc" id="L181">        final Options options = options().attributes(attributes.get()).get();</span>
+<span class="fc bfc" id="L182" title="All 2 branches covered.">        for (final String optionKey : optionsSubset) {</span>
+
+<span class="fc" id="L184">            Object optionValue = config.getAsciidoctorOption(optionKey);</span>
+<span class="pc bpc" id="L185" title="1 of 2 branches missed.">            if (optionKey.equals(Options.TEMPLATE_DIRS)) {</span>
+<span class="nc" id="L186">                List&lt;String&gt; dirs = getAsList(optionValue);</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">                if (!dirs.isEmpty()) {</span>
+<span class="nc" id="L188">                    options.setTemplateDirs(String.valueOf(dirs));</span>
+                }
+<span class="nc" id="L190">            } else {</span>
+<span class="fc" id="L191">                options.setOption(optionKey, optionValue);</span>
+            }
+
+<span class="fc" id="L194">        }</span>
+<span class="fc" id="L195">        options.setBaseDir(context.getFile().getParentFile().getAbsolutePath());</span>
+<span class="fc" id="L196">        options.setSafe(UNSAFE);</span>
+<span class="fc" id="L197">        return options;</span>
+    }
+
+    private List&lt;String&gt; getAsList(Object asciidoctorOption) {
+<span class="nc" id="L201">        List&lt;String&gt; values = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        if (asciidoctorOption instanceof List) {</span>
+<span class="nc" id="L204">            values.addAll((List&lt;String&gt;) asciidoctorOption);</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">        } else if (asciidoctorOption instanceof String) {</span>
+<span class="nc" id="L206">            values.add(String.valueOf(asciidoctorOption));</span>
+        }
+<span class="nc" id="L208">        return values;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

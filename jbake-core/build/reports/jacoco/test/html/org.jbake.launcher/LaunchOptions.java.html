@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LaunchOptions.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-core</a> &gt; <a href="index.source.html" class="el_package">org.jbake.launcher</a> &gt; <span class="el_source">LaunchOptions.java</span></div><h1>LaunchOptions.java</h1><pre class="source lang-java linenums">package org.jbake.launcher;
+
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
+
+import java.io.File;
+
+<span class="fc" id="L8">public class LaunchOptions {</span>
+    @Argument(index = 0, usage = &quot;source folder of site content (with templates and assets), if not supplied will default to current directory&quot;, metaVar = &quot;&lt;source&gt;&quot;)
+    private String source;
+
+    @Argument(index = 1, usage = &quot;destination folder for output, if not supplied will default to a folder called \&quot;output\&quot; in the current directory&quot;, metaVar = &quot;&lt;destination&gt;&quot;)
+    private String destination;
+
+    @Option(name = &quot;-b&quot;, aliases = {&quot;--bake&quot;}, usage = &quot;performs a bake&quot;)
+    private boolean bake;
+
+    @Option(name = &quot;-i&quot;, aliases = {&quot;--init&quot;}, usage = &quot;initialises required folder structure with default templates (defaults to current directory if &lt;value&gt; is not supplied)&quot;)
+    private boolean init;
+
+    @Option(name = &quot;-t&quot;, aliases = {&quot;--template&quot;}, usage = &quot;use specified template engine for default templates (uses Freemarker if &lt;value&gt; is not supplied) &quot;, depends = (&quot;-i&quot;))
+    private String template;
+
+    @Option(name = &quot;-s&quot;, aliases = {&quot;--server&quot;}, usage = &quot;runs HTTP server to serve out baked site, if no &lt;value&gt; is supplied will default to a folder called \&quot;output\&quot; in the current directory&quot;)
+    private boolean runServer;
+
+    @Option(name = &quot;-h&quot;, aliases = {&quot;--help&quot;}, usage = &quot;prints this message&quot;)
+    private boolean helpNeeded;
+
+    @Option(name = &quot;--reset&quot;, usage = &quot;clears the local cache, enforcing rendering from scratch&quot;)
+    private boolean clearCache;
+
+    public String getTemplate() {
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (template != null) {</span>
+<span class="fc" id="L35">            return template;</span>
+        } else {
+<span class="fc" id="L37">            return &quot;freemarker&quot;;</span>
+        }
+    }
+
+    public File getSource() {
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (source != null) {</span>
+<span class="fc" id="L43">            return new File(source);</span>
+        } else {
+<span class="fc" id="L45">            return new File(System.getProperty(&quot;user.dir&quot;));</span>
+        }
+    }
+
+    public String getSourceValue() {
+<span class="fc" id="L50">        return source;</span>
+    }
+
+    public File getDestination() {
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (destination != null) {</span>
+<span class="fc" id="L55">            return new File(destination);</span>
+        } else {
+<span class="fc" id="L57">            return new File(getSource(), &quot;output&quot;);</span>
+        }
+    }
+
+    public String getDestinationValue() {
+<span class="nc" id="L62">        return destination;</span>
+    }
+
+    public boolean isHelpNeeded() {
+<span class="pc bpc" id="L66" title="3 of 12 branches missed.">        return helpNeeded || !(isBake() || isRunServer() || isInit() || source != null || destination != null);</span>
+    }
+
+    public boolean isRunServer() {
+<span class="fc" id="L70">        return runServer;</span>
+    }
+
+    public boolean isInit() {
+<span class="fc" id="L74">        return init;</span>
+    }
+
+    public boolean isClearCache() {
+<span class="fc" id="L78">        return clearCache;</span>
+    }
+
+    public boolean isBake() {
+<span class="fc bfc" id="L82" title="All 6 branches covered.">        return bake || (source != null &amp;&amp; destination != null);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

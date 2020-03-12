@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Engines.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.parser</a> &gt; <span class="el_source">Engines.java</span></div><h1>Engines.java</h1><pre class="source lang-java linenums">package org.jbake.parser;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
+/**
+ * &lt;p&gt;A singleton class giving access to markup engines. Markup engines are loaded based on classpath.
+ * New engines may be registered either at runtime (not recommanded) or by putting a descriptor file
+ * on classpath (recommanded).&lt;/p&gt;
+ *
+ * &lt;p&gt;The descriptor file must be found in &lt;i&gt;META-INF&lt;/i&gt; directory and named
+ * &lt;i&gt;org.jbake.parser.MarkupEngines.properties&lt;/i&gt;. The format of the file is easy:&lt;/p&gt;
+ * &lt;code&gt;
+ * org.jbake.parser.RawMarkupEngine=html&lt;br&gt;
+ * org.jbake.parser.AsciidoctorEngine=ad,adoc,asciidoc&lt;br&gt;
+ * org.jbake.parser.MarkdownEngine=md&lt;br&gt;
+ * &lt;/code&gt;
+ * &lt;p&gt;where the key is the class of the engine (must extend {@link org.jbake.parser.MarkupEngine} and have a no-arg
+ * constructor and the value is a comma-separated list of file extensions that this engine is capable of proceeding.&lt;/p&gt;
+ *
+ * &lt;p&gt;Markup engines are singletons, so are typically used to initialize the underlying renderning engines. They
+ * &lt;b&gt;must not&lt;/b&gt; store specific information of a currently processed file (use {@link ParserContext the parser context}
+ * for that).&lt;/p&gt;
+ *
+ * This class loads the engines only if they are found on classpath. If not, the engine is not registered. This allows
+ * JBake to support multiple rendering engines without the explicit need to have them on classpath. This is a better
+ * fit for embedding.
+ *
+ * @author Cédric Champeau
+ *
+ */
+public class Engines {
+<span class="fc" id="L43">    private static final Logger LOGGER = LoggerFactory.getLogger(Engines.class);</span>
+    private static final Engines INSTANCE;
+
+    private final Map&lt;String, ParserEngine&gt; parsers;
+
+
+    static {
+<span class="fc" id="L50">        INSTANCE = new Engines();</span>
+<span class="fc" id="L51">        loadEngines();</span>
+<span class="fc" id="L52">    }</span>
+
+    public static ParserEngine get(String fileExtension) {
+<span class="fc" id="L55">        return INSTANCE.getEngine(fileExtension);</span>
+    }
+
+    public static void register(String fileExtension, ParserEngine engine) {
+<span class="fc" id="L59">        INSTANCE.registerEngine(fileExtension, engine);</span>
+<span class="fc" id="L60">    }</span>
+
+    public static Set&lt;String&gt; getRecognizedExtensions() {
+<span class="fc" id="L63">        return Collections.unmodifiableSet(INSTANCE.parsers.keySet());</span>
+    }
+
+<span class="fc" id="L66">    private Engines() {</span>
+<span class="fc" id="L67">        parsers = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L68">    }</span>
+
+    private void registerEngine(String fileExtension, ParserEngine markupEngine) {
+<span class="fc" id="L71">        ParserEngine old = parsers.put(fileExtension, markupEngine);</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        if (old != null) {</span>
+<span class="nc" id="L73">            LOGGER.warn(&quot;Registered a markup engine for extension [.{}] but another one was already defined: {}&quot;, fileExtension, old);</span>
+        }
+<span class="fc" id="L75">    }</span>
+
+    private ParserEngine getEngine(String fileExtension) {
+<span class="fc" id="L78">        return parsers.get(fileExtension);</span>
+    }
+
+    /**
+     * This method is used to search for a specific class, telling if loading the engine would succeed. This is
+     * typically used to avoid loading optional modules.
+     *
+     * @param engineClassName engine class, used both as a hint to find it and to create the engine itself.
+     * @return null if the engine is not available, an instance of the engine otherwise
+     */
+    private static ParserEngine tryLoadEngine(String engineClassName) {
+        try {
+            @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L91">            Class&lt;? extends ParserEngine&gt; engineClass = (Class&lt;? extends ParserEngine&gt;) Class.forName(engineClassName, false, Engines.class.getClassLoader());</span>
+<span class="fc" id="L92">            return engineClass.getDeclaredConstructor().newInstance();</span>
+<span class="nc" id="L93">        } catch (ClassNotFoundException | NoClassDefFoundError | IllegalAccessException | InstantiationException e) {</span>
+<span class="nc" id="L94">            return new ErrorEngine(engineClassName);</span>
+<span class="nc" id="L95">        } catch (NoSuchMethodException | InvocationTargetException e) {</span>
+<span class="nc" id="L96">            LOGGER.error(&quot;unable to instantiate ParserEngine {}&quot;, engineClassName);</span>
+        }
+<span class="nc" id="L98">        return null;</span>
+    }
+
+    /**
+     * This method is used internally to load markup engines. Markup engines are found using descriptor files on classpath, so
+     * adding an engine is as easy as adding a jar on classpath with the descriptor file included.
+     */
+    private static void loadEngines() {
+        try {
+<span class="fc" id="L107">            ClassLoader cl = Engines.class.getClassLoader();</span>
+<span class="fc" id="L108">            Enumeration&lt;URL&gt; resources = cl.getResources(&quot;META-INF/org.jbake.parser.MarkupEngines.properties&quot;);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">            while (resources.hasMoreElements()) {</span>
+<span class="fc" id="L110">                URL url = resources.nextElement();</span>
+<span class="fc" id="L111">                Properties props = new Properties();</span>
+<span class="fc" id="L112">                props.load(url.openStream());</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">                for (Map.Entry&lt;Object, Object&gt; entry : props.entrySet()) {</span>
+<span class="fc" id="L114">                    String className = (String) entry.getKey();</span>
+<span class="fc" id="L115">                    String[] extensions = ((String)entry.getValue()).split(&quot;,&quot;);</span>
+<span class="fc" id="L116">                    registerEngine(className, extensions);</span>
+<span class="fc" id="L117">                }</span>
+<span class="fc" id="L118">            }</span>
+<span class="nc" id="L119">        } catch (IOException e) {</span>
+<span class="nc" id="L120">            LOGGER.error(&quot;Error loading Engines&quot;, e);</span>
+<span class="fc" id="L121">        }</span>
+<span class="fc" id="L122">    }</span>
+
+    private static void registerEngine(String className, String... extensions) {
+<span class="fc" id="L125">        ParserEngine engine = tryLoadEngine(className);</span>
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">        if (engine != null) {</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">            for (String extension : extensions) {</span>
+<span class="fc" id="L128">                register(extension, engine);</span>
+            }
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">            if (engine instanceof ErrorEngine) {</span>
+<span class="nc" id="L131">                LOGGER.warn(&quot;Unable to load a suitable rendering engine for extensions {}&quot;, (Object) extensions);</span>
+            }
+        }
+<span class="fc" id="L134">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

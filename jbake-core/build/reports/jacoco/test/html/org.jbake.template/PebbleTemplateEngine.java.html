@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PebbleTemplateEngine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-core</a> &gt; <a href="index.source.html" class="el_package">org.jbake.template</a> &gt; <span class="el_source">PebbleTemplateEngine.java</span></div><h1>PebbleTemplateEngine.java</h1><pre class="source lang-java linenums">package org.jbake.template;
+
+import com.mitchellbosecke.pebble.PebbleEngine;
+import com.mitchellbosecke.pebble.error.PebbleException;
+import com.mitchellbosecke.pebble.extension.escaper.EscaperExtension;
+import com.mitchellbosecke.pebble.loader.FileLoader;
+import com.mitchellbosecke.pebble.loader.Loader;
+import com.mitchellbosecke.pebble.template.PebbleTemplate;
+import org.jbake.app.ContentStore;
+import org.jbake.app.configuration.JBakeConfiguration;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Renders pages using the &lt;a href=&quot;https://pebbletemplates.io/&quot;&gt;Pebble&lt;/a&gt; template engine.
+ *
+ * @author Mitchell Bosecke
+ */
+public class PebbleTemplateEngine extends AbstractTemplateEngine {
+    private PebbleEngine engine;
+
+    public PebbleTemplateEngine(final JBakeConfiguration config, final ContentStore db) {
+<span class="fc" id="L26">        super(config, db);</span>
+<span class="fc" id="L27">        initializeTemplateEngine();</span>
+<span class="fc" id="L28">    }</span>
+
+    private void initializeTemplateEngine() {
+<span class="fc" id="L31">        Loader loader = new FileLoader();</span>
+<span class="fc" id="L32">        loader.setPrefix(config.getTemplateFolder().getAbsolutePath());</span>
+
+        /*
+         * Turn off the autoescaper because I believe that we can assume all
+         * data is safe considering it is all statically generated.
+         */
+<span class="fc" id="L38">        EscaperExtension escaper = new EscaperExtension();</span>
+<span class="fc" id="L39">        escaper.setAutoEscaping(false);</span>
+
+<span class="fc" id="L41">        engine = new PebbleEngine.Builder().loader(loader).extension(escaper).build();</span>
+<span class="fc" id="L42">    }</span>
+
+    @Override
+    public void renderDocument(final Map&lt;String, Object&gt; model, final String templateName, final Writer writer)
+        throws RenderingException {
+
+        PebbleTemplate template;
+        try {
+<span class="fc" id="L50">            template = engine.getTemplate(templateName);</span>
+<span class="fc" id="L51">            template.evaluate(writer, wrap(model));</span>
+<span class="nc" id="L52">        } catch (PebbleException e) {</span>
+<span class="nc" id="L53">            throw new RenderingException(e);</span>
+<span class="nc" id="L54">        } catch (IOException e) {</span>
+<span class="nc" id="L55">            throw new RenderingException(e);</span>
+<span class="fc" id="L56">        }</span>
+
+<span class="fc" id="L58">    }</span>
+
+    private Map&lt;String, Object&gt; wrap(final Map&lt;String, Object&gt; model) {
+<span class="fc" id="L61">        Map&lt;String, Object&gt; result = new HashMap&lt;String, Object&gt;(model) {</span>
+
+            private static final long serialVersionUID = -5489285491728950547L;
+
+            @Override
+            public Object get(final Object property) {
+<span class="fc" id="L67">                String key = property.toString();</span>
+                try {
+<span class="fc" id="L69">                    return extractors.extractAndTransform(db, key, this, new TemplateEngineAdapter.NoopAdapter());</span>
+<span class="fc" id="L70">                } catch(NoModelExtractorException e) {</span>
+                    // fallback to parent model
+                }
+
+<span class="fc" id="L74">                return super.get(property);</span>
+            }
+        };
+
+<span class="fc" id="L78">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

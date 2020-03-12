@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Crawler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.app</a> &gt; <span class="el_source">Crawler.java</span></div><h1>Crawler.java</h1><pre class="source lang-java linenums">package org.jbake.app;
+
+import com.orientechnologies.orient.core.record.impl.ODocument;
+import org.apache.commons.configuration.CompositeConfiguration;
+import org.apache.commons.io.FilenameUtils;
+import org.jbake.app.Crawler.Attributes.Status;
+import org.jbake.app.configuration.JBakeConfiguration;
+import org.jbake.app.configuration.JBakeConfigurationFactory;
+import org.jbake.model.DocumentAttributes;
+import org.jbake.model.DocumentStatus;
+import org.jbake.model.DocumentTypes;
+import org.jbake.util.HtmlUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Map;
+
+/**
+ * Crawls a file system looking for content.
+ *
+ * @author Jonathan Bullock &lt;a href=&quot;mailto:jonbullock@gmail.com&quot;&gt;jonbullock@gmail.com&lt;/a&gt;
+ */
+public class Crawler {
+
+<span class="fc" id="L31">    private static final Logger LOGGER = LoggerFactory.getLogger(Crawler.class);</span>
+    private final ContentStore db;
+    private JBakeConfiguration config;
+    private Parser parser;
+
+    /**
+     * @param db     Database instance for content
+     * @param source Base directory where content directory is located
+     * @param config Project configuration
+     * @deprecated Use {@link #Crawler(ContentStore, JBakeConfiguration)} instead.
+     * &lt;p&gt;
+     * Creates new instance of Crawler.
+     */
+    @Deprecated
+<span class="nc" id="L45">    public Crawler(ContentStore db, File source, CompositeConfiguration config) {</span>
+<span class="nc" id="L46">        this.db = db;</span>
+<span class="nc" id="L47">        this.config = new JBakeConfigurationFactory().createDefaultJbakeConfiguration(source, config);</span>
+<span class="nc" id="L48">        this.parser = new Parser(this.config);</span>
+<span class="nc" id="L49">    }</span>
+
+    /**
+     * Creates new instance of Crawler.
+     *
+     * @param db     Database instance for content
+     * @param config Project configuration
+     */
+<span class="fc" id="L57">    public Crawler(ContentStore db, JBakeConfiguration config) {</span>
+<span class="fc" id="L58">        this.db = db;</span>
+<span class="fc" id="L59">        this.config = config;</span>
+<span class="fc" id="L60">        this.parser = new Parser(config);</span>
+<span class="fc" id="L61">    }</span>
+
+    public void crawl() {
+<span class="fc" id="L64">        crawl(config.getContentFolder());</span>
+
+<span class="fc" id="L66">        LOGGER.info(&quot;Content detected:&quot;);</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        for (String docType : DocumentTypes.getDocumentTypes()) {</span>
+<span class="fc" id="L68">            long count = db.getDocumentCount(docType);</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">            if (count &gt; 0) {</span>
+<span class="fc" id="L70">                LOGGER.info(&quot;Parsed {} files of type: {}&quot;, count, docType);</span>
+            }
+        }
+
+<span class="fc" id="L74">    }</span>
+
+    /**
+     * Crawl all files and folders looking for content.
+     *
+     * @param path Folder to start from
+     */
+    private void crawl(File path) {
+<span class="fc" id="L82">        File[] contents = path.listFiles(FileUtil.getFileFilter());</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if (contents != null) {</span>
+<span class="fc" id="L84">            Arrays.sort(contents);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">            for (File sourceFile : contents) {</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">                if (sourceFile.isFile()) {</span>
+<span class="fc" id="L87">                    StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L88">                    sb.append(&quot;Processing [&quot;).append(sourceFile.getPath()).append(&quot;]... &quot;);</span>
+<span class="fc" id="L89">                    String sha1 = buildHash(sourceFile);</span>
+<span class="fc" id="L90">                    String uri = buildURI(sourceFile);</span>
+<span class="fc" id="L91">                    boolean process = true;</span>
+<span class="fc" id="L92">                    DocumentStatus status = DocumentStatus.NEW;</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">                    for (String docType : DocumentTypes.getDocumentTypes()) {</span>
+<span class="fc" id="L94">                        status = findDocumentStatus(docType, uri, sha1);</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">                        if (status == DocumentStatus.UPDATED) {</span>
+<span class="fc" id="L96">                            sb.append(&quot; : modified &quot;);</span>
+<span class="fc" id="L97">                            db.deleteContent(docType, uri);</span>
+
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">                        } else if (status == DocumentStatus.IDENTICAL) {</span>
+<span class="nc" id="L100">                            sb.append(&quot; : same &quot;);</span>
+<span class="nc" id="L101">                            process = false;</span>
+                        }
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">                        if (!process) {</span>
+<span class="nc" id="L104">                            break;</span>
+                        }
+                    }
+<span class="fc bfc" id="L107" title="All 2 branches covered.">                    if (DocumentStatus.NEW == status) {</span>
+<span class="fc" id="L108">                        sb.append(&quot; : new &quot;);</span>
+                    }
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">                    if (process) { // new or updated</span>
+<span class="fc" id="L111">                        crawlSourceFile(sourceFile, sha1, uri);</span>
+                    }
+<span class="fc" id="L113">                    LOGGER.info(&quot;{}&quot;, sb);</span>
+                }
+<span class="fc bfc" id="L115" title="All 2 branches covered.">                if (sourceFile.isDirectory()) {</span>
+<span class="fc" id="L116">                    crawl(sourceFile);</span>
+                }
+            }
+        }
+<span class="fc" id="L120">    }</span>
+
+    private String buildHash(final File sourceFile) {
+        String sha1;
+        try {
+<span class="fc" id="L125">            sha1 = FileUtil.sha1(sourceFile);</span>
+<span class="nc" id="L126">        } catch (Exception e) {</span>
+<span class="nc" id="L127">            LOGGER.error(&quot;unable to build sha1 hash for source file '{}'&quot;, sourceFile);</span>
+<span class="nc" id="L128">            sha1 = &quot;&quot;;</span>
+<span class="fc" id="L129">        }</span>
+<span class="fc" id="L130">        return sha1;</span>
+    }
+
+    private String buildURI(final File sourceFile) {
+<span class="fc" id="L134">        String uri = FileUtil.asPath(sourceFile).replace(FileUtil.asPath(config.getContentFolder()), &quot;&quot;);</span>
+
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        if (useNoExtensionUri(uri)) {</span>
+            // convert URI from xxx.html to xxx/index.html
+<span class="fc" id="L138">            uri = createNoExtensionUri(uri);</span>
+        } else {
+<span class="fc" id="L140">            uri = createUri(uri);</span>
+        }
+
+        // strip off leading / to enable generating non-root based sites
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">        if (uri.startsWith(FileUtil.URI_SEPARATOR_CHAR)) {</span>
+<span class="fc" id="L145">            uri = uri.substring(1, uri.length());</span>
+        }
+
+<span class="fc" id="L148">        return uri;</span>
+    }
+
+    // TODO: Refactor - parametrize the following two methods into one.
+    // commons-codec's URLCodec could be used when we add that dependency.
+    private String createUri(String uri) {
+        try {
+<span class="fc" id="L155">            return FileUtil.URI_SEPARATOR_CHAR</span>
+<span class="fc" id="L156">                + FilenameUtils.getPath(uri)</span>
+<span class="fc" id="L157">                + URLEncoder.encode(FilenameUtils.getBaseName(uri), StandardCharsets.UTF_8.name())</span>
+<span class="fc" id="L158">                + config.getOutputExtension();</span>
+<span class="nc" id="L159">        } catch (UnsupportedEncodingException e) {</span>
+<span class="nc" id="L160">            throw new RuntimeException(&quot;Missing UTF-8 encoding??&quot;, e); // Won't happen unless JDK is broken.</span>
+        }
+    }
+
+    private String createNoExtensionUri(String uri) {
+        try {
+<span class="fc" id="L166">            return FileUtil.URI_SEPARATOR_CHAR</span>
+<span class="fc" id="L167">                + FilenameUtils.getPath(uri)</span>
+<span class="fc" id="L168">                + URLEncoder.encode(FilenameUtils.getBaseName(uri), StandardCharsets.UTF_8.name())</span>
+                + FileUtil.URI_SEPARATOR_CHAR
+                + &quot;index&quot;
+<span class="fc" id="L171">                + config.getOutputExtension();</span>
+<span class="nc" id="L172">        } catch (UnsupportedEncodingException e) {</span>
+<span class="nc" id="L173">            throw new RuntimeException(&quot;Missing UTF-8 encoding??&quot;, e); // Won't happen unless JDK is broken.</span>
+        }
+    }
+
+    private boolean useNoExtensionUri(String uri) {
+<span class="fc" id="L178">        boolean noExtensionUri = config.getUriWithoutExtension();</span>
+<span class="fc" id="L179">        String noExtensionUriPrefix = config.getPrefixForUriWithoutExtension();</span>
+
+<span class="pc bpc" id="L181" title="1 of 4 branches missed.">        return noExtensionUri</span>
+            &amp;&amp; (noExtensionUriPrefix != null)
+<span class="pc bpc" id="L183" title="1 of 2 branches missed.">            &amp;&amp; (noExtensionUriPrefix.length() &gt; 0)</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">            &amp;&amp; uri.startsWith(noExtensionUriPrefix);</span>
+    }
+
+    private void crawlSourceFile(final File sourceFile, final String sha1, final String uri) {
+        try {
+<span class="fc" id="L189">            Map&lt;String, Object&gt; fileContents = parser.processFile(sourceFile);</span>
+<span class="fc bfc" id="L190" title="All 2 branches covered.">            if (fileContents != null) {</span>
+<span class="fc" id="L191">                fileContents.put(Attributes.ROOTPATH, getPathToRoot(sourceFile));</span>
+<span class="fc" id="L192">                fileContents.put(String.valueOf(DocumentAttributes.SHA1), sha1);</span>
+<span class="fc" id="L193">                fileContents.put(String.valueOf(DocumentAttributes.RENDERED), false);</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">                if (fileContents.get(Attributes.TAGS) != null) {</span>
+                    // store them as a String[]
+<span class="fc" id="L196">                    String[] tags = (String[]) fileContents.get(Attributes.TAGS);</span>
+<span class="fc" id="L197">                    fileContents.put(Attributes.TAGS, tags);</span>
+                }
+<span class="fc" id="L199">                fileContents.put(Attributes.FILE, sourceFile.getPath());</span>
+<span class="fc" id="L200">                fileContents.put(String.valueOf(DocumentAttributes.SOURCE_URI), uri);</span>
+<span class="fc" id="L201">                fileContents.put(Attributes.URI, uri);</span>
+
+<span class="fc" id="L203">                String documentType = (String) fileContents.get(Attributes.TYPE);</span>
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">                if (fileContents.get(Attributes.STATUS).equals(Status.PUBLISHED_DATE)) {</span>
+<span class="nc bnc" id="L205" title="All 4 branches missed.">                    if (fileContents.get(Attributes.DATE) != null &amp;&amp; (fileContents.get(Attributes.DATE) instanceof Date)) {</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">                        if (new Date().after((Date) fileContents.get(Attributes.DATE))) {</span>
+<span class="nc" id="L207">                            fileContents.put(Attributes.STATUS, Status.PUBLISHED);</span>
+                        }
+                    }
+                }
+
+<span class="fc bfc" id="L212" title="All 2 branches covered.">                if (config.getUriWithoutExtension()) {</span>
+<span class="fc" id="L213">                    fileContents.put(Attributes.NO_EXTENSION_URI, uri.replace(&quot;/index.html&quot;, &quot;/&quot;));</span>
+                }
+
+<span class="pc bpc" id="L216" title="1 of 2 branches missed.">                if (config.getImgPathUpdate()) {</span>
+                    // Prevent image source url's from breaking
+<span class="nc" id="L218">                    HtmlUtil.fixImageSourceUrls(fileContents, config);</span>
+                }
+
+<span class="fc" id="L221">                ODocument doc = new ODocument(documentType);</span>
+<span class="fc" id="L222">                doc.fromMap(fileContents);</span>
+<span class="pc bpc" id="L223" title="1 of 2 branches missed.">                boolean cached = fileContents.get(String.valueOf(DocumentAttributes.CACHED)) != null ? Boolean.valueOf((String) fileContents.get(String.valueOf(DocumentAttributes.CACHED))) : true;</span>
+<span class="fc" id="L224">                doc.field(String.valueOf(DocumentAttributes.CACHED), cached);</span>
+<span class="fc" id="L225">                doc.save();</span>
+<span class="fc" id="L226">            } else {</span>
+<span class="fc" id="L227">                LOGGER.warn(&quot;{} has an invalid header, it has been ignored!&quot;, sourceFile);</span>
+            }
+<span class="nc" id="L229">        } catch (Exception ex) {</span>
+<span class="nc" id="L230">            throw new RuntimeException(&quot;Failed crawling file: &quot; + sourceFile.getPath() + &quot; &quot; + ex.getMessage(), ex);</span>
+<span class="fc" id="L231">        }</span>
+<span class="fc" id="L232">    }</span>
+
+    private String getPathToRoot(File sourceFile) {
+<span class="fc" id="L235">        return FileUtil.getUriPathToContentRoot(config, sourceFile);</span>
+    }
+
+    private DocumentStatus findDocumentStatus(String docType, String uri, String sha1) {
+<span class="fc" id="L239">        DocumentList match = db.getDocumentStatus(docType, uri);</span>
+<span class="fc bfc" id="L240" title="All 2 branches covered.">        if (!match.isEmpty()) {</span>
+<span class="fc" id="L241">            Map entries = match.get(0);</span>
+<span class="fc" id="L242">            String oldHash = (String) entries.get(String.valueOf(DocumentAttributes.SHA1));</span>
+<span class="pc bpc" id="L243" title="2 of 4 branches missed.">            if (!(oldHash.equals(sha1)) || Boolean.FALSE.equals(entries.get(String.valueOf(DocumentAttributes.RENDERED)))) {</span>
+<span class="fc" id="L244">                return DocumentStatus.UPDATED;</span>
+            } else {
+<span class="nc" id="L246">                return DocumentStatus.IDENTICAL;</span>
+            }
+        } else {
+<span class="fc" id="L249">            return DocumentStatus.NEW;</span>
+        }
+    }
+
+    public abstract static class Attributes {
+
+        public static final String DATE = &quot;date&quot;;
+        public static final String STATUS = &quot;status&quot;;
+        public static final String TYPE = &quot;type&quot;;
+        public static final String TITLE = &quot;title&quot;;
+        public static final String URI = &quot;uri&quot;;
+        public static final String FILE = &quot;file&quot;;
+        public static final String TAGS = &quot;tags&quot;;
+        public static final String TAG = &quot;tag&quot;;
+        public static final String ROOTPATH = &quot;rootpath&quot;;
+        public static final String ID = &quot;id&quot;;
+        public static final String NO_EXTENSION_URI = &quot;noExtensionUri&quot;;
+        public static final String ALLTAGS = &quot;alltags&quot;;
+        public static final String PUBLISHED_DATE = &quot;published_date&quot;;
+        public static final String BODY = &quot;body&quot;;
+        public static final String DB = &quot;db&quot;;
+
+        private Attributes() {
+        }
+
+        /**
+         * Possible values of the {@link Attributes#STATUS} property
+         *
+         * @author ndx
+         */
+        public abstract static class Status {
+            public static final String PUBLISHED_DATE = &quot;published-date&quot;;
+            public static final String PUBLISHED = &quot;published&quot;;
+            public static final String DRAFT = &quot;draft&quot;;
+
+            private Status() {
+            }
+        }
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

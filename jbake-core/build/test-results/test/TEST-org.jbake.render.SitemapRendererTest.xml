@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jbake.render.SitemapRendererTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-11T02:06:46" hostname="bolt.cs.ucr.edu" time="0.005">
+  <properties/>
+  <testcase name="doesRenderWhenConfigDoesRenderSitemaps" classname="org.jbake.render.SitemapRendererTest" time="0.002"/>
+  <testcase name="returnsZeroWhenConfigDoesNotRenderSitemaps" classname="org.jbake.render.SitemapRendererTest" time="0.0"/>
+  <testcase name="returnsOneWhenConfigRendersSitemaps" classname="org.jbake.render.SitemapRendererTest" time="0.001"/>
+  <testcase name="propogatesRenderingException" classname="org.jbake.render.SitemapRendererTest" time="0.001"/>
+  <testcase name="doesNotRenderWhenConfigDoesNotRenderSitemaps" classname="org.jbake.render.SitemapRendererTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

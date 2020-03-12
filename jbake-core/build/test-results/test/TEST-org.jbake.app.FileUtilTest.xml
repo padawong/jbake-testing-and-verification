@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jbake.app.FileUtilTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-11T02:07:04" hostname="bolt.cs.ucr.edu" time="0.03">
+  <properties/>
+  <testcase name="testGetContentRoothPath" classname="org.jbake.app.FileUtilTest" time="0.028"/>
+  <testcase name="testGetRunningLocation" classname="org.jbake.app.FileUtilTest" time="0.001"/>
+  <testcase name="testIsFileInDirectory" classname="org.jbake.app.FileUtilTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

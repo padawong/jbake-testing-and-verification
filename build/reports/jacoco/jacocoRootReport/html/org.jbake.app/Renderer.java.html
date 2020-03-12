@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Renderer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.app</a> &gt; <span class="el_source">Renderer.java</span></div><h1>Renderer.java</h1><pre class="source lang-java linenums">package org.jbake.app;
+
+import org.apache.commons.configuration.CompositeConfiguration;
+import org.jbake.app.Crawler.Attributes;
+import org.jbake.app.configuration.DefaultJBakeConfiguration;
+import org.jbake.app.configuration.JBakeConfiguration;
+import org.jbake.app.configuration.JBakeConfigurationFactory;
+import org.jbake.template.DelegatingTemplateEngine;
+import org.jbake.util.PagingHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Render output to a file.
+ *
+ * @author Jonathan Bullock &lt;a href=&quot;mailto:jonbullock@gmail.com&quot;&gt;jonbullock@gmail.com&lt;/a&gt;
+ */
+public class Renderer {
+    private static final String MASTERINDEX_TEMPLATE_NAME = &quot;masterindex&quot;;
+    private static final String SITEMAP_TEMPLATE_NAME = &quot;sitemap&quot;;
+    private static final String FEED_TEMPLATE_NAME = &quot;feed&quot;;
+    private static final String ARCHIVE_TEMPLATE_NAME = &quot;archive&quot;;
+
+<span class="fc" id="L34">    private final Logger LOGGER = LoggerFactory.getLogger(Renderer.class);</span>
+    private final JBakeConfiguration config;
+    private final DelegatingTemplateEngine renderingEngine;
+    private final ContentStore db;
+
+    /**
+     * @param db            The database holding the content
+     * @param destination   The destination folder
+     * @param templatesPath The templates folder
+     * @param config        Project configuration
+     * @deprecated Use {@link #Renderer(ContentStore, JBakeConfiguration)} instead.
+     * Creates a new instance of Renderer with supplied references to folders.
+     */
+    @Deprecated
+    public Renderer(ContentStore db, File destination, File templatesPath, CompositeConfiguration config) {
+<span class="nc" id="L49">        this(db, new JBakeConfigurationFactory().createDefaultJbakeConfiguration(templatesPath.getParentFile(), config));</span>
+<span class="nc" id="L50">        DefaultJBakeConfiguration configuration = ((DefaultJBakeConfiguration) this.config);</span>
+<span class="nc" id="L51">        configuration.setDestinationFolder(destination);</span>
+<span class="nc" id="L52">        configuration.setTemplateFolder(templatesPath);</span>
+<span class="nc" id="L53">    }</span>
+
+    // TOqDO: should all content be made available to all templates via this class??
+
+    /**
+     * @param db              The database holding the content
+     * @param destination     The destination folder
+     * @param templatesPath   The templates folder
+     * @param config          Project configuration
+     * @param renderingEngine The instance of DelegatingTemplateEngine to use
+     * @deprecated Use {@link #Renderer(ContentStore, JBakeConfiguration, DelegatingTemplateEngine)} instead.
+     * Creates a new instance of Renderer with supplied references to folders and the instance of DelegatingTemplateEngine to use.
+     */
+    @Deprecated
+    public Renderer(ContentStore db, File destination, File templatesPath, CompositeConfiguration config, DelegatingTemplateEngine renderingEngine) {
+<span class="nc" id="L68">        this(db, new JBakeConfigurationFactory().createDefaultJbakeConfiguration(templatesPath.getParentFile(), config), renderingEngine);</span>
+<span class="nc" id="L69">        DefaultJBakeConfiguration configuration = ((DefaultJBakeConfiguration) this.config);</span>
+<span class="nc" id="L70">        configuration.setDestinationFolder(destination);</span>
+<span class="nc" id="L71">        configuration.setTemplateFolder(templatesPath);</span>
+<span class="nc" id="L72">    }</span>
+
+    /**
+     * Creates a new instance of Renderer with supplied references to folders.
+     *
+     * @param db     The database holding the content
+     * @param config Project configuration
+     */
+<span class="fc" id="L80">    public Renderer(ContentStore db, JBakeConfiguration config) {</span>
+<span class="fc" id="L81">        this.config = config;</span>
+<span class="fc" id="L82">        this.renderingEngine = new DelegatingTemplateEngine(db, config);</span>
+<span class="fc" id="L83">        this.db = db;</span>
+<span class="fc" id="L84">    }</span>
+
+    /**
+     * Creates a new instance of Renderer with supplied references to folders and the instance of DelegatingTemplateEngine to use.
+     *
+     * @param db              The database holding the content
+     * @param config          The application specific configuration
+     * @param renderingEngine The instance of DelegatingTemplateEngine to use
+     */
+<span class="fc" id="L93">    public Renderer(ContentStore db, JBakeConfiguration config, DelegatingTemplateEngine renderingEngine) {</span>
+<span class="fc" id="L94">        this.config = config;</span>
+<span class="fc" id="L95">        this.renderingEngine = renderingEngine;</span>
+<span class="fc" id="L96">        this.db = db;</span>
+<span class="fc" id="L97">    }</span>
+
+    private String findTemplateName(String docType) {
+<span class="fc" id="L100">        return config.getTemplateFileByDocType(docType).getName();</span>
+    }
+
+    /**
+     * Render the supplied content to a file.
+     *
+     * @param content The content to renderDocument
+     * @throws Exception if IOException or SecurityException are raised
+     */
+    public void render(Map&lt;String, Object&gt; content) throws Exception {
+<span class="fc" id="L110">        String docType = (String) content.get(Crawler.Attributes.TYPE);</span>
+<span class="fc" id="L111">        String outputFilename = config.getDestinationFolder().getPath() + File.separatorChar + content.get(Attributes.URI);</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (outputFilename.lastIndexOf('.') &gt; outputFilename.lastIndexOf(File.separatorChar)) {</span>
+<span class="fc" id="L113">            outputFilename = outputFilename.substring(0, outputFilename.lastIndexOf('.'));</span>
+        }
+
+        // delete existing versions if they exist in case status has changed either way
+<span class="fc" id="L117">        String outputExtension = config.getOutputExtensionByDocType(docType);</span>
+<span class="fc" id="L118">        File draftFile = new File(outputFilename, config.getDraftSuffix() + outputExtension);</span>
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        if (draftFile.exists()) {</span>
+<span class="nc" id="L120">            draftFile.delete();</span>
+        }
+
+<span class="fc" id="L123">        File publishedFile = new File(outputFilename + outputExtension);</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        if (publishedFile.exists()) {</span>
+<span class="nc" id="L125">            publishedFile.delete();</span>
+        }
+
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        if (content.get(Crawler.Attributes.STATUS).equals(Crawler.Attributes.Status.DRAFT)) {</span>
+<span class="fc" id="L129">            outputFilename = outputFilename + config.getDraftSuffix();</span>
+        }
+
+<span class="fc" id="L132">        File outputFile = new File(outputFilename + outputExtension);</span>
+<span class="fc" id="L133">        Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L134">        model.put(&quot;content&quot;, content);</span>
+<span class="fc" id="L135">        model.put(&quot;renderer&quot;, renderingEngine);</span>
+
+        try {
+<span class="fc" id="L138">            try (Writer out = createWriter(outputFile)) {</span>
+<span class="fc" id="L139">                renderingEngine.renderDocument(model, findTemplateName(docType), out);</span>
+            }
+<span class="fc" id="L141">            LOGGER.info(&quot;Rendering [{}]... done!&quot;, outputFile);</span>
+<span class="nc" id="L142">        } catch (Exception e) {</span>
+<span class="nc" id="L143">            LOGGER.error(&quot;Rendering [{}]... failed!&quot;, outputFile, e);</span>
+<span class="nc" id="L144">            throw new Exception(&quot;Failed to render file &quot; + outputFile.getAbsolutePath() + &quot;. Cause: &quot; + e.getMessage(), e);</span>
+<span class="fc" id="L145">        }</span>
+<span class="fc" id="L146">    }</span>
+
+    private Writer createWriter(File file) throws IOException {
+<span class="fc bfc" id="L149" title="All 2 branches covered.">        if (!file.exists()) {</span>
+<span class="fc" id="L150">            file.getParentFile().mkdirs();</span>
+<span class="fc" id="L151">            file.createNewFile();</span>
+        }
+
+<span class="fc" id="L154">        return new OutputStreamWriter(new FileOutputStream(file), config.getRenderEncoding());</span>
+    }
+
+    private void render(RenderingConfig renderConfig) throws Exception {
+<span class="fc" id="L158">        File outputFile = renderConfig.getPath();</span>
+        try {
+<span class="fc" id="L160">            try (Writer out = createWriter(outputFile)) {</span>
+<span class="fc" id="L161">                renderingEngine.renderDocument(renderConfig.getModel(), renderConfig.getTemplate(), out);</span>
+            }
+<span class="fc" id="L163">            LOGGER.info(&quot;Rendering {} [{}]... done!&quot;, renderConfig.getName(), outputFile);</span>
+<span class="nc" id="L164">        } catch (Exception e) {</span>
+<span class="nc" id="L165">            LOGGER.error(&quot;Rendering {} [{}]... failed!&quot;, renderConfig.getName(), outputFile, e);</span>
+<span class="nc" id="L166">            throw new Exception(&quot;Failed to render &quot; + renderConfig.getName(), e);</span>
+<span class="fc" id="L167">        }</span>
+<span class="fc" id="L168">    }</span>
+
+    /**
+     * Render an index file using the supplied content.
+     *
+     * @param indexFile The name of the output file
+     * @throws Exception if IOException or SecurityException are raised
+     */
+    public void renderIndex(String indexFile) throws Exception {
+
+<span class="fc" id="L178">        render(new DefaultRenderingConfig(indexFile, MASTERINDEX_TEMPLATE_NAME));</span>
+<span class="fc" id="L179">    }</span>
+
+    public void renderIndexPaging(String indexFile) throws Exception {
+<span class="fc" id="L182">        long totalPosts = db.getPublishedCount(&quot;post&quot;);</span>
+<span class="fc" id="L183">        int postsPerPage = config.getPostsPerPage();</span>
+
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        if (totalPosts == 0) {</span>
+            //paging makes no sense. render single index file instead
+<span class="fc" id="L187">            renderIndex(indexFile);</span>
+        } else {
+<span class="fc" id="L189">            PagingHelper pagingHelper = new PagingHelper(totalPosts, postsPerPage);</span>
+
+<span class="fc" id="L191">            Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L192">            model.put(&quot;renderer&quot;, renderingEngine);</span>
+<span class="fc" id="L193">            model.put(&quot;numberOfPages&quot;, pagingHelper.getNumberOfPages());</span>
+
+            try {
+<span class="fc" id="L196">                db.setLimit(postsPerPage);</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">                for (int pageStart = 0, page = 1; pageStart &lt; totalPosts; pageStart += postsPerPage, page++) {</span>
+<span class="fc" id="L198">                    String fileName = indexFile;</span>
+
+<span class="fc" id="L200">                    db.setStart(pageStart);</span>
+<span class="fc" id="L201">                    model.put(&quot;currentPageNumber&quot;, page);</span>
+<span class="fc" id="L202">                    String previous = pagingHelper.getPreviousFileName(page);</span>
+<span class="fc" id="L203">                    model.put(&quot;previousFileName&quot;, previous);</span>
+<span class="fc" id="L204">                    String nextFileName = pagingHelper.getNextFileName(page);</span>
+<span class="fc" id="L205">                    model.put(&quot;nextFileName&quot;, nextFileName);</span>
+
+<span class="fc" id="L207">                    Map&lt;String, Object&gt; contentModel =  buildSimpleModel(MASTERINDEX_TEMPLATE_NAME);</span>
+
+<span class="fc bfc" id="L209" title="All 2 branches covered.">                    if(page &gt; 1){</span>
+<span class="fc" id="L210">                        contentModel.put(Attributes.ROOTPATH, &quot;../&quot;);</span>
+                    }
+<span class="fc" id="L212">                    model.put(&quot;content&quot;, contentModel);</span>
+
+                    // Add page number to file name
+<span class="fc" id="L215">                    fileName = pagingHelper.getCurrentFileName(page, fileName);</span>
+<span class="fc" id="L216">                    ModelRenderingConfig renderConfig = new ModelRenderingConfig(fileName, model, MASTERINDEX_TEMPLATE_NAME);</span>
+<span class="fc" id="L217">                    render(renderConfig);</span>
+                }
+<span class="fc" id="L219">                db.resetPagination();</span>
+<span class="nc" id="L220">            } catch (Exception e) {</span>
+<span class="nc" id="L221">                throw new Exception(&quot;Failed to render index. Cause: &quot; + e.getMessage(), e);</span>
+<span class="fc" id="L222">            }</span>
+        }
+<span class="fc" id="L224">    }</span>
+
+    /**
+     * Render an XML sitemap file using the supplied content.
+     *
+     * @param sitemapFile configuration for site map
+     * @throws Exception if can't create correct default rendering config
+     * @see &lt;a href=&quot;https://support.google.com/webmasters/answer/156184?hl=en&amp;ref_topic=8476&quot;&gt;About Sitemaps&lt;/a&gt;
+     * @see &lt;a href=&quot;http://www.sitemaps.org/&quot;&gt;Sitemap protocol&lt;/a&gt;
+     */
+    public void renderSitemap(String sitemapFile) throws Exception {
+<span class="fc" id="L235">        render(new DefaultRenderingConfig(sitemapFile, SITEMAP_TEMPLATE_NAME));</span>
+<span class="fc" id="L236">    }</span>
+
+    /**
+     * Render an XML feed file using the supplied content.
+     *
+     * @param feedFile The name of the output file
+     * @throws Exception if default rendering configuration is not loaded correctly
+     */
+    public void renderFeed(String feedFile) throws Exception {
+<span class="fc" id="L245">        render(new DefaultRenderingConfig(feedFile, FEED_TEMPLATE_NAME));</span>
+<span class="fc" id="L246">    }</span>
+
+    /**
+     * Render an archive file using the supplied content.
+     *
+     * @param archiveFile The name of the output file
+     * @throws Exception if default rendering configuration is not loaded correctly
+     */
+    public void renderArchive(String archiveFile) throws Exception {
+<span class="fc" id="L255">        render(new DefaultRenderingConfig(archiveFile, ARCHIVE_TEMPLATE_NAME));</span>
+<span class="fc" id="L256">    }</span>
+
+    /**
+     * Render tag files using the supplied content.
+     *
+     * @param tagPath The output path
+     * @return Number of rendered tags
+     * @throws Exception if cannot render tags correctly
+     */
+    public int renderTags(String tagPath) throws Exception {
+<span class="fc" id="L266">        int renderedCount = 0;</span>
+<span class="fc" id="L267">        final List&lt;Throwable&gt; errors = new LinkedList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L269" title="All 2 branches covered.">        for (String tag : db.getAllTags()) {</span>
+            try {
+<span class="fc" id="L271">                Map&lt;String, Object&gt; model = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L272">                model.put(&quot;renderer&quot;, renderingEngine);</span>
+<span class="fc" id="L273">                model.put(Attributes.TAG, tag);</span>
+<span class="fc" id="L274">                Map&lt;String, Object&gt; map = buildSimpleModel(Attributes.TAG);</span>
+<span class="fc" id="L275">                model.put(&quot;content&quot;, map);</span>
+
+<span class="fc" id="L277">                File path = new File(config.getDestinationFolder() + File.separator + tagPath + File.separator + tag + config.getOutputExtension());</span>
+<span class="fc" id="L278">                map.put(Attributes.ROOTPATH, FileUtil.getUriPathToDestinationRoot(config, path));</span>
+                
+<span class="fc" id="L280">                render(new ModelRenderingConfig(path, Attributes.TAG, model, findTemplateName(Attributes.TAG)));</span>
+
+<span class="fc" id="L282">                renderedCount++;</span>
+<span class="nc" id="L283">            } catch (Exception e) {</span>
+<span class="nc" id="L284">                errors.add(e);</span>
+<span class="fc" id="L285">            }</span>
+<span class="fc" id="L286">        }</span>
+
+<span class="pc bpc" id="L288" title="1 of 2 branches missed.">        if (config.getRenderTagsIndex()) {</span>
+            try {
+                // Add an index file at root folder of tags.
+                // This will prevent directory listing and also provide an option to
+                // display all tags page.
+<span class="fc" id="L293">                Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L294">                model.put(&quot;renderer&quot;, renderingEngine);</span>
+<span class="fc" id="L295">                Map&lt;String, Object&gt; map = buildSimpleModel(Attributes.TAGS);</span>
+<span class="fc" id="L296">                model.put(&quot;content&quot;, map);</span>
+
+<span class="fc" id="L298">                File path = new File(config.getDestinationFolder() + File.separator + tagPath + File.separator + &quot;index&quot; + config.getOutputExtension());</span>
+<span class="fc" id="L299">                map.put(Attributes.ROOTPATH, FileUtil.getUriPathToDestinationRoot(config, path));</span>
+<span class="fc" id="L300">                render(new ModelRenderingConfig(path, &quot;tagindex&quot;, model, findTemplateName(&quot;tagsindex&quot;)));</span>
+<span class="fc" id="L301">                renderedCount++;</span>
+<span class="nc" id="L302">            } catch (Exception e) {</span>
+<span class="nc" id="L303">                errors.add(e);</span>
+<span class="fc" id="L304">            }</span>
+        }
+
+<span class="pc bpc" id="L307" title="1 of 2 branches missed.">        if (!errors.isEmpty()) {</span>
+<span class="nc" id="L308">            StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L309">            sb.append(&quot;Failed to render tags. Cause(s):&quot;);</span>
+<span class="nc bnc" id="L310" title="All 2 branches missed.">            for (Throwable error : errors) {</span>
+<span class="nc" id="L311">                sb.append(&quot;\n&quot;).append(error.getMessage());</span>
+<span class="nc" id="L312">            }</span>
+<span class="nc" id="L313">            throw new Exception(sb.toString(), errors.get(0));</span>
+        } else {
+<span class="fc" id="L315">            return renderedCount;</span>
+        }
+    }
+
+    /**
+     * Builds simple map of values, which are exposed when rendering index/archive/sitemap/feed/tags.
+     *
+     * @param type
+     * @return
+     */
+    private Map&lt;String, Object&gt; buildSimpleModel(String type) {
+<span class="fc" id="L326">        Map&lt;String, Object&gt; content = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L327">        content.put(Attributes.TYPE, type);</span>
+<span class="fc" id="L328">        content.put(Attributes.ROOTPATH, &quot;&quot;);</span>
+        // add any more keys here that need to have a default value to prevent need to perform null check in templates
+<span class="fc" id="L330">        return content;</span>
+    }
+
+    private interface RenderingConfig {
+
+        File getPath();
+
+        String getName();
+
+        String getTemplate();
+
+        Map&lt;String, Object&gt; getModel();
+    }
+
+    private static abstract class AbstractRenderingConfig implements RenderingConfig {
+
+        protected final File path;
+        protected final String name;
+        protected final String template;
+
+        public AbstractRenderingConfig(File path, String name, String template) {
+<span class="fc" id="L351">            super();</span>
+<span class="fc" id="L352">            this.path = path;</span>
+<span class="fc" id="L353">            this.name = name;</span>
+<span class="fc" id="L354">            this.template = template;</span>
+<span class="fc" id="L355">        }</span>
+
+        @Override
+        public File getPath() {
+<span class="fc" id="L359">            return path;</span>
+        }
+
+        @Override
+        public String getName() {
+<span class="fc" id="L364">            return name;</span>
+        }
+
+        @Override
+        public String getTemplate() {
+<span class="fc" id="L369">            return template;</span>
+        }
+
+    }
+
+    public class ModelRenderingConfig extends AbstractRenderingConfig {
+        private final Map&lt;String, Object&gt; model;
+
+<span class="fc" id="L377">        public ModelRenderingConfig(String fileName, Map&lt;String, Object&gt; model, String templateType) {</span>
+<span class="fc" id="L378">            super(new File(config.getDestinationFolder(), fileName), fileName, findTemplateName(templateType));</span>
+<span class="fc" id="L379">            this.model = model;</span>
+<span class="fc" id="L380">        }</span>
+
+<span class="fc" id="L382">        public ModelRenderingConfig(File path, String name, Map&lt;String, Object&gt; model, String template) {</span>
+<span class="fc" id="L383">            super(path, name, template);</span>
+<span class="fc" id="L384">            this.model = model;</span>
+<span class="fc" id="L385">        }</span>
+
+        @Override
+        public Map&lt;String, Object&gt; getModel() {
+<span class="fc" id="L389">            return model;</span>
+        }
+    }
+
+    class DefaultRenderingConfig extends AbstractRenderingConfig {
+
+        private final Object content;
+
+<span class="nc" id="L397">        private DefaultRenderingConfig(File path, String allInOneName) {</span>
+<span class="nc" id="L398">            super(path, allInOneName, findTemplateName(allInOneName));</span>
+<span class="nc" id="L399">            this.content = buildSimpleModel(allInOneName);</span>
+<span class="nc" id="L400">        }</span>
+
+<span class="fc" id="L402">        public DefaultRenderingConfig(String filename, String allInOneName) {</span>
+<span class="fc" id="L403">            super(new File(config.getDestinationFolder(), File.separator + filename), allInOneName, findTemplateName(allInOneName));</span>
+<span class="fc" id="L404">            this.content = buildSimpleModel(allInOneName);</span>
+<span class="fc" id="L405">        }</span>
+
+        /**
+         * Constructor added due to known use of a allInOneName which is used for name, template and content
+         *
+         * @param allInOneName
+         */
+        public DefaultRenderingConfig(String allInOneName) {
+<span class="nc" id="L413">            this(new File(config.getDestinationFolder().getPath() + File.separator + allInOneName + config.getOutputExtension()),</span>
+                    allInOneName);
+<span class="nc" id="L415">        }</span>
+
+        @Override
+        public Map&lt;String, Object&gt; getModel() {
+<span class="fc" id="L419">            Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L420">            model.put(&quot;renderer&quot;, renderingEngine);</span>
+<span class="fc" id="L421">            model.put(&quot;content&quot;, content);</span>
+
+<span class="fc bfc" id="L423" title="All 2 branches covered.">            if (config.getPaginateIndex()) {</span>
+<span class="fc" id="L424">                model.put(&quot;numberOfPages&quot;, 0);</span>
+<span class="fc" id="L425">                model.put(&quot;currentPageNumber&quot;, 0);</span>
+<span class="fc" id="L426">                model.put(&quot;previousFileName&quot;, &quot;&quot;);</span>
+<span class="fc" id="L427">                model.put(&quot;nextFileName&quot;, &quot;&quot;);</span>
+            }
+
+<span class="fc" id="L430">            return model;</span>
+        }
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

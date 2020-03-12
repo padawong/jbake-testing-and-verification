@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Oven.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.app</a> &gt; <span class="el_source">Oven.java</span></div><h1>Oven.java</h1><pre class="source lang-java linenums">package org.jbake.app;
+
+import org.apache.commons.configuration.CompositeConfiguration;
+import org.jbake.app.configuration.DefaultJBakeConfiguration;
+import org.jbake.app.configuration.JBakeConfiguration;
+import org.jbake.app.configuration.JBakeConfigurationFactory;
+import org.jbake.app.configuration.JBakeConfigurationInspector;
+import org.jbake.model.DocumentTypes;
+import org.jbake.render.RenderingTool;
+import org.jbake.template.ModelExtractors;
+import org.jbake.template.ModelExtractorsDocumentTypeListener;
+import org.jbake.template.RenderingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ServiceLoader;
+
+/**
+ * All the baking happens in the Oven!
+ *
+ * @author Jonathan Bullock &lt;a href=&quot;mailto:jonbullock@gmail.com&quot;&gt;jonbullock@gmail.com&lt;/a&gt;
+ */
+public class Oven {
+
+<span class="fc" id="L30">    private static final Logger LOGGER = LoggerFactory.getLogger(Oven.class);</span>
+
+    private Utensils utensils;
+<span class="fc" id="L33">    private List&lt;Throwable&gt; errors = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L34">    private int renderedCount = 0;</span>
+
+    /**
+     * @param source       Project source directory
+     * @param destination  The destination folder
+     * @param isClearCache Should the cache be cleaned
+     * @throws Exception if configuration is not loaded correctly
+     * @deprecated Use {@link #Oven(JBakeConfiguration)} instead
+     * Delegate c'tor to prevent API break for the moment.
+     */
+    @Deprecated
+    public Oven(final File source, final File destination, final boolean isClearCache) throws Exception {
+<span class="nc" id="L46">        this(new JBakeConfigurationFactory().createDefaultJbakeConfiguration(source, destination, isClearCache));</span>
+<span class="nc" id="L47">    }</span>
+
+    /**
+     * @param source       Project source directory
+     * @param destination  The destination folder
+     * @param config       Project configuration
+     * @param isClearCache Should the cache be cleaned
+     * @throws Exception if configuration is not loaded correctly
+     * @deprecated Use {@link #Oven(JBakeConfiguration)} instead
+     * Creates a new instance of the Oven with references to the source and destination folders.
+     */
+    @Deprecated
+    public Oven(final File source, final File destination, final CompositeConfiguration config, final boolean isClearCache) throws Exception {
+<span class="nc" id="L60">        this(new JBakeConfigurationFactory().createDefaultJbakeConfiguration(source, destination, config, isClearCache));</span>
+<span class="nc" id="L61">    }</span>
+
+    /**
+     * Create an Oven instance by a {@link JBakeConfiguration}
+     * &lt;p&gt;
+     * It creates default {@link Utensils} needed to bake sites.
+     *
+     * @param config The project configuration. see {@link JBakeConfiguration}
+     */
+<span class="fc" id="L70">    public Oven(JBakeConfiguration config) {</span>
+<span class="fc" id="L71">        this.utensils = UtensilsFactory.createDefaultUtensils(config);</span>
+<span class="fc" id="L72">    }</span>
+
+    /**
+     * Create an Oven instance with given {@link Utensils}
+     *
+     * @param utensils All Utensils necessary to bake
+     */
+<span class="fc" id="L79">    public Oven(Utensils utensils) {</span>
+<span class="fc" id="L80">        checkConfiguration(utensils.getConfiguration());</span>
+<span class="fc" id="L81">        this.utensils = utensils;</span>
+<span class="fc" id="L82">    }</span>
+
+    @Deprecated
+    public CompositeConfiguration getConfig() {
+<span class="nc" id="L86">        return ((DefaultJBakeConfiguration) utensils.getConfiguration()).getCompositeConfiguration();</span>
+    }
+
+    // TODO: do we want to use this. Else, config could be final
+    @Deprecated
+    public void setConfig(final CompositeConfiguration config) {
+<span class="nc" id="L92">        ((DefaultJBakeConfiguration) utensils.getConfiguration()).setCompositeConfiguration(config);</span>
+<span class="nc" id="L93">    }</span>
+
+    /**
+     * Checks source path contains required sub-folders (i.e. templates) and setups up variables for them.
+     *
+     * @deprecated There is no need for this method anymore. Validation is now part of the instantiation.
+     * Can be removed with 3.0.0.
+     */
+    @Deprecated
+    public void setupPaths() {
+        /* nothing to do here */
+<span class="nc" id="L104">    }</span>
+
+    /**
+     * Checks source path contains required sub-folders (i.e. templates) and setups up variables for them.
+     * Creates destination folder if it does not exist.
+     *
+     * @throws JBakeException If template or contents folder don't exist
+     */
+    private void checkConfiguration(JBakeConfiguration configuration) {
+<span class="fc" id="L113">        JBakeConfigurationInspector inspector = new JBakeConfigurationInspector(configuration);</span>
+<span class="fc" id="L114">        inspector.inspect();</span>
+<span class="fc" id="L115">    }</span>
+
+    /**
+     * Responsible for incremental baking, typically a single file at a time.
+     *
+     * @param fileToBake The file to bake
+     */
+    public void bake(File fileToBake) {
+<span class="nc" id="L123">        Asset asset = utensils.getAsset();</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        if(asset.isAssetFile(fileToBake)) {</span>
+<span class="nc" id="L125">            LOGGER.info(&quot;Baking a change to an asset [&quot; + fileToBake.getPath() + &quot;]&quot;);</span>
+<span class="nc" id="L126">            asset.copySingleFile(fileToBake);</span>
+        } else {
+<span class="nc" id="L128">            LOGGER.info(&quot;Playing it safe and running a full bake...&quot;);</span>
+<span class="nc" id="L129">            bake();</span>
+        }
+<span class="nc" id="L131">    }</span>
+
+    /**
+     * All the good stuff happens in here...
+     */
+    public void bake() {
+
+<span class="fc" id="L138">        ContentStore contentStore = utensils.getContentStore();</span>
+<span class="fc" id="L139">        JBakeConfiguration config = utensils.getConfiguration();</span>
+<span class="fc" id="L140">        Crawler crawler = utensils.getCrawler();</span>
+<span class="fc" id="L141">        Asset asset = utensils.getAsset();</span>
+
+        try {
+
+<span class="fc" id="L145">            final long start = new Date().getTime();</span>
+<span class="fc" id="L146">            LOGGER.info(&quot;Baking has started...&quot;);</span>
+<span class="fc" id="L147">            contentStore.startup();</span>
+<span class="fc" id="L148">            updateDocTypesFromConfiguration();</span>
+<span class="fc" id="L149">            contentStore.updateSchema();</span>
+<span class="fc" id="L150">            contentStore.updateAndClearCacheIfNeeded(config.getClearCache(), config.getTemplateFolder());</span>
+
+            // process source content
+<span class="fc" id="L153">            crawler.crawl();</span>
+
+            // render content
+<span class="fc" id="L156">            renderContent();</span>
+
+            // copy assets
+<span class="fc" id="L159">            asset.copy();</span>
+<span class="fc" id="L160">            asset.copyAssetsFromContent(config.getContentFolder());</span>
+
+<span class="fc" id="L162">            errors.addAll(asset.getErrors());</span>
+
+<span class="fc" id="L164">            LOGGER.info(&quot;Baking finished!&quot;);</span>
+<span class="fc" id="L165">            long end = new Date().getTime();</span>
+<span class="fc" id="L166">            LOGGER.info(&quot;Baked {} items in {}ms&quot;, renderedCount, end - start);</span>
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">            if (!errors.isEmpty()) {</span>
+<span class="nc" id="L168">                LOGGER.error(&quot;Failed to bake {} item(s)!&quot;, errors.size());</span>
+            }
+        } finally {
+<span class="fc" id="L171">            contentStore.close();</span>
+<span class="fc" id="L172">            contentStore.shutdown();</span>
+        }
+<span class="fc" id="L174">    }</span>
+
+    /**
+     * Iterates over the configuration, searching for keys like &quot;template.index.file=...&quot;
+     * in order to register new document types.
+     */
+    private void updateDocTypesFromConfiguration() {
+<span class="fc" id="L181">        resetDocumentTypesAndExtractors();</span>
+<span class="fc" id="L182">        JBakeConfiguration config = utensils.getConfiguration();</span>
+
+<span class="fc" id="L184">        ModelExtractorsDocumentTypeListener listener = new ModelExtractorsDocumentTypeListener();</span>
+<span class="fc" id="L185">        DocumentTypes.addListener(listener);</span>
+
+<span class="fc bfc" id="L187" title="All 2 branches covered.">        for (String docType : config.getDocumentTypes()) {</span>
+<span class="fc" id="L188">            DocumentTypes.addDocumentType(docType);</span>
+<span class="fc" id="L189">        }</span>
+<span class="fc" id="L190">    }</span>
+
+    private void resetDocumentTypesAndExtractors() {
+<span class="fc" id="L193">        DocumentTypes.resetDocumentTypes();</span>
+<span class="fc" id="L194">        ModelExtractors.getInstance().reset();</span>
+<span class="fc" id="L195">    }</span>
+
+    /**
+     * Load {@link RenderingTool} instances and delegate rendering of documents to them
+     */
+    private void renderContent() {
+<span class="fc" id="L201">        JBakeConfiguration config = utensils.getConfiguration();</span>
+<span class="fc" id="L202">        Renderer renderer = utensils.getRenderer();</span>
+<span class="fc" id="L203">        ContentStore contentStore = utensils.getContentStore();</span>
+
+<span class="fc bfc" id="L205" title="All 2 branches covered.">        for (RenderingTool tool : ServiceLoader.load(RenderingTool.class)) {</span>
+            try {
+<span class="fc" id="L207">                renderedCount += tool.render(renderer, contentStore, config);</span>
+<span class="nc" id="L208">            } catch (RenderingException e) {</span>
+<span class="nc" id="L209">                errors.add(e);</span>
+<span class="fc" id="L210">            }</span>
+<span class="fc" id="L211">        }</span>
+<span class="fc" id="L212">    }</span>
+
+    public List&lt;Throwable&gt; getErrors() {
+<span class="fc" id="L215">        return new ArrayList&lt;&gt;(errors);</span>
+    }
+
+    public Utensils getUtensils() {
+<span class="fc" id="L219">        return utensils;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

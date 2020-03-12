@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DocumentTypeUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-core</a> &gt; <a href="index.source.html" class="el_package">org.jbake.model</a> &gt; <span class="el_source">DocumentTypeUtils.java</span></div><h1>DocumentTypeUtils.java</h1><pre class="source lang-java linenums">package org.jbake.model;
+
+public class DocumentTypeUtils {
+
+    private DocumentTypeUtils() {}
+
+    public static String unpluralize(String pluralized) {
+
+<span class="pc bpc" id="L9" title="2 of 4 branches missed.">        if ((pluralized == null) || (pluralized.length() == 0)) {</span>
+<span class="nc" id="L10">            throw new IllegalArgumentException(&quot;pluralized string should not be null or length should be bigger than zero&quot;);</span>
+        }
+<span class="fc" id="L12">        String[] documentTypes = DocumentTypes.getDocumentTypes();</span>
+
+<span class="fc" id="L14">        String unpluralizedDoctype = pluralized.substring(0, pluralized.length() - 1);</span>
+<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        if (DocumentTypes.contains(unpluralizedDoctype)) {</span>
+<span class="fc" id="L16">            return unpluralizedDoctype;</span>
+        }
+<span class="nc" id="L18">        throw new UnsupportedOperationException(&quot;there is no document type pluralized as \&quot;&quot; + pluralized + &quot;\&quot;\n&quot;</span>
+                + &quot;We only have &quot; + documentTypes);
+    }
+
+    public static String pluralize(String documentType) {
+<span class="fc" id="L23">        String[] documentTypes = DocumentTypes.getDocumentTypes();</span>
+
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (DocumentTypes.contains(documentType)) {</span>
+<span class="fc" id="L26">            return documentType + &quot;s&quot;;</span>
+        }
+<span class="fc" id="L28">        throw new UnsupportedOperationException(&quot;there is no document type \&quot;&quot; + documentType + &quot;\&quot; we can pluralize\n&quot;</span>
+                + &quot;We only have &quot; + documentTypes);
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

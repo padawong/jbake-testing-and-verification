@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DocumentTypes.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.model</a> &gt; <span class="el_source">DocumentTypes.java</span></div><h1>DocumentTypes.java</h1><pre class="source lang-java linenums">package org.jbake.model;
+
+import org.jbake.parser.Engines;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+/**
+ * &lt;p&gt;Utility class used to determine the list of document types. Currently only supports &quot;page&quot;, &quot;post&quot;, &quot;index&quot;,
+ * &quot;archive&quot; and &quot;feed&quot;.&lt;/p&gt;
+ * &lt;p&gt;Additional document types are added at runtime based on the types found in the configuration.&lt;/p&gt;
+ *
+ * @author Cédric Champeau
+ */
+public class DocumentTypes {
+
+<span class="fc" id="L19">    private static final Set&lt;String&gt; DEFAULT_DOC_TYPES = new LinkedHashSet&lt;&gt;();</span>
+<span class="fc" id="L20">    private static final Set&lt;DocumentTypeListener&gt; LISTENERS = new HashSet&lt;&gt;();</span>
+
+    static {
+<span class="fc" id="L23">        resetDocumentTypes();</span>
+<span class="fc" id="L24">    }</span>
+
+    private DocumentTypes() {}
+
+    public static void resetDocumentTypes() {
+<span class="fc" id="L29">        DEFAULT_DOC_TYPES.clear();</span>
+<span class="fc" id="L30">        DEFAULT_DOC_TYPES.addAll(Arrays.asList(&quot;page&quot;, &quot;post&quot;, &quot;masterindex&quot;, &quot;archive&quot;, &quot;feed&quot;));</span>
+<span class="fc" id="L31">    }</span>
+
+
+    public static void addDocumentType(String docType) {
+<span class="fc" id="L35">        DEFAULT_DOC_TYPES.add(docType);</span>
+<span class="fc" id="L36">        notifyListener(docType);</span>
+<span class="fc" id="L37">    }</span>
+
+    private static void notifyListener(String docType) {
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        for ( DocumentTypeListener listener : LISTENERS) {</span>
+<span class="fc" id="L41">            listener.added(docType);</span>
+<span class="fc" id="L42">        }</span>
+<span class="fc" id="L43">    }</span>
+
+    public static void addListener( DocumentTypeListener listener ) {
+<span class="fc" id="L46">        LISTENERS.add(listener);</span>
+<span class="fc" id="L47">    }</span>
+
+    /**
+     * Notice additional document types are added automagically before returning them
+     * @return all supported document types
+     */
+    public static String[] getDocumentTypes() {
+        // TODO: is this needed?
+        // make sure engines are loaded before to get document types
+<span class="fc" id="L56">        Engines.getRecognizedExtensions();</span>
+<span class="fc" id="L57">        return DEFAULT_DOC_TYPES.toArray(new String[DEFAULT_DOC_TYPES.size()]);</span>
+    }
+
+    public static boolean contains(String documentType) {
+<span class="fc" id="L61">        return DEFAULT_DOC_TYPES.contains(documentType);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

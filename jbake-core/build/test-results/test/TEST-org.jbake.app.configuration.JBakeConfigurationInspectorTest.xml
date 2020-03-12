@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jbake.app.configuration.JBakeConfigurationInspectorTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2020-03-11T02:06:45" hostname="bolt.cs.ucr.edu" time="0.089">
+  <properties/>
+  <testcase name="shouldThrowExceptionIfContentFolderDoesNotExist()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.071"/>
+  <testcase name="shouldLogWarningIfAssetFolderDoesNotExist()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.004"/>
+  <testcase name="shouldThrowExceptionIfSourceFolderDoesNotExist()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.002"/>
+  <testcase name="shouldThrowExceptionIfTemplateFolderDoesNotExist()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.002"/>
+  <testcase name="shouldThrowExceptionIfDestinationFolderNotWritable()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.003"/>
+  <testcase name="shouldCreateDestinationFolderIfNotExists()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.003"/>
+  <testcase name="shouldThrowExceptionIfSourceFolderIsNotReadable()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.003"/>
+  <system-out><![CDATA[19:06:45.777 WARN  o.j.a.c.JBakeConfigurationInspector - No asset folder '/tmp/junit1256173365306718406/assets' was found!
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

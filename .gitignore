@@ -9,6 +9,5 @@
 *~
 *.ipr
 *.iws
-build/
 .gradle
 .gradletasknamecache

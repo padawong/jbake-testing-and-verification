@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PagingHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-core</a> &gt; <a href="index.source.html" class="el_package">org.jbake.util</a> &gt; <span class="el_source">PagingHelper.java</span></div><h1>PagingHelper.java</h1><pre class="source lang-java linenums">package org.jbake.util;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+public class PagingHelper {
+    private static final String URI_SEPARATOR = &quot;/&quot;;
+    private long totalDocuments;
+    private int postsPerPage;
+
+<span class="fc" id="L11">    public PagingHelper(long totalDocuments, int postsPerPage) {</span>
+<span class="fc" id="L12">        this.totalDocuments = totalDocuments;</span>
+<span class="fc" id="L13">        this.postsPerPage = postsPerPage;</span>
+<span class="fc" id="L14">    }</span>
+
+    public int getNumberOfPages() {
+<span class="fc" id="L17">        return (int) Math.ceil((totalDocuments * 1.0) / (postsPerPage * 1.0));</span>
+    }
+
+    public String getNextFileName(int currentPageNumber) throws URISyntaxException {
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        if (currentPageNumber &lt; getNumberOfPages()) {</span>
+<span class="fc" id="L22">            return new URI((currentPageNumber + 1) + URI_SEPARATOR).toString();</span>
+        } else {
+<span class="fc" id="L24">            return null;</span>
+        }
+    }
+
+    public String getPreviousFileName(int currentPageNumber) throws URISyntaxException {
+
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (isFirstPage(currentPageNumber)) {</span>
+<span class="fc" id="L31">            return null;</span>
+        } else {
+<span class="fc bfc" id="L33" title="All 2 branches covered.">            if ( currentPageNumber == 2 ) {</span>
+                // Returning to first page, return empty string which when prefixed with content.rootpath should get to root of the site.
+<span class="fc" id="L35">                return &quot;&quot;;</span>
+            }
+            else {
+<span class="fc" id="L38">                return new URI((currentPageNumber - 1) + URI_SEPARATOR).toString();</span>
+            }
+        }
+    }
+
+    private boolean isFirstPage(int page) {
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        return page == 1;</span>
+    }
+
+    public String getCurrentFileName(int page, String fileName) throws URISyntaxException {
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if ( isFirstPage(page) ) {</span>
+<span class="fc" id="L49">            return fileName;</span>
+        }
+        else {
+<span class="fc" id="L52">            return new URI(page + URI_SEPARATOR + fileName).toString();</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

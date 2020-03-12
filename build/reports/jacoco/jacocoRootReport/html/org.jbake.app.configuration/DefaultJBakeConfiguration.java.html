@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultJBakeConfiguration.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.app.configuration</a> &gt; <span class="el_source">DefaultJBakeConfiguration.java</span></div><h1>DefaultJBakeConfiguration.java</h1><pre class="source lang-java linenums">package org.jbake.app.configuration;
+
+import org.apache.commons.configuration.CompositeConfiguration;
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * The default implementation of a {@link JBakeConfiguration}
+ */
+public class DefaultJBakeConfiguration implements JBakeConfiguration {
+
+
+    private static final String SOURCE_FOLDER_KEY = &quot;sourceFolder&quot;;
+    private static final String DESTINATION_FOLDER_KEY = &quot;destinationFolder&quot;;
+    private static final String ASSET_FOLDER_KEY = &quot;assetFolder&quot;;
+    private static final String TEMPLATE_FOLDER_KEY = &quot;templateFolder&quot;;
+    private static final String CONTENT_FOLDER_KEY = &quot;contentFolder&quot;;
+<span class="fc" id="L28">    private static final Pattern TEMPLATE_DOC_PATTERN = Pattern.compile(&quot;(?:template\\.)([a-zA-Z0-9-_]+)(?:\\.file)&quot;);</span>
+    private static final String DOCTYPE_FILE_POSTFIX = &quot;.file&quot;;
+    private static final String DOCTYPE_EXTENSION_POSTFIX = &quot;.extension&quot;;
+    private static final String DOCTYPE_TEMPLATE_PREFIX = &quot;template.&quot;;
+<span class="pc" id="L32">    private Logger logger = LoggerFactory.getLogger(DefaultJBakeConfiguration.class);</span>
+    private CompositeConfiguration compositeConfiguration;
+
+    /**
+     * Some deprecated implementations just need access to the configuration without access to the source folder
+     *
+     * @param configuration The project configuration
+     * @deprecated use {@link #DefaultJBakeConfiguration(File, CompositeConfiguration)} instead
+     */
+    @Deprecated
+<span class="nc" id="L42">    public DefaultJBakeConfiguration(CompositeConfiguration configuration) {</span>
+<span class="nc" id="L43">        this.compositeConfiguration = configuration;</span>
+<span class="nc" id="L44">    }</span>
+
+<span class="fc" id="L46">    public DefaultJBakeConfiguration(File sourceFolder, CompositeConfiguration configuration) {</span>
+<span class="fc" id="L47">        this.compositeConfiguration = configuration;</span>
+<span class="fc" id="L48">        setSourceFolder(sourceFolder);</span>
+<span class="fc" id="L49">        setupDefaultDestination();</span>
+<span class="fc" id="L50">        setupPathsRelativeToSourceFile();</span>
+<span class="fc" id="L51">    }</span>
+
+    @Override
+    public Object get(String key) {
+<span class="fc" id="L55">        return compositeConfiguration.getProperty(key);</span>
+    }
+
+    @Override
+    public String getArchiveFileName() {
+<span class="fc" id="L60">        return getAsString(JBakeProperty.ARCHIVE_FILE);</span>
+    }
+
+    private boolean getAsBoolean(String key) {
+<span class="fc" id="L64">        return compositeConfiguration.getBoolean(key, false);</span>
+    }
+
+    private File getAsFolder(String key) {
+<span class="fc" id="L68">        return (File) get(key);</span>
+    }
+
+    private int getAsInt(String key, int defaultValue) {
+<span class="fc" id="L72">        return compositeConfiguration.getInt(key, defaultValue);</span>
+    }
+
+    private List&lt;String&gt; getAsList(String key) {
+<span class="fc" id="L76">        return Arrays.asList(compositeConfiguration.getStringArray(key));</span>
+    }
+
+    private String getAsString(String key) {
+<span class="fc" id="L80">        return compositeConfiguration.getString(key);</span>
+    }
+
+    private String getAsString(String key, String defaultValue) {
+<span class="fc" id="L84">        return compositeConfiguration.getString(key, defaultValue);</span>
+    }
+
+    @Override
+    public List&lt;String&gt; getAsciidoctorAttributes() {
+<span class="fc" id="L89">        return getAsList(JBakeProperty.ASCIIDOCTOR_ATTRIBUTES);</span>
+    }
+
+    public Object getAsciidoctorOption(String optionKey) {
+<span class="fc" id="L93">        Configuration subConfig = compositeConfiguration.subset(JBakeProperty.ASCIIDOCTOR_OPTION);</span>
+<span class="fc" id="L94">        Object value = subConfig.getProperty(optionKey);</span>
+
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (value == null) {</span>
+<span class="fc" id="L97">            logger.warn(&quot;Cannot find asciidoctor option '{}.{}'&quot;, JBakeProperty.ASCIIDOCTOR_OPTION, optionKey);</span>
+<span class="fc" id="L98">            return &quot;&quot;;</span>
+        }
+<span class="fc" id="L100">        return value;</span>
+    }
+
+    @Override
+    public List&lt;String&gt; getAsciidoctorOptionKeys() {
+<span class="fc" id="L105">        List&lt;String&gt; options = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L106">        Configuration subConfig = compositeConfiguration.subset(JBakeProperty.ASCIIDOCTOR_OPTION);</span>
+
+<span class="fc" id="L108">        Iterator&lt;String&gt; iterator = subConfig.getKeys();</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        while (iterator.hasNext()) {</span>
+<span class="fc" id="L110">            String key = iterator.next();</span>
+<span class="fc" id="L111">            options.add(key);</span>
+<span class="fc" id="L112">        }</span>
+
+<span class="fc" id="L114">        return options;</span>
+    }
+
+    @Override
+    public File getAssetFolder() {
+<span class="fc" id="L119">        return getAsFolder(ASSET_FOLDER_KEY);</span>
+    }
+
+    public void setAssetFolder(File assetFolder) {
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        if (assetFolder != null) {</span>
+<span class="fc" id="L124">            setProperty(ASSET_FOLDER_KEY, assetFolder);</span>
+<span class="fc" id="L125">            setProperty(JBakeProperty.ASSET_FOLDER, assetFolder.getName());</span>
+        }
+<span class="fc" id="L127">    }</span>
+
+    @Override
+    public String getAssetFolderName() {
+<span class="fc" id="L131">        return getAsString(JBakeProperty.ASSET_FOLDER);</span>
+    }
+
+    @Override
+    public boolean getAssetIgnoreHidden() {
+<span class="fc" id="L136">        return getAsBoolean(JBakeProperty.ASSET_IGNORE_HIDDEN);</span>
+    }
+
+    public void setAssetIgnoreHidden(boolean assetIgnoreHidden) {
+<span class="fc" id="L140">        setProperty(JBakeProperty.ASSET_IGNORE_HIDDEN, assetIgnoreHidden);</span>
+<span class="fc" id="L141">    }</span>
+
+    @Override
+    public String getAttributesExportPrefixForAsciidoctor() {
+<span class="fc" id="L145">        return getAsString(JBakeProperty.ASCIIDOCTOR_ATTRIBUTES_EXPORT_PREFIX, &quot;&quot;);</span>
+    }
+
+    @Override
+    public String getBuildTimeStamp() {
+<span class="fc" id="L150">        return getAsString(JBakeProperty.BUILD_TIMESTAMP);</span>
+    }
+
+    @Override
+    public boolean getClearCache() {
+<span class="fc" id="L155">        return getAsBoolean(JBakeProperty.CLEAR_CACHE);</span>
+    }
+
+    public void setClearCache(boolean clearCache) {
+<span class="fc" id="L159">        setProperty(JBakeProperty.CLEAR_CACHE, clearCache);</span>
+<span class="fc" id="L160">    }</span>
+
+    public CompositeConfiguration getCompositeConfiguration() {
+<span class="nc" id="L163">        return compositeConfiguration;</span>
+    }
+
+    public void setCompositeConfiguration(CompositeConfiguration configuration) {
+<span class="nc" id="L167">        this.compositeConfiguration = configuration;</span>
+<span class="nc" id="L168">    }</span>
+
+    @Override
+    public File getContentFolder() {
+<span class="fc" id="L172">        return getAsFolder(CONTENT_FOLDER_KEY);</span>
+    }
+
+    public void setContentFolder(File contentFolder) {
+<span class="fc bfc" id="L176" title="All 2 branches covered.">        if (contentFolder != null) {</span>
+<span class="fc" id="L177">            setProperty(CONTENT_FOLDER_KEY, contentFolder);</span>
+<span class="fc" id="L178">            setProperty(JBakeProperty.CONTENT_FOLDER, contentFolder.getName());</span>
+        }
+<span class="fc" id="L180">    }</span>
+
+    @Override
+    public String getContentFolderName() {
+<span class="fc" id="L184">        return getAsString(JBakeProperty.CONTENT_FOLDER);</span>
+    }
+
+    @Override
+    public String getDatabasePath() {
+<span class="fc" id="L189">        return getAsString(JBakeProperty.DB_PATH);</span>
+    }
+
+    public void setDatabasePath(String path) {
+<span class="fc" id="L193">        setProperty(JBakeProperty.DB_PATH, path);</span>
+<span class="fc" id="L194">    }</span>
+
+    @Override
+    public String getDatabaseStore() {
+<span class="fc" id="L198">        return getAsString(JBakeProperty.DB_STORE);</span>
+    }
+
+    public void setDatabaseStore(String storeType) {
+<span class="fc" id="L202">        setProperty(JBakeProperty.DB_STORE, storeType);</span>
+<span class="fc" id="L203">    }</span>
+
+    @Override
+    public String getDateFormat() {
+<span class="fc" id="L207">        return getAsString(JBakeProperty.DATE_FORMAT);</span>
+    }
+
+    @Override
+    public String getDefaultStatus() {
+<span class="fc" id="L212">        return getAsString(JBakeProperty.DEFAULT_STATUS, &quot;&quot;);</span>
+    }
+
+    public void setDefaultStatus(String status) {
+<span class="fc" id="L216">        setProperty(JBakeProperty.DEFAULT_STATUS, status);</span>
+<span class="fc" id="L217">    }</span>
+
+    @Override
+    public String getDefaultType() {
+<span class="fc" id="L221">        return getAsString(JBakeProperty.DEFAULT_TYPE, &quot;&quot;);</span>
+    }
+
+    public void setDefaultType(String type) {
+<span class="fc" id="L225">        setProperty(JBakeProperty.DEFAULT_TYPE, type);</span>
+<span class="fc" id="L226">    }</span>
+
+    @Override
+    public File getDestinationFolder() {
+<span class="fc" id="L230">        return getAsFolder(DESTINATION_FOLDER_KEY);</span>
+    }
+
+    public void setDestinationFolder(File destinationFolder) {
+<span class="fc bfc" id="L234" title="All 2 branches covered.">        if (destinationFolder != null) {</span>
+<span class="fc" id="L235">            setProperty(DESTINATION_FOLDER_KEY, destinationFolder);</span>
+<span class="fc" id="L236">            setProperty(JBakeProperty.DESTINATION_FOLDER, destinationFolder.getName());</span>
+        }
+<span class="fc" id="L238">    }</span>
+
+    @Override
+    public List&lt;String&gt; getDocumentTypes() {
+<span class="fc" id="L242">        List&lt;String&gt; docTypes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L243">        Iterator&lt;String&gt; keyIterator = compositeConfiguration.getKeys();</span>
+<span class="fc bfc" id="L244" title="All 2 branches covered.">        while (keyIterator.hasNext()) {</span>
+<span class="fc" id="L245">            String key = keyIterator.next();</span>
+<span class="fc" id="L246">            Matcher matcher = TEMPLATE_DOC_PATTERN.matcher(key);</span>
+<span class="fc bfc" id="L247" title="All 2 branches covered.">            if (matcher.find()) {</span>
+<span class="fc" id="L248">                docTypes.add(matcher.group(1));</span>
+            }
+<span class="fc" id="L250">        }</span>
+
+<span class="fc" id="L252">        return docTypes;</span>
+    }
+
+    @Override
+    public String getDraftSuffix() {
+<span class="fc" id="L257">        return getAsString(JBakeProperty.DRAFT_SUFFIX, &quot;&quot;);</span>
+    }
+
+    @Override
+    public String getExampleProjectByType(String templateType) {
+<span class="fc" id="L262">        return getAsString(&quot;example.project.&quot; + templateType);</span>
+    }
+
+    @Override
+    public boolean getExportAsciidoctorAttributes() {
+<span class="fc" id="L267">        return getAsBoolean(JBakeProperty.ASCIIDOCTOR_ATTRIBUTES_EXPORT);</span>
+    }
+
+    @Override
+    public String getFeedFileName() {
+<span class="fc" id="L272">        return getAsString(JBakeProperty.FEED_FILE);</span>
+    }
+
+    @Override
+    public String getIndexFileName() {
+<span class="fc" id="L277">        return getAsString(JBakeProperty.INDEX_FILE);</span>
+    }
+
+    @Override
+    public Iterator&lt;String&gt; getKeys() {
+<span class="fc" id="L282">        return compositeConfiguration.getKeys();</span>
+    }
+
+    @Override
+    public List&lt;String&gt; getMarkdownExtensions() {
+<span class="fc" id="L287">        return getAsList(JBakeProperty.MARKDOWN_EXTENSIONS);</span>
+    }
+
+    public void setMarkdownExtensions(String... extensions) {
+<span class="fc" id="L291">        setProperty(JBakeProperty.MARKDOWN_EXTENSIONS, StringUtils.join(extensions, &quot;,&quot;));</span>
+<span class="fc" id="L292">    }</span>
+
+    @Override
+    public String getOutputExtension() {
+<span class="fc" id="L296">        return getAsString(JBakeProperty.OUTPUT_EXTENSION);</span>
+    }
+
+    public void setOutputExtension(String outputExtension) {
+<span class="fc" id="L300">        setProperty(JBakeProperty.OUTPUT_EXTENSION, outputExtension);</span>
+<span class="fc" id="L301">    }</span>
+
+    @Override
+    public String getOutputExtensionByDocType(String docType) {
+<span class="fc" id="L305">        String templateExtensionKey = DOCTYPE_TEMPLATE_PREFIX + docType + DOCTYPE_EXTENSION_POSTFIX;</span>
+<span class="fc" id="L306">        String defaultOutputExtension = getOutputExtension();</span>
+<span class="fc" id="L307">        return getAsString(templateExtensionKey, defaultOutputExtension);</span>
+    }
+
+    @Override
+    public boolean getPaginateIndex() {
+<span class="fc" id="L312">        return getAsBoolean(JBakeProperty.PAGINATE_INDEX);</span>
+    }
+
+    public void setPaginateIndex(boolean paginateIndex) {
+<span class="fc" id="L316">        setProperty(JBakeProperty.PAGINATE_INDEX, paginateIndex);</span>
+<span class="fc" id="L317">    }</span>
+
+    @Override
+    public int getPostsPerPage() {
+<span class="fc" id="L321">        return getAsInt(JBakeProperty.POSTS_PER_PAGE, 5);</span>
+    }
+
+    public void setPostsPerPage(int postsPerPage) {
+<span class="fc" id="L325">        setProperty(JBakeProperty.POSTS_PER_PAGE, postsPerPage);</span>
+<span class="fc" id="L326">    }</span>
+
+    @Override
+    public String getPrefixForUriWithoutExtension() {
+<span class="fc" id="L330">        return getAsString(JBakeProperty.URI_NO_EXTENSION_PREFIX);</span>
+    }
+
+    public void setPrefixForUriWithoutExtension(String prefix) {
+<span class="fc" id="L334">        setProperty(JBakeProperty.URI_NO_EXTENSION_PREFIX, prefix);</span>
+<span class="fc" id="L335">    }</span>
+
+    @Override
+    public boolean getRenderArchive() {
+<span class="fc" id="L339">        return getAsBoolean(JBakeProperty.RENDER_ARCHIVE);</span>
+    }
+
+    @Override
+    public String getRenderEncoding() {
+<span class="fc" id="L344">        return getAsString(JBakeProperty.RENDER_ENCODING);</span>
+    }
+
+    @Override
+    public boolean getRenderFeed() {
+<span class="fc" id="L349">        return getAsBoolean(JBakeProperty.RENDER_FEED);</span>
+    }
+
+    @Override
+    public boolean getRenderIndex() {
+<span class="fc" id="L354">        return getAsBoolean(JBakeProperty.RENDER_INDEX);</span>
+    }
+
+    @Override
+    public boolean getRenderSiteMap() {
+<span class="fc" id="L359">        return getAsBoolean(JBakeProperty.RENDER_SITEMAP);</span>
+    }
+
+    @Override
+    public boolean getRenderTags() {
+<span class="fc" id="L364">        return getAsBoolean(JBakeProperty.RENDER_TAGS);</span>
+    }
+
+    @Override
+    public boolean getRenderTagsIndex() {
+<span class="fc" id="L369">        return compositeConfiguration.getBoolean(JBakeProperty.RENDER_TAGS_INDEX, false);</span>
+    }
+
+    public void setRenderTagsIndex(boolean enable) {
+<span class="fc" id="L373">        compositeConfiguration.setProperty(JBakeProperty.RENDER_TAGS_INDEX, enable);</span>
+<span class="fc" id="L374">    }</span>
+
+    @Override
+    public boolean getSanitizeTag() {
+<span class="fc" id="L378">        return getAsBoolean(JBakeProperty.TAG_SANITIZE);</span>
+    }
+
+    @Override
+    public int getServerPort() {
+<span class="fc" id="L383">        return getAsInt(JBakeProperty.SERVER_PORT, 8080);</span>
+    }
+
+    public void setServerPort(int port) {
+<span class="fc" id="L387">        setProperty(JBakeProperty.SERVER_PORT, port);</span>
+<span class="fc" id="L388">    }</span>
+
+    @Override
+    public String getSiteHost() {
+<span class="fc" id="L392">        return getAsString(JBakeProperty.SITE_HOST, &quot;http://www.jbake.org&quot;);</span>
+    }
+
+    public void setSiteHost(String siteHost) {
+<span class="fc" id="L396">        setProperty(JBakeProperty.SITE_HOST, siteHost);</span>
+<span class="fc" id="L397">    }</span>
+
+    @Override
+    public String getSiteMapFileName() {
+<span class="nc" id="L401">        return getAsString(JBakeProperty.SITEMAP_FILE);</span>
+    }
+
+    @Override
+    public File getSourceFolder() {
+<span class="fc" id="L406">        return getAsFolder(SOURCE_FOLDER_KEY);</span>
+    }
+
+    public void setSourceFolder(File sourceFolder) {
+<span class="fc" id="L410">        setProperty(SOURCE_FOLDER_KEY, sourceFolder);</span>
+<span class="fc" id="L411">        setupPathsRelativeToSourceFile();</span>
+<span class="fc" id="L412">    }</span>
+
+    @Override
+    public String getTagPathName() {
+<span class="nc" id="L416">        return getAsString(JBakeProperty.TAG_PATH);</span>
+    }
+
+    @Override
+    public String getTemplateEncoding() {
+<span class="fc" id="L421">        return getAsString(JBakeProperty.TEMPLATE_ENCODING);</span>
+    }
+
+    @Override
+    public File getTemplateFileByDocType(String docType) {
+<span class="fc" id="L426">        String templateKey = DOCTYPE_TEMPLATE_PREFIX + docType + DOCTYPE_FILE_POSTFIX;</span>
+<span class="fc" id="L427">        String templateFileName = getAsString(templateKey);</span>
+<span class="fc bfc" id="L428" title="All 2 branches covered.">        if (templateFileName != null) {</span>
+<span class="fc" id="L429">            return new File(getTemplateFolder(), templateFileName);</span>
+        }
+<span class="fc" id="L431">        logger.warn(&quot;Cannot find configuration key '{}' for document type '{}'&quot;, templateKey, docType);</span>
+<span class="fc" id="L432">        return null;</span>
+    }
+
+    @Override
+    public File getTemplateFolder() {
+<span class="fc" id="L437">        return getAsFolder(TEMPLATE_FOLDER_KEY);</span>
+    }
+
+    public void setTemplateFolder(File templateFolder) {
+<span class="fc bfc" id="L441" title="All 2 branches covered.">        if (templateFolder != null) {</span>
+<span class="fc" id="L442">            setProperty(TEMPLATE_FOLDER_KEY, templateFolder);</span>
+<span class="fc" id="L443">            setProperty(JBakeProperty.TEMPLATE_FOLDER, templateFolder.getName());</span>
+        }
+<span class="fc" id="L445">    }</span>
+
+    @Override
+    public String getTemplateFolderName() {
+<span class="fc" id="L449">        return getAsString(JBakeProperty.TEMPLATE_FOLDER);</span>
+    }
+
+    @Override
+    public String getThymeleafLocale() {
+<span class="fc" id="L454">        return getAsString(JBakeProperty.THYMELEAF_LOCALE);</span>
+    }
+
+    @Override
+    public boolean getUriWithoutExtension() {
+<span class="fc" id="L459">        return getAsBoolean(JBakeProperty.URI_NO_EXTENSION);</span>
+    }
+
+    public void setUriWithoutExtension(boolean withoutExtension) {
+<span class="fc" id="L463">        setProperty(JBakeProperty.URI_NO_EXTENSION, withoutExtension);</span>
+<span class="fc" id="L464">    }</span>
+
+    @Override
+    public String getVersion() {
+<span class="fc" id="L468">        return getAsString(JBakeProperty.VERSION);</span>
+    }
+
+    public void setDestinationFolderName(String folderName) {
+<span class="nc" id="L472">        setProperty(JBakeProperty.DESTINATION_FOLDER, folderName);</span>
+<span class="nc" id="L473">        setupDefaultDestination();</span>
+<span class="nc" id="L474">    }</span>
+
+    public void setExampleProject(String type, String fileName) {
+<span class="fc" id="L477">        String projectKey = &quot;example.project.&quot; + type;</span>
+<span class="fc" id="L478">        setProperty(projectKey, fileName);</span>
+<span class="fc" id="L479">    }</span>
+
+    @Override
+    public void setProperty(String key, Object value) {
+<span class="fc" id="L483">        compositeConfiguration.setProperty(key, value);</span>
+<span class="fc" id="L484">    }</span>
+
+    public void setTemplateExtensionForDocType(String docType, String extension) {
+<span class="fc" id="L487">        String templateExtensionKey = DOCTYPE_TEMPLATE_PREFIX + docType + DOCTYPE_EXTENSION_POSTFIX;</span>
+<span class="fc" id="L488">        setProperty(templateExtensionKey, extension);</span>
+<span class="fc" id="L489">    }</span>
+
+    public void setTemplateFileNameForDocType(String docType, String fileName) {
+<span class="fc" id="L492">        String templateKey = DOCTYPE_TEMPLATE_PREFIX + docType + DOCTYPE_FILE_POSTFIX;</span>
+<span class="fc" id="L493">        setProperty(templateKey, fileName);</span>
+<span class="fc" id="L494">    }</span>
+
+    private void setupDefaultAssetFolder() {
+<span class="fc" id="L497">        String assetFolder = getAsString(JBakeProperty.ASSET_FOLDER);</span>
+<span class="fc" id="L498">        setAssetFolder(new File(getSourceFolder(), assetFolder));</span>
+<span class="fc" id="L499">    }</span>
+
+    private void setupDefaultContentFolder() {
+<span class="fc" id="L502">        setContentFolder(new File(getSourceFolder(), getContentFolderName()));</span>
+<span class="fc" id="L503">    }</span>
+
+    private void setupDefaultDestination() {
+<span class="fc" id="L506">        String destinationPath = getAsString(JBakeProperty.DESTINATION_FOLDER);</span>
+<span class="fc" id="L507">        setDestinationFolder(new File(getSourceFolder(), destinationPath));</span>
+<span class="fc" id="L508">    }</span>
+
+    private void setupDefaultTemplateFolder() {
+<span class="fc" id="L511">        String destinationPath = getAsString(JBakeProperty.TEMPLATE_FOLDER);</span>
+<span class="fc" id="L512">        setTemplateFolder(new File(getSourceFolder(), destinationPath));</span>
+<span class="fc" id="L513">    }</span>
+
+    private void setupPathsRelativeToSourceFile() {
+<span class="fc" id="L516">        setupDefaultAssetFolder();</span>
+<span class="fc" id="L517">        setupDefaultTemplateFolder();</span>
+<span class="fc" id="L518">        setupDefaultContentFolder();</span>
+<span class="fc" id="L519">    }</span>
+
+    @Override
+    public String getHeaderSeparator() {
+<span class="fc" id="L523">        return getAsString(JBakeProperty.HEADER_SEPARATOR);</span>
+    }
+
+    public void setHeaderSeparator(String headerSeparator) {
+<span class="fc" id="L527">        setProperty(JBakeProperty.HEADER_SEPARATOR, headerSeparator);</span>
+<span class="fc" id="L528">    }</span>
+
+    @Override
+    public boolean getImgPathPrependHost() {
+<span class="fc" id="L532">        return getAsBoolean(JBakeProperty.IMG_PATH_PREPEND_HOST);</span>
+    }
+
+    public void setImgPathPrependHost(boolean imgPathPrependHost) {
+<span class="fc" id="L536">        setProperty(JBakeProperty.IMG_PATH_PREPEND_HOST, imgPathPrependHost);</span>
+<span class="fc" id="L537">    }</span>
+
+    @Override
+    public boolean getImgPathUpdate() {
+<span class="fc" id="L541">        return getAsBoolean(JBakeProperty.IMG_PATH_UPDATE);</span>
+    }
+
+    public void setImgPathUPdate(boolean imgPathUpdate) {
+<span class="nc" id="L545">        setProperty(JBakeProperty.IMG_PATH_UPDATE, imgPathUpdate);</span>
+<span class="nc" id="L546">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

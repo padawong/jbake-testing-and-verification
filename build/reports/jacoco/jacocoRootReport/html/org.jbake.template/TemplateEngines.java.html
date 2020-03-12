@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TemplateEngines.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.template</a> &gt; <span class="el_source">TemplateEngines.java</span></div><h1>TemplateEngines.java</h1><pre class="source lang-java linenums">package org.jbake.template;
+
+import org.jbake.app.ContentStore;
+import org.jbake.app.configuration.JBakeConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.net.URL;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
+
+/**
+ * &lt;p&gt;
+ * A singleton class giving access to rendering engines. Rendering engines are loaded based on classpath. New
+ * rendering may be registered either at runtime (not recommanded) or by putting a descriptor file on classpath
+ * (recommanded).&lt;/p&gt;
+ * &lt;p&gt;The descriptor file must be found in &lt;i&gt;META-INF&lt;/i&gt; directory and named
+ * &lt;i&gt;org.jbake.parser.TemplateEngines.properties&lt;/i&gt;. The format of the file is easy:&lt;/p&gt;
+ * &lt;code&gt;org.jbake.parser.FreeMarkerRenderer=ftl&lt;br&gt; org.jbake.parser.GroovyRenderer=groovy,gsp&lt;br&gt; &lt;/code&gt;
+ * &lt;p&gt;where the key is the class of the engine (must extend {@link AbstractTemplateEngine} and have
+ * a 4-arg constructor and the value is a comma-separated list of file extensions that this engine is capable
+ * of proceeding.&lt;/p&gt;
+ * &lt;p&gt;Rendering engines are singletons, so are typically used to initialize the underlying template engines.
+ * &lt;p&gt;
+ * This class loads the engines only if they are found on classpath. If not, the engine is not registered. This allows
+ * JBake to support multiple rendering engines without the explicit need to have them on classpath. This is a better fit
+ * for embedding.
+ * &lt;/p&gt;
+ *
+ * @author Cédric Champeau
+ */
+public class TemplateEngines {
+
+<span class="fc" id="L41">    private static final Logger LOGGER = LoggerFactory.getLogger(TemplateEngines.class);</span>
+
+    private final Map&lt;String, AbstractTemplateEngine&gt; engines;
+
+    public Set&lt;String&gt; getRecognizedExtensions() {
+<span class="fc" id="L46">        return Collections.unmodifiableSet(engines.keySet());</span>
+    }
+
+<span class="fc" id="L49">    public TemplateEngines(final JBakeConfiguration config, final ContentStore db) {</span>
+<span class="fc" id="L50">        engines = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L51">        loadEngines(config, db);</span>
+<span class="fc" id="L52">    }</span>
+
+    private void registerEngine(String fileExtension, AbstractTemplateEngine templateEngine) {
+<span class="fc" id="L55">        AbstractTemplateEngine old = engines.put(fileExtension, templateEngine);</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (old != null) {</span>
+<span class="nc" id="L57">            LOGGER.warn(&quot;Registered a template engine for extension [.{}] but another one was already defined: {}&quot;, fileExtension, old);</span>
+        }
+<span class="fc" id="L59">    }</span>
+
+    public AbstractTemplateEngine getEngine(String fileExtension) {
+<span class="fc" id="L62">        return engines.get(fileExtension);</span>
+    }
+
+    /**
+     * This method is used to search for a specific class, telling if loading the engine would succeed. This is
+     * typically used to avoid loading optional modules.
+     *
+     *
+     * @param config the configuration
+     * @param db database instance
+     * @param engineClassName engine class, used both as a hint to find it and to create the engine itself.  @return null if the engine is not available, an instance of the engine otherwise
+     */
+    private static AbstractTemplateEngine tryLoadEngine(final JBakeConfiguration config, final ContentStore db, String engineClassName) {
+        try {
+            @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L77">            Class&lt;? extends AbstractTemplateEngine&gt; engineClass = (Class&lt;? extends AbstractTemplateEngine&gt;) Class.forName(engineClassName, false, TemplateEngines.class.getClassLoader());</span>
+<span class="fc" id="L78">            Constructor&lt;? extends AbstractTemplateEngine&gt; ctor = engineClass.getConstructor(JBakeConfiguration.class, ContentStore.class);</span>
+<span class="fc" id="L79">            return ctor.newInstance(config, db);</span>
+<span class="nc" id="L80">        } catch (Throwable e) {</span>
+            // not all engines might be necessary, therefore only emit class loading issue with level warn
+<span class="nc" id="L82">            LOGGER.warn(&quot;unable to load engine&quot;, e);</span>
+<span class="nc" id="L83">            return null;</span>
+        }
+    }
+
+    /**
+     * This method is used internally to load markup engines. Markup engines are found using descriptor files on
+     * classpath, so adding an engine is as easy as adding a jar on classpath with the descriptor file included.
+     */
+    private void loadEngines(final JBakeConfiguration config, final ContentStore db) {
+        try {
+<span class="fc" id="L93">            ClassLoader cl = TemplateEngines.class.getClassLoader();</span>
+<span class="fc" id="L94">            Enumeration&lt;URL&gt; resources = cl.getResources(&quot;META-INF/org.jbake.parser.TemplateEngines.properties&quot;);</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">            while (resources.hasMoreElements()) {</span>
+<span class="fc" id="L96">                URL url = resources.nextElement();</span>
+<span class="fc" id="L97">                Properties props = new Properties();</span>
+<span class="fc" id="L98">                props.load(url.openStream());</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">                for (Map.Entry&lt;Object, Object&gt; entry : props.entrySet()) {</span>
+<span class="fc" id="L100">                    String className = (String) entry.getKey();</span>
+<span class="fc" id="L101">                    String[] extensions = ((String) entry.getValue()).split(&quot;,&quot;);</span>
+<span class="fc" id="L102">                    registerEngine(config, db, className, extensions);</span>
+<span class="fc" id="L103">                }</span>
+<span class="fc" id="L104">            }</span>
+<span class="nc" id="L105">        } catch (IOException e) {</span>
+<span class="nc" id="L106">            LOGGER.error(&quot;Error loading engines&quot;, e);</span>
+<span class="fc" id="L107">        }</span>
+<span class="fc" id="L108">    }</span>
+
+    private void registerEngine(final JBakeConfiguration config, final ContentStore db, String className, String... extensions) {
+<span class="fc" id="L111">        AbstractTemplateEngine engine = tryLoadEngine(config, db, className);</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        if (engine != null) {</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">            for (String extension : extensions) {</span>
+<span class="fc" id="L114">                registerEngine(extension, engine);</span>
+            }
+        }
+<span class="fc" id="L117">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

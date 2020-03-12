@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ModelExtractors.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.template</a> &gt; <span class="el_source">ModelExtractors.java</span></div><h1>ModelExtractors.java</h1><pre class="source lang-java linenums">package org.jbake.template;
+
+import org.jbake.app.ContentStore;
+import org.jbake.model.DocumentTypeUtils;
+import org.jbake.template.model.PublishedCustomExtractor;
+import org.jbake.template.model.TypedDocumentsExtractor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.TreeMap;
+
+
+/**
+ * &lt;p&gt;A singleton class giving access to model extractors. Model extractors are loaded based on classpath. New
+ * rendering may be registered either at runtime (not recommanded) or by putting a descriptor file on classpath
+ * (recommanded).&lt;/p&gt;
+ * &lt;p&gt;The descriptor file must be found in &lt;i&gt;META-INF&lt;/i&gt; directory and named
+ * &lt;i&gt;org.jbake.template.ModelExtractors.properties&lt;/i&gt;. The format of the file is easy:&lt;/p&gt;
+ * &lt;code&gt;org.jbake.template.model.AllPosts=all_posts&lt;br&gt; org.jbake.template.model.AllContent=all_content&lt;br&gt; &lt;/code&gt;
+ * &lt;p&gt;where the key is the class of the extractor (must implement {@link ModelExtractor}  and the value is the key
+ * by which values are to be accessed in model.&lt;/p&gt;
+ * &lt;p&gt;
+ * This class loads the engines only if they are found on classpath. If not, the engine is not registered. This allows
+ * JBake to support multiple rendering engines without the explicit need to have them on classpath. This is a better fit
+ * for embedding.
+ * &lt;/p&gt;
+ *
+ * @author ndx
+ * @author Cédric Champeau
+ */
+public class ModelExtractors {
+    private static final String PROPERTIES = &quot;META-INF/org.jbake.template.ModelExtractors.properties&quot;;
+
+<span class="fc" id="L40">    private final static Logger LOGGER = LoggerFactory.getLogger(ModelExtractors.class);</span>
+
+    private final Map&lt;String, ModelExtractor&gt; extractors;
+
+    private static class Loader {
+<span class="fc" id="L45">        private static final ModelExtractors INSTANCE = new ModelExtractors();</span>
+    }
+
+    public static ModelExtractors getInstance() {
+<span class="fc" id="L49">        return Loader.INSTANCE;</span>
+    }
+
+<span class="fc" id="L52">    private ModelExtractors() {</span>
+<span class="fc" id="L53">        extractors = new TreeMap&lt;String, ModelExtractor&gt;();</span>
+<span class="fc" id="L54">        loadEngines();</span>
+<span class="fc" id="L55">    }</span>
+
+    public void reset() {
+<span class="fc" id="L58">        extractors.clear();</span>
+<span class="fc" id="L59">        loadEngines();</span>
+<span class="fc" id="L60">    }</span>
+
+    public void registerEngine(String key, ModelExtractor extractor) {
+<span class="fc" id="L63">        ModelExtractor old = extractors.put(key, extractor);</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if (old != null) {</span>
+<span class="nc" id="L65">            LOGGER.warn(&quot;Registered a model extractor for key [.{}] but another one was already defined: {}&quot;, key, old);</span>
+        }
+<span class="fc" id="L67">    }</span>
+
+    /**
+     * This method is used to search for a specific class, telling if loading the engine would succeed. This is
+     * typically used to avoid loading optional modules.
+     *
+     * @param engineClassName engine class, used both as a hint to find it and to create the engine itself.  @return null if the engine is not available, an instance of the engine otherwise
+     */
+    private static ModelExtractor tryLoadEngine(String engineClassName) {
+        try {
+            @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L78">            Class&lt;? extends ModelExtractor&gt; engineClass = (Class&lt;? extends ModelExtractor&gt;) Class.forName(engineClassName, false, ModelExtractors.class.getClassLoader());</span>
+<span class="fc" id="L79">            return engineClass.newInstance();</span>
+<span class="nc" id="L80">        } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L81">            return null;</span>
+<span class="nc" id="L82">        } catch (InstantiationException e) {</span>
+<span class="nc" id="L83">            return null;</span>
+<span class="nc" id="L84">        } catch (IllegalAccessException e) {</span>
+<span class="nc" id="L85">            return null;</span>
+<span class="nc" id="L86">        } catch (NoClassDefFoundError e) {</span>
+            // a dependency of the engine may not be found on classpath
+<span class="nc" id="L88">            return null;</span>
+        }
+    }
+
+    /**
+     * This method is used internally to load markup engines. Markup engines are found using descriptor files on
+     * classpath, so adding an engine is as easy as adding a jar on classpath with the descriptor file included.
+     */
+    private void loadEngines() {
+        try {
+<span class="fc" id="L98">            ClassLoader cl = ModelExtractors.class.getClassLoader();</span>
+<span class="fc" id="L99">            Enumeration&lt;URL&gt; resources = cl.getResources(PROPERTIES);</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">            while (resources.hasMoreElements()) {</span>
+<span class="fc" id="L101">                URL url = resources.nextElement();</span>
+<span class="fc" id="L102">                Properties props = new Properties();</span>
+<span class="fc" id="L103">                props.load(url.openStream());</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">                for (Map.Entry&lt;Object, Object&gt; entry : props.entrySet()) {</span>
+<span class="fc" id="L105">                    String className = (String) entry.getKey();</span>
+<span class="fc" id="L106">                    String[] extensions = ((String) entry.getValue()).split(&quot;,&quot;);</span>
+<span class="fc" id="L107">                    loadAndRegisterEngine(className, extensions);</span>
+<span class="fc" id="L108">                }</span>
+<span class="fc" id="L109">            }</span>
+<span class="nc" id="L110">        } catch (IOException e) {</span>
+<span class="nc" id="L111">            e.printStackTrace();</span>
+<span class="fc" id="L112">        }</span>
+<span class="fc" id="L113">    }</span>
+
+    private void loadAndRegisterEngine(String className, String... extensions) {
+<span class="fc" id="L116">        ModelExtractor engine = tryLoadEngine(className);</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">        if (engine != null) {</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">            for (String extension : extensions) {</span>
+<span class="fc" id="L119">                registerEngine(extension, engine);</span>
+            }
+        }
+<span class="fc" id="L122">    }</span>
+
+    public &lt;Type&gt; Type extractAndTransform(ContentStore db, String key, Map map, TemplateEngineAdapter&lt;Type&gt; adapter) throws NoModelExtractorException {
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        if (extractors.containsKey(key)) {</span>
+<span class="fc" id="L126">            Object extractedValue = extractors.get(key).get(db, map, key);</span>
+<span class="fc" id="L127">            return adapter.adapt(key, extractedValue);</span>
+        } else {
+<span class="fc" id="L129">            throw new NoModelExtractorException(&quot;no model extractor for key \&quot;&quot; + key + &quot;\&quot;&quot;);</span>
+        }
+    }
+
+    /**
+     * @see java.util.Map#containsKey(java.lang.Object)
+     * @param key A key a {@link ModelExtractor} is registered with
+     * @return true if key is registered
+     */
+    public boolean containsKey(Object key) {
+<span class="fc" id="L139">        return extractors.containsKey(key);</span>
+    }
+
+    /**
+     * @return  A @{@link Set} of all known keys a @{@link ModelExtractor} is registered with
+     * @see java.util.Map#keySet()
+     */
+    public Set&lt;String&gt; keySet() {
+<span class="fc" id="L147">        return extractors.keySet();</span>
+    }
+
+    public void registerExtractorsForCustomTypes(String docType) {
+<span class="fc" id="L151">        String pluralizedDoctype = DocumentTypeUtils.pluralize(docType);</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (!containsKey(pluralizedDoctype)) {</span>
+<span class="fc" id="L153">            LOGGER.info(&quot;register new extractors for document type: {}&quot;, docType);</span>
+<span class="fc" id="L154">            registerEngine(pluralizedDoctype, new TypedDocumentsExtractor());</span>
+<span class="fc" id="L155">            registerEngine(&quot;published_&quot; + pluralizedDoctype, new PublishedCustomExtractor(docType));</span>
+        }
+<span class="fc" id="L157">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

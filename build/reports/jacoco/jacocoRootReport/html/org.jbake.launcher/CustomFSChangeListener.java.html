@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomFSChangeListener.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.launcher</a> &gt; <span class="el_source">CustomFSChangeListener.java</span></div><h1>CustomFSChangeListener.java</h1><pre class="source lang-java linenums">package org.jbake.launcher;
+
+import org.apache.commons.vfs2.FileChangeEvent;
+import org.apache.commons.vfs2.FileListener;
+import org.apache.commons.vfs2.FileObject;
+import org.jbake.app.Oven;
+import org.jbake.app.configuration.JBakeConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+
+public class CustomFSChangeListener implements FileListener {
+
+<span class="nc" id="L15">    private final static Logger LOGGER = LoggerFactory.getLogger(CustomFSChangeListener.class);</span>
+
+    private JBakeConfiguration config;
+
+<span class="nc" id="L19">    public CustomFSChangeListener(JBakeConfiguration config) {</span>
+<span class="nc" id="L20">        this.config = config;</span>
+<span class="nc" id="L21">    }</span>
+
+    @Override
+    public void fileCreated(FileChangeEvent event) throws Exception {
+<span class="nc" id="L25">        LOGGER.info(&quot;File created event detected: {}&quot;, event.getFile().getURL());</span>
+<span class="nc" id="L26">        exec(event.getFile());</span>
+<span class="nc" id="L27">    }</span>
+
+    @Override
+    public void fileDeleted(FileChangeEvent event) throws Exception {
+<span class="nc" id="L31">        LOGGER.info(&quot;File deleted event detected: {}&quot;, event.getFile().getURL());</span>
+<span class="nc" id="L32">        exec(event.getFile());</span>
+<span class="nc" id="L33">    }</span>
+
+    @Override
+    public void fileChanged(FileChangeEvent event) throws Exception {
+<span class="nc" id="L37">        LOGGER.info(&quot;File changed event detected: {}&quot;, event.getFile().getURL());</span>
+<span class="nc" id="L38">        exec(event.getFile());</span>
+<span class="nc" id="L39">    }</span>
+
+    private void exec(FileObject file) {
+<span class="nc" id="L42">        final Oven oven = new Oven(config);</span>
+<span class="nc" id="L43">        oven.bake(new File(file.getName().getPath()));</span>
+<span class="nc" id="L44">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

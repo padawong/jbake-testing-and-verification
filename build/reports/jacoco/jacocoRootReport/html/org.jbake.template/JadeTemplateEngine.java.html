@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JadeTemplateEngine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.template</a> &gt; <span class="el_source">JadeTemplateEngine.java</span></div><h1>JadeTemplateEngine.java</h1><pre class="source lang-java linenums">package org.jbake.template;
+
+
+import de.neuland.jade4j.Jade4J;
+import de.neuland.jade4j.JadeConfiguration;
+import de.neuland.jade4j.exceptions.JadeCompilerException;
+import de.neuland.jade4j.filter.CDATAFilter;
+import de.neuland.jade4j.filter.CssFilter;
+import de.neuland.jade4j.filter.JsFilter;
+import de.neuland.jade4j.model.JadeModel;
+import de.neuland.jade4j.template.FileTemplateLoader;
+import de.neuland.jade4j.template.JadeTemplate;
+import de.neuland.jade4j.template.TemplateLoader;
+import org.apache.commons.configuration.CompositeConfiguration;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.jbake.app.ContentStore;
+import org.jbake.app.configuration.JBakeConfiguration;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Renders pages using the &lt;a href=&quot;http://jade.org/&quot;&gt;Jade&lt;/a&gt; template language.
+ *
+ * @author Aleksandar Vidakovic
+ * @author Mariusz Smykuła
+ */
+public class JadeTemplateEngine extends AbstractTemplateEngine {
+    private static final String FILTER_CDATA = &quot;cdata&quot;;
+    private static final String FILTER_STYLE = &quot;css&quot;;
+    private static final String FILTER_SCRIPT = &quot;js&quot;;
+
+<span class="pc" id="L38">    private JadeConfiguration jadeConfiguration = new JadeConfiguration();</span>
+
+    @Deprecated
+    public JadeTemplateEngine(final CompositeConfiguration config, final ContentStore db, final File destination, final File templatesPath) {
+<span class="nc" id="L42">        super(config, db, destination, templatesPath);</span>
+<span class="nc" id="L43">    }</span>
+
+    public JadeTemplateEngine(final JBakeConfiguration config, final ContentStore db) {
+<span class="fc" id="L46">        super(config, db);</span>
+
+<span class="fc" id="L48">        TemplateLoader loader = new FileTemplateLoader(config.getTemplateFolder().getPath() + File.separatorChar, config.getTemplateEncoding());</span>
+<span class="fc" id="L49">        jadeConfiguration.setTemplateLoader(loader);</span>
+<span class="fc" id="L50">        jadeConfiguration.setMode(Jade4J.Mode.XHTML);</span>
+<span class="fc" id="L51">        jadeConfiguration.setPrettyPrint(true);</span>
+<span class="fc" id="L52">        jadeConfiguration.setFilter(FILTER_CDATA, new CDATAFilter());</span>
+<span class="fc" id="L53">        jadeConfiguration.setFilter(FILTER_SCRIPT, new JsFilter());</span>
+<span class="fc" id="L54">        jadeConfiguration.setFilter(FILTER_STYLE, new CssFilter());</span>
+<span class="fc" id="L55">        jadeConfiguration.getSharedVariables().put(&quot;formatter&quot;, new FormatHelper());</span>
+<span class="fc" id="L56">    }</span>
+
+    @Override
+    public void renderDocument(Map&lt;String, Object&gt; model, String templateName, Writer writer) throws RenderingException {
+        try {
+<span class="fc" id="L61">            JadeTemplate template = jadeConfiguration.getTemplate(templateName);</span>
+
+<span class="fc" id="L63">            renderTemplate(template, model, writer);</span>
+<span class="nc" id="L64">        } catch (IOException e) {</span>
+<span class="nc" id="L65">            throw new RenderingException(e);</span>
+<span class="fc" id="L66">        }</span>
+<span class="fc" id="L67">    }</span>
+
+    public void renderTemplate(JadeTemplate template, Map&lt;String, Object&gt; model, Writer writer) throws JadeCompilerException {
+<span class="fc" id="L70">        JadeModel jadeModel = wrap(jadeConfiguration.getSharedVariables());</span>
+<span class="fc" id="L71">        jadeModel.putAll(model);</span>
+<span class="fc" id="L72">        template.process(jadeModel, writer);</span>
+<span class="fc" id="L73">    }</span>
+
+    private JadeModel wrap(final Map&lt;String, Object&gt; model) {
+<span class="fc" id="L76">        return new JadeModel(model) {</span>
+
+            @Override
+            public Object get(final Object property) {
+<span class="fc" id="L80">                String key = property.toString();</span>
+                try {
+<span class="fc" id="L82">                    return extractors.extractAndTransform(db, key, this, new TemplateEngineAdapter.NoopAdapter());</span>
+<span class="fc" id="L83">                } catch(NoModelExtractorException e) {</span>
+                    // fallback to parent model
+                }
+
+<span class="fc" id="L87">                return super.get(property);</span>
+            }
+        };
+    }
+
+<span class="fc" id="L92">    public static class FormatHelper {</span>
+<span class="fc" id="L93">        private Map&lt;String, SimpleDateFormat&gt; formatters = new HashMap&lt;String, SimpleDateFormat&gt;();</span>
+
+        public String format(Date date, String pattern) {
+<span class="pc bpc" id="L96" title="2 of 4 branches missed.">            if(date!=null &amp;&amp; pattern!=null) {</span>
+<span class="fc" id="L97">                SimpleDateFormat df = formatters.get(pattern);</span>
+
+<span class="fc bfc" id="L99" title="All 2 branches covered.">                if(df==null) {</span>
+<span class="fc" id="L100">                    df = new SimpleDateFormat(pattern);</span>
+<span class="fc" id="L101">                    formatters.put(pattern, df);</span>
+                }
+
+<span class="fc" id="L104">                return df.format(date);</span>
+            } else {
+<span class="nc" id="L106">                return &quot;&quot;;</span>
+            }
+        }
+
+        public String escape(String s) {
+<span class="fc" id="L111">            return StringEscapeUtils.escapeHtml(s);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

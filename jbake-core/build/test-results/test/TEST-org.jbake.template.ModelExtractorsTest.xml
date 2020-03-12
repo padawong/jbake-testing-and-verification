@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jbake.template.ModelExtractorsTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-11T02:06:46" hostname="bolt.cs.ucr.edu" time="0.008">
+  <properties/>
+  <testcase name="shouldLoadExtractorsOnInstantiation" classname="org.jbake.template.ModelExtractorsTest" time="0.002"/>
+  <testcase name="shouldRegisterExtractorsForCustomType" classname="org.jbake.template.ModelExtractorsTest" time="0.001"/>
+  <testcase name="shouldRegisterExtractorsOnlyForCustomTypes" classname="org.jbake.template.ModelExtractorsTest" time="0.001"/>
+  <testcase name="shouldResetToNonCustomizedExtractors" classname="org.jbake.template.ModelExtractorsTest" time="0.002"/>
+  <testcase name="shouldThrowAnExceptionIfDocumentTypeIsUnknown" classname="org.jbake.template.ModelExtractorsTest" time="0.002"/>
+  <system-out><![CDATA[19:06:46.696 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: project
+19:06:46.698 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: project
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GroovyMarkupTemplateEngine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jbake-base</a> &gt; <a href="index.source.html" class="el_package">org.jbake.template</a> &gt; <span class="el_source">GroovyMarkupTemplateEngine.java</span></div><h1>GroovyMarkupTemplateEngine.java</h1><pre class="source lang-java linenums">package org.jbake.template;
+
+import groovy.lang.GString;
+import groovy.lang.Writable;
+import groovy.text.Template;
+import groovy.text.markup.MarkupTemplateEngine;
+import groovy.text.markup.TemplateConfiguration;
+import org.apache.commons.configuration.CompositeConfiguration;
+import org.jbake.app.ContentStore;
+import org.jbake.app.configuration.JBakeConfiguration;
+
+import java.io.File;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Renders documents using the GroovyMarkupTemplateEngine.
+ * &lt;p&gt;
+ * The file extension to activate this Engine is .tpl
+ *
+ * @see &lt;a href=&quot;http://groovy-lang.org/templating.html#_the_markuptemplateengine&quot;&gt;Groovy MarkupTemplateEngine Documentation&lt;/a&gt;
+ */
+public class GroovyMarkupTemplateEngine extends AbstractTemplateEngine {
+    private TemplateConfiguration templateConfiguration;
+    private MarkupTemplateEngine templateEngine;
+
+    /**
+     * @deprecated Use {@link #GroovyMarkupTemplateEngine(JBakeConfiguration, ContentStore)} instead
+     */
+    @Deprecated
+    public GroovyMarkupTemplateEngine(final CompositeConfiguration config, final ContentStore db, final File destination, final File templatesPath) {
+<span class="nc" id="L33">        super(config, db, destination, templatesPath);</span>
+<span class="nc" id="L34">        setupTemplateConfiguration();</span>
+<span class="nc" id="L35">        initializeTemplateEngine();</span>
+<span class="nc" id="L36">    }</span>
+
+    public GroovyMarkupTemplateEngine(final JBakeConfiguration config, final ContentStore db) {
+<span class="fc" id="L39">        super(config, db);</span>
+<span class="fc" id="L40">        setupTemplateConfiguration();</span>
+<span class="fc" id="L41">        initializeTemplateEngine();</span>
+<span class="fc" id="L42">    }</span>
+
+    private void setupTemplateConfiguration() {
+<span class="fc" id="L45">        templateConfiguration = new TemplateConfiguration();</span>
+<span class="fc" id="L46">        templateConfiguration.setUseDoubleQuotes(true);</span>
+<span class="fc" id="L47">        templateConfiguration.setAutoIndent(true);</span>
+<span class="fc" id="L48">        templateConfiguration.setAutoNewLine(true);</span>
+<span class="fc" id="L49">        templateConfiguration.setAutoEscape(true);</span>
+<span class="fc" id="L50">    }</span>
+
+    private void initializeTemplateEngine() {
+<span class="fc" id="L53">        templateEngine = new MarkupTemplateEngine(MarkupTemplateEngine.class.getClassLoader(), config.getTemplateFolder(), templateConfiguration);</span>
+<span class="fc" id="L54">    }</span>
+
+    @Override
+    public void renderDocument(final Map&lt;String, Object&gt; model, final String templateName, final Writer writer) throws RenderingException {
+        try {
+<span class="fc" id="L59">            Template template = templateEngine.createTemplateByPath(templateName);</span>
+<span class="fc" id="L60">            Map&lt;String, Object&gt; wrappedModel = wrap(model);</span>
+<span class="fc" id="L61">            Writable writable = template.make(wrappedModel);</span>
+<span class="fc" id="L62">            writable.writeTo(writer);</span>
+<span class="nc" id="L63">        } catch (Exception e) {</span>
+<span class="nc" id="L64">            throw new RenderingException(e);</span>
+<span class="fc" id="L65">        }</span>
+<span class="fc" id="L66">    }</span>
+
+    private Map&lt;String, Object&gt; wrap(final Map&lt;String, Object&gt; model) {
+<span class="fc" id="L69">        return new HashMap&lt;String, Object&gt;(model) {</span>
+            @Override
+            public Object get(final Object property) {
+<span class="pc bpc" id="L72" title="3 of 4 branches missed.">                if (property instanceof String || property instanceof GString) {</span>
+<span class="fc" id="L73">                    String key = property.toString();</span>
+                    try {
+<span class="fc" id="L75">                        put(key, extractors.extractAndTransform(db, key, model, new TemplateEngineAdapter.NoopAdapter()));</span>
+<span class="fc" id="L76">                    } catch (NoModelExtractorException e) {</span>
+                        // should never happen, as we iterate over existing extractors
+<span class="fc" id="L78">                    }</span>
+                }
+
+<span class="fc" id="L81">                return super.get(property);</span>
+            }
+        };
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
