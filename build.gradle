@@ -7,6 +7,9 @@ plugins {
     id "org.sonarqube"                  version "2.7"     apply false
     id 'com.github.ben-manes.versions'  version '0.20.0'
     id "nebula.optional-base"           version "5.0.0"     apply false
+
+    id 'java-library'
+    id 'info.solidsoft.pitest'          version '1.4.6'     apply false
 }
 
 // common variables
@@ -177,6 +180,18 @@ subprojects {
     }
 
     jacocoTestReport.dependsOn test
+
+
+    apply plugin: 'info.solidsoft.pitest'
+    pitest {
+        threads = 16
+        //targetClasses = ['org.jbake.app.*']
+        excludedTestClasses = ['org.jbake.app.*']
+        targetTests = ['org.jbake.app.ParserTest.java']
+        historyOutputLocation = ['build/reports/pitest/']
+        outputFormats = ['XML', 'HTML']
+    }
+
 }
 
 task jacocoMerge(type: JacocoMerge) {
