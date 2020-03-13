@@ -186,8 +186,8 @@ subprojects {
     pitest {
         threads = 16
         //targetClasses = ['org.jbake.app.*']
-        excludedTestClasses = ['org.jbake.app.*']
-        targetTests = ['org.jbake.app.ParserTest.java']
+        //excludedTestClasses = ['org.jbake.app.*']
+        targetTests = ['org.jbake.app.*Parser*']
         historyOutputLocation = ['build/reports/pitest/']
         outputFormats = ['XML', 'HTML']
     }
