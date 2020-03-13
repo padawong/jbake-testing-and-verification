@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.DebugUtilTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-11T02:14:52" hostname="bolt.cs.ucr.edu" time="0.001">
+<testsuite name="org.jbake.app.DebugUtilTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:23:37" hostname="bolt.cs.ucr.edu" time="0.003">
   <properties/>
-  <testcase name="printMap" classname="org.jbake.app.DebugUtilTest" time="0.001"/>
+  <testcase name="printMap" classname="org.jbake.app.DebugUtilTest" time="0.003"/>
   <system-out><![CDATA[
 null :: forNullKey
 forNonSerializableVal :: java.lang.Exception: nonSerializableVal
 forNullVal :: null
 forCharset :: UTF-8
 stringKey :: stringVal
-forObject :: java.lang.Object@7539387b
+forObject :: java.lang.Object@50b246b5
 
 
 ]]></system-out>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.PaginationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-11T02:14:52" hostname="bolt.cs.ucr.edu" time="0.692">
+<testsuite name="org.jbake.app.PaginationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:23:37" hostname="bolt.cs.ucr.edu" time="0.699">
   <properties/>
-  <testcase name="testPagination" classname="org.jbake.app.PaginationTest" time="0.692"/>
-  <system-out><![CDATA[19:14:52.716 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit5208918656426936440/documents1583892892714' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-19:14:53.238 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-19:14:53.261 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-19:14:53.285 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-19:14:53.313 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-19:14:53.344 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+  <testcase name="testPagination" classname="org.jbake.app.PaginationTest" time="0.699"/>
+  <system-out><![CDATA[18:23:37.331 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit7285653494276317777/documents1584062617330' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:23:37.850 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:23:37.873 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:23:37.898 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:23:37.926 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:23:37.967 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.util.PagingHelperTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-03-11T02:06:46" hostname="bolt.cs.ucr.edu" time="0.006">
+<testsuite name="org.jbake.util.PagingHelperTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:15:22" hostname="bolt.cs.ucr.edu" time="0.005">
   <properties/>
-  <testcase name="shouldReturnPreviousFileName" classname="org.jbake.util.PagingHelperTest" time="0.004"/>
+  <testcase name="shouldReturnPreviousFileName" classname="org.jbake.util.PagingHelperTest" time="0.003"/>
   <testcase name="shouldReturnRootIndexPage" classname="org.jbake.util.PagingHelperTest" time="0.0"/>
   <testcase name="shouldReturnNullIfNoPreviousPageAvailable" classname="org.jbake.util.PagingHelperTest" time="0.0"/>
-  <testcase name="shouldReturnNullIfNextPageNotAvailable" classname="org.jbake.util.PagingHelperTest" time="0.001"/>
+  <testcase name="shouldReturnNullIfNextPageNotAvailable" classname="org.jbake.util.PagingHelperTest" time="0.0"/>
   <testcase name="shouldReturnNextFileName" classname="org.jbake.util.PagingHelperTest" time="0.0"/>
   <testcase name="getNumberOfPages" classname="org.jbake.util.PagingHelperTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

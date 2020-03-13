@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.launcher.LaunchOptionsTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2020-03-11T02:06:46" hostname="bolt.cs.ucr.edu" time="0.032">
+<testsuite name="org.jbake.launcher.LaunchOptionsTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:15:22" hostname="bolt.cs.ucr.edu" time="0.031">
   <properties/>
-  <testcase name="bakeNoArgs" classname="org.jbake.launcher.LaunchOptionsTest" time="0.024"/>
-  <testcase name="initWithTemplateAndSourceDirectory" classname="org.jbake.launcher.LaunchOptionsTest" time="0.003"/>
+  <testcase name="bakeNoArgs" classname="org.jbake.launcher.LaunchOptionsTest" time="0.025"/>
+  <testcase name="initWithTemplateAndSourceDirectory" classname="org.jbake.launcher.LaunchOptionsTest" time="0.001"/>
   <testcase name="bakeWithArgs" classname="org.jbake.launcher.LaunchOptionsTest" time="0.001"/>
   <testcase name="initWithSourceDirectory" classname="org.jbake.launcher.LaunchOptionsTest" time="0.001"/>
   <testcase name="runServer" classname="org.jbake.launcher.LaunchOptionsTest" time="0.0"/>
   <testcase name="showHelp" classname="org.jbake.launcher.LaunchOptionsTest" time="0.001"/>
   <testcase name="bake" classname="org.jbake.launcher.LaunchOptionsTest" time="0.0"/>
-  <testcase name="init" classname="org.jbake.launcher.LaunchOptionsTest" time="0.001"/>
+  <testcase name="init" classname="org.jbake.launcher.LaunchOptionsTest" time="0.0"/>
   <testcase name="initWithTemplate" classname="org.jbake.launcher.LaunchOptionsTest" time="0.0"/>
-  <testcase name="runServerWithFolder" classname="org.jbake.launcher.LaunchOptionsTest" time="0.001"/>
+  <testcase name="runServerWithFolder" classname="org.jbake.launcher.LaunchOptionsTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

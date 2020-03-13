@@ -20,13 +20,13 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">235</div>
+<div class="counter">237</div>
 <p>tests</p>
 </div>
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">0</div>
+<div class="counter">1</div>
 <p>failures</p>
 </div>
 </td>
@@ -38,7 +38,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">8m8.94s</div>
+<div class="counter">8m17.72s</div>
 <p>duration</p>
 </div>
 </td>
@@ -47,8 +47,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox success" id="successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures" id="successRate">
+<div class="percent">99%</div>
 <p>successful</p>
 </div>
 </td>
@@ -58,13 +58,25 @@
 <div id="tabs">
 <ul class="tabLinks">
 <li>
-<a href="#tab0">Packages</a>
+<a href="#tab0">Failed tests</a>
 </li>
 <li>
-<a href="#tab1">Classes</a>
+<a href="#tab1">Packages</a>
+</li>
+<li>
+<a href="#tab2">Classes</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<ul class="linkList">
+<li>
+<a href="classes/org.jbake.app.ParserTest.html">ParserTest</a>.
+<a href="classes/org.jbake.app.ParserTest.html#parseInvalidHTMLFileHeaderWithNoStatus">parseInvalidHTMLFileHeaderWithNoStatus</a>
+</li>
+</ul>
+</div>
+<div id="tab1" class="tab">
 <h2>Packages</h2>
 <table>
 <thead>
@@ -79,14 +91,14 @@
 </thead>
 <tbody>
 <tr>
-<td class="success">
+<td class="failures">
 <a href="packages/org.jbake.app.html">org.jbake.app</a>
 </td>
-<td>66</td>
+<td>68</td>
+<td>1</td>
 <td>0</td>
-<td>0</td>
-<td>18.904s</td>
-<td class="success">100%</td>
+<td>18.722s</td>
+<td class="failures">98%</td>
 </tr>
 <tr>
 <td class="success">
@@ -95,7 +107,7 @@
 <td>34</td>
 <td>0</td>
 <td>0</td>
-<td>1.510s</td>
+<td>1.544s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -105,7 +117,7 @@
 <td>57</td>
 <td>0</td>
 <td>0</td>
-<td>7m47.94s</td>
+<td>7m56.83s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -115,7 +127,7 @@
 <td>18</td>
 <td>0</td>
 <td>0</td>
-<td>0.063s</td>
+<td>0.060s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -125,7 +137,7 @@
 <td>6</td>
 <td>0</td>
 <td>0</td>
-<td>0.021s</td>
+<td>0.023s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -135,7 +147,7 @@
 <td>32</td>
 <td>0</td>
 <td>0</td>
-<td>0.313s</td>
+<td>0.331s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -145,7 +157,7 @@
 <td>6</td>
 <td>0</td>
 <td>0</td>
-<td>0.011s</td>
+<td>0.010s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -155,13 +167,13 @@
 <td>16</td>
 <td>0</td>
 <td>0</td>
-<td>0.184s</td>
+<td>0.191s</td>
 <td class="success">100%</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="tab1" class="tab">
+<div id="tab2" class="tab">
 <h2>Classes</h2>
 <table>
 <thead>
@@ -182,7 +194,7 @@
 <td>11</td>
 <td>0</td>
 <td>0</td>
-<td>0.186s</td>
+<td>0.169s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -192,7 +204,7 @@
 <td>2</td>
 <td>0</td>
 <td>0</td>
-<td>1.883s</td>
+<td>1.898s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -202,7 +214,7 @@
 <td>2</td>
 <td>0</td>
 <td>0</td>
-<td>5.243s</td>
+<td>5.193s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -212,7 +224,7 @@
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.001s</td>
+<td>0.003s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -222,7 +234,7 @@
 <td>3</td>
 <td>0</td>
 <td>0</td>
-<td>0.030s</td>
+<td>0.003s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -232,7 +244,7 @@
 <td>3</td>
 <td>0</td>
 <td>0</td>
-<td>0.012s</td>
+<td>0.011s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -242,7 +254,7 @@
 <td>21</td>
 <td>0</td>
 <td>0</td>
-<td>0.277s</td>
+<td>0.283s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -252,7 +264,7 @@
 <td>5</td>
 <td>0</td>
 <td>0</td>
-<td>4.203s</td>
+<td>4.132s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -262,18 +274,18 @@
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.692s</td>
+<td>0.699s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
-<td class="success">
+<td class="failures">
 <a href="classes/org.jbake.app.ParserTest.html">org.jbake.app.ParserTest</a>
 </td>
-<td>17</td>
+<td>19</td>
+<td>1</td>
 <td>0</td>
-<td>0</td>
-<td>6.377s</td>
-<td class="success">100%</td>
+<td>6.331s</td>
+<td class="failures">94%</td>
 </tr>
 <tr>
 <td class="success">
@@ -282,7 +294,7 @@
 <td>24</td>
 <td>0</td>
 <td>0</td>
-<td>1.416s</td>
+<td>1.463s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -292,7 +304,7 @@
 <td>3</td>
 <td>0</td>
 <td>0</td>
-<td>0.006s</td>
+<td>0.004s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -302,7 +314,7 @@
 <td>7</td>
 <td>0</td>
 <td>0</td>
-<td>0.088s</td>
+<td>0.077s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -312,7 +324,7 @@
 <td>11</td>
 <td>0</td>
 <td>0</td>
-<td>9.298s</td>
+<td>9.172s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -322,7 +334,7 @@
 <td>10</td>
 <td>0</td>
 <td>0</td>
-<td>7m8.60s</td>
+<td>7m17.61s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -332,7 +344,7 @@
 <td>9</td>
 <td>0</td>
 <td>0</td>
-<td>8.102s</td>
+<td>8.114s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -342,7 +354,7 @@
 <td>9</td>
 <td>0</td>
 <td>0</td>
-<td>7.387s</td>
+<td>7.335s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -352,7 +364,7 @@
 <td>9</td>
 <td>0</td>
 <td>0</td>
-<td>7.195s</td>
+<td>7.210s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -362,7 +374,7 @@
 <td>9</td>
 <td>0</td>
 <td>0</td>
-<td>7.359s</td>
+<td>7.392s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -372,7 +384,7 @@
 <td>10</td>
 <td>0</td>
 <td>0</td>
-<td>0.032s</td>
+<td>0.029s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -392,7 +404,7 @@
 <td>6</td>
 <td>0</td>
 <td>0</td>
-<td>0.021s</td>
+<td>0.023s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -402,7 +414,7 @@
 <td>5</td>
 <td>0</td>
 <td>0</td>
-<td>0.004s</td>
+<td>0.003s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -412,7 +424,7 @@
 <td>4</td>
 <td>0</td>
 <td>0</td>
-<td>0.016s</td>
+<td>0.017s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -422,7 +434,7 @@
 <td>5</td>
 <td>0</td>
 <td>0</td>
-<td>0.004s</td>
+<td>0.003s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -432,7 +444,7 @@
 <td>6</td>
 <td>0</td>
 <td>0</td>
-<td>0.003s</td>
+<td>0.005s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -452,7 +464,7 @@
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.007s</td>
+<td>0.006s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -462,7 +474,7 @@
 <td>5</td>
 <td>0</td>
 <td>0</td>
-<td>0.005s</td>
+<td>0.004s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -472,7 +484,7 @@
 <td>5</td>
 <td>0</td>
 <td>0</td>
-<td>0.269s</td>
+<td>0.288s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -492,7 +504,7 @@
 <td>5</td>
 <td>0</td>
 <td>0</td>
-<td>0.008s</td>
+<td>0.007s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -502,7 +514,7 @@
 <td>10</td>
 <td>0</td>
 <td>0</td>
-<td>0.178s</td>
+<td>0.187s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -512,7 +524,7 @@
 <td>6</td>
 <td>0</td>
 <td>0</td>
-<td>0.006s</td>
+<td>0.004s</td>
 <td class="success">100%</td>
 </tr>
 </tbody>
@@ -526,7 +538,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 5.2.1</a> at Mar 10, 2020 7:14:54 PM</p>
+<a href="http://www.gradle.org">Gradle 5.2.1</a> at Mar 12, 2020 6:23:38 PM</p>
 </div>
 </div>
 </body>

@@ -51,8 +51,8 @@ public class ParserTest {
     /**/
     private File invalidHTMLFileHeaderWithNoStatus;
     private File invalidHTMLFileHeaderWithNoType;
-    private String invalidHeaderNoStatus = "title=This is a Title\ntype=post\n~~~~~~";
-    private String invalidHeaderNoType = "title=This is a Title\nstatus=draft\n~~~~~~";
+    private String invalidHeaderNoStatus = "type=post\n~~~~~~";
+    private String invalidHeaderNoType = "status=draft\n~~~~~~";
     /**/
 
     private String validHeader = "title=This is a Title = This is a valid Title\nstatus=draft\ntype=post\ndate=2013-09-02\n~~~~~~";
