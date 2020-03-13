@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.launcher.LaunchOptionsTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:41:15" hostname="bolt.cs.ucr.edu" time="0.029">
+<testsuite name="org.jbake.launcher.LaunchOptionsTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:48" hostname="bolt.cs.ucr.edu" time="0.029">
   <properties/>
   <testcase name="bakeNoArgs" classname="org.jbake.launcher.LaunchOptionsTest" time="0.024"/>
   <testcase name="initWithTemplateAndSourceDirectory" classname="org.jbake.launcher.LaunchOptionsTest" time="0.001"/>

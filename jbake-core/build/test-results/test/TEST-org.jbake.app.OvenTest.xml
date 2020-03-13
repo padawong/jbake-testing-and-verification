@@ -1,116 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.OvenTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:41:21" hostname="bolt.cs.ucr.edu" time="4.93">
+<testsuite name="org.jbake.app.OvenTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:54" hostname="bolt.cs.ucr.edu" time="4.992">
   <properties/>
-  <testcase name="bakeWithAbsolutePaths" classname="org.jbake.app.OvenTest" time="3.398"/>
-  <testcase name="shouldInspectConfigurationDuringInstantiationFromUtils" classname="org.jbake.app.OvenTest" time="0.002"/>
+  <testcase name="bakeWithAbsolutePaths" classname="org.jbake.app.OvenTest" time="3.401"/>
+  <testcase name="shouldInspectConfigurationDuringInstantiationFromUtils" classname="org.jbake.app.OvenTest" time="0.003"/>
   <testcase name="shouldInstantiateNeededUtensils" classname="org.jbake.app.OvenTest" time="0.026"/>
   <testcase name="shouldThrowExceptionIfSourceFolderDoesNotExist" classname="org.jbake.app.OvenTest" time="0.003"/>
-  <testcase name="shouldCrawlRenderAndCopyAssets" classname="org.jbake.app.OvenTest" time="1.5"/>
-  <system-out><![CDATA[18:41:23.156 INFO  org.jbake.app.Oven - Baking has started...
-18:41:23.158 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:cache' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:41:24.198 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:41:24.229 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:41:24.263 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:41:24.302 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:41:24.342 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:41:24.406 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: allcontent
-18:41:24.406 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: masterindex
-18:41:24.406 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: tagsindex
-18:41:24.406 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: sitemap
-18:41:24.407 DEBUG org.jbake.app.ContentStore - Create document class 'allcontent'
-18:41:24.454 DEBUG org.jbake.app.ContentStore - Create document class 'tag'
-18:41:24.506 DEBUG org.jbake.app.ContentStore - Create document class 'tagsindex'
-18:41:24.563 DEBUG org.jbake.app.ContentStore - Create document class 'sitemap'
-18:41:24.656 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:41:24.656 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:41:24.656 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:41:24.658 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
-18:41:24.660 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:41:24.660 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:41:24.660 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:41:24.661 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
-18:41:24.666 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:41:24.666 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:41:24.666 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:41:24.667 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
-18:41:24.670 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:41:24.670 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:41:24.670 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:41:24.672 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
-18:41:24.674 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:41:24.674 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:41:24.674 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:41:24.675 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
-18:41:24.677 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:41:24.677 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:41:24.677 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:41:24.678 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
-18:41:24.680 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:41:24.681 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
-18:41:24.681 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
-18:41:24.681 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
-18:41:24.683 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:41:24.683 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:41:24.683 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:41:24.684 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
-18:41:24.686 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:41:24.686 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:41:24.686 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:41:24.708 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
-18:41:24.714 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:41:24.715 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:41:24.715 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:41:24.715 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
-18:41:24.717 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:41:24.717 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:41:24.717 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:41:24.719 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
-18:41:24.719 INFO  org.jbake.app.Crawler - Content detected:
-18:41:24.719 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
-18:41:24.719 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
-18:41:24.719 INFO  org.jbake.app.Crawler - Parsed 1 files of type: allcontent
-18:41:25.039 INFO  org.jbake.app.Renderer - Rendering archive [/tmp/junit5289408879417962885/output/archive.html]... done!
-18:41:25.048 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit5289408879417962885/output/about.html]... done!
-18:41:25.053 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit5289408879417962885/output/projects.html]... done!
-18:41:25.057 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit5289408879417962885/output/index2.html]... done!
-18:41:25.079 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit5289408879417962885/output/blog/2016/draft-post-draft.html]... done!
-18:41:25.083 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit5289408879417962885/output/blog/2016/another-post.html]... done!
-18:41:25.087 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit5289408879417962885/output/blog/2013/second-post.html]... done!
-18:41:25.091 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit5289408879417962885/output/blog/2012/first-post.html]... done!
-18:41:25.113 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit5289408879417962885/output/allcontent.html]... done!
-18:41:25.129 INFO  org.jbake.app.Renderer - Rendering feed [/tmp/junit5289408879417962885/output/feed.xml]... done!
-18:41:25.171 INFO  org.jbake.app.Renderer - Rendering masterindex [/tmp/junit5289408879417962885/output/index.html]... done!
-18:41:25.174 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap-responsive.min.css]... done!
-18:41:25.175 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap.min.css]... done!
-18:41:25.176 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings-white.png]... done!
-18:41:25.177 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings.png]... done!
-18:41:25.178 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/bootstrap.min.js]... done!
-18:41:25.179 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/html5shiv.js]... done!
-18:41:25.180 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/jquery-1.9.1.min.js]... done!
-18:41:25.185 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/images/custom-image.png]... done!
-18:41:25.185 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/sample.json]... done!
-18:41:25.187 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/images/custom-image.jpg]... done!
-18:41:25.188 INFO  org.jbake.app.Oven - Baking finished!
-18:41:25.188 INFO  org.jbake.app.Oven - Baked 11 items in 2032ms
-18:41:25.189 INFO  c.o.orient.core.db.OrientDBEmbedded - - shutdown storage: cache...
-18:41:25.252 INFO  org.jbake.app.Oven - Baking has started...
-18:41:25.254 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:documents1584063685226' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:41:26.288 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:41:26.317 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:41:26.348 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:41:26.382 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:41:26.420 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:41:26.481 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: allcontent
-18:41:26.482 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: masterindex
-18:41:26.482 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: tagsindex
-18:41:26.482 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: sitemap
-18:41:26.482 DEBUG org.jbake.app.ContentStore - Create document class 'allcontent'
-18:41:26.528 DEBUG org.jbake.app.ContentStore - Create document class 'tag'
-18:41:26.577 DEBUG org.jbake.app.ContentStore - Create document class 'tagsindex'
-18:41:26.631 DEBUG org.jbake.app.ContentStore - Create document class 'sitemap'
-18:41:26.718 INFO  org.jbake.app.Oven - Baking finished!
-18:41:26.719 INFO  org.jbake.app.Oven - Baked 3 items in 1467ms
-18:41:26.719 INFO  c.o.orient.core.db.OrientDBEmbedded - - shutdown storage: documents1584063685226...
+  <testcase name="shouldCrawlRenderAndCopyAssets" classname="org.jbake.app.OvenTest" time="1.559"/>
+  <system-out><![CDATA[18:52:56.155 INFO  org.jbake.app.Oven - Baking has started...
+18:52:56.157 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:cache' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:52:57.193 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:52:57.224 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:52:57.259 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:52:57.298 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:52:57.342 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+18:52:57.407 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: allcontent
+18:52:57.408 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: masterindex
+18:52:57.408 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: tagsindex
+18:52:57.408 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: sitemap
+18:52:57.408 DEBUG org.jbake.app.ContentStore - Create document class 'allcontent'
+18:52:57.457 DEBUG org.jbake.app.ContentStore - Create document class 'tag'
+18:52:57.510 DEBUG org.jbake.app.ContentStore - Create document class 'tagsindex'
+18:52:57.569 DEBUG org.jbake.app.ContentStore - Create document class 'sitemap'
+18:52:57.662 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:52:57.662 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:52:57.663 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:52:57.664 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
+18:52:57.666 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:52:57.666 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:52:57.666 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:52:57.667 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
+18:52:57.672 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:52:57.672 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:52:57.672 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:52:57.673 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
+18:52:57.677 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:52:57.677 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:52:57.677 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:52:57.678 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
+18:52:57.682 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:52:57.682 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:52:57.682 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:52:57.684 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
+18:52:57.686 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:52:57.686 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:52:57.686 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:52:57.688 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
+18:52:57.690 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:52:57.690 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
+18:52:57.690 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
+18:52:57.690 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
+18:52:57.692 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:52:57.692 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:52:57.692 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:52:57.693 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
+18:52:57.696 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:52:57.696 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:52:57.696 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:52:57.719 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
+18:52:57.725 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:52:57.725 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:52:57.725 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:52:57.726 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
+18:52:57.728 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:52:57.728 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:52:57.728 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:52:57.729 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
+18:52:57.729 INFO  org.jbake.app.Crawler - Content detected:
+18:52:57.729 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
+18:52:57.729 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
+18:52:57.729 INFO  org.jbake.app.Crawler - Parsed 1 files of type: allcontent
+18:52:58.055 INFO  org.jbake.app.Renderer - Rendering archive [/tmp/junit6652701036278877481/output/archive.html]... done!
+18:52:58.065 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit6652701036278877481/output/about.html]... done!
+18:52:58.069 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit6652701036278877481/output/projects.html]... done!
+18:52:58.073 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit6652701036278877481/output/index2.html]... done!
+18:52:58.093 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit6652701036278877481/output/blog/2016/draft-post-draft.html]... done!
+18:52:58.098 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit6652701036278877481/output/blog/2016/another-post.html]... done!
+18:52:58.104 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit6652701036278877481/output/blog/2013/second-post.html]... done!
+18:52:58.111 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit6652701036278877481/output/blog/2012/first-post.html]... done!
+18:52:58.133 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit6652701036278877481/output/allcontent.html]... done!
+18:52:58.148 INFO  org.jbake.app.Renderer - Rendering feed [/tmp/junit6652701036278877481/output/feed.xml]... done!
+18:52:58.192 INFO  org.jbake.app.Renderer - Rendering masterindex [/tmp/junit6652701036278877481/output/index.html]... done!
+18:52:58.195 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap-responsive.min.css]... done!
+18:52:58.196 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap.min.css]... done!
+18:52:58.197 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings-white.png]... done!
+18:52:58.198 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings.png]... done!
+18:52:58.199 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/bootstrap.min.js]... done!
+18:52:58.199 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/html5shiv.js]... done!
+18:52:58.200 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/jquery-1.9.1.min.js]... done!
+18:52:58.205 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/images/custom-image.png]... done!
+18:52:58.205 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/sample.json]... done!
+18:52:58.207 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/images/custom-image.jpg]... done!
+18:52:58.208 INFO  org.jbake.app.Oven - Baking finished!
+18:52:58.208 INFO  org.jbake.app.Oven - Baked 11 items in 2053ms
+18:52:58.209 INFO  c.o.orient.core.db.OrientDBEmbedded - - shutdown storage: cache...
+18:52:58.272 INFO  org.jbake.app.Oven - Baking has started...
+18:52:58.274 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:documents1584064378247' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:52:59.349 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:52:59.383 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:52:59.419 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:52:59.471 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:52:59.507 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+18:52:59.567 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: allcontent
+18:52:59.567 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: masterindex
+18:52:59.567 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: tagsindex
+18:52:59.568 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: sitemap
+18:52:59.568 DEBUG org.jbake.app.ContentStore - Create document class 'allcontent'
+18:52:59.613 DEBUG org.jbake.app.ContentStore - Create document class 'tag'
+18:52:59.660 DEBUG org.jbake.app.ContentStore - Create document class 'tagsindex'
+18:52:59.712 DEBUG org.jbake.app.ContentStore - Create document class 'sitemap'
+18:52:59.798 INFO  org.jbake.app.Oven - Baking finished!
+18:52:59.798 INFO  org.jbake.app.Oven - Baked 3 items in 1526ms
+18:52:59.798 INFO  c.o.orient.core.db.OrientDBEmbedded - - shutdown storage: documents1584064378247...
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

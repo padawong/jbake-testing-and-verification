@@ -57,9 +57,9 @@ import java.util.Map;
     public static String[] toStringArray(Object entry) {
 <span class="fc bfc" id="L58" title="All 2 branches covered.">        if (entry instanceof String[]) {</span>
 <span class="fc" id="L59">            return (String[]) entry;</span>
-<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        } else if (entry instanceof OTrackedList) {</span>
-<span class="nc" id="L61">            OTrackedList&lt;String&gt; list = (OTrackedList&lt;String&gt;) entry;</span>
-<span class="nc" id="L62">            return list.toArray(new String[list.size()]);</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        } else if (entry instanceof OTrackedList) {</span>
+<span class="fc" id="L61">            OTrackedList&lt;String&gt; list = (OTrackedList&lt;String&gt;) entry;</span>
+<span class="fc" id="L62">            return list.toArray(new String[list.size()]);</span>
         }
 <span class="fc" id="L64">        return new String[0];</span>
     }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.launcher.MainTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:41:15" hostname="bolt.cs.ucr.edu" time="0.032">
+<testsuite name="org.jbake.launcher.MainTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:49" hostname="bolt.cs.ucr.edu" time="0.031">
   <properties/>
   <testcase name="launchBakeAndJettyWithCustomDirForJetty" classname="org.jbake.launcher.MainTest" time="0.007"/>
-  <testcase name="launchJettyWithCustomSrcAndDestDir" classname="org.jbake.launcher.MainTest" time="0.003"/>
-  <testcase name="launchJettyWithCustomDestinationDir" classname="org.jbake.launcher.MainTest" time="0.003"/>
+  <testcase name="launchJettyWithCustomSrcAndDestDir" classname="org.jbake.launcher.MainTest" time="0.002"/>
+  <testcase name="launchJettyWithCustomDestinationDir" classname="org.jbake.launcher.MainTest" time="0.002"/>
   <testcase name="launchJettyWithCmdlineOverridingProperties" classname="org.jbake.launcher.MainTest" time="0.005"/>
-  <testcase name="launchJetty" classname="org.jbake.launcher.MainTest" time="0.002"/>
+  <testcase name="launchJetty" classname="org.jbake.launcher.MainTest" time="0.003"/>
   <testcase name="launchJettyWithCustomDestViaConfig" classname="org.jbake.launcher.MainTest" time="0.003"/>
-  <testcase name="launchBakeAndJetty" classname="org.jbake.launcher.MainTest" time="0.003"/>
-  <testcase name="launchJettyWithCustomServerSourceDir" classname="org.jbake.launcher.MainTest" time="0.003"/>
+  <testcase name="launchBakeAndJetty" classname="org.jbake.launcher.MainTest" time="0.002"/>
+  <testcase name="launchJettyWithCustomServerSourceDir" classname="org.jbake.launcher.MainTest" time="0.002"/>
   <system-out><![CDATA[JBake v2.7.0-SNAPSHOT (2020-02-20 22:59:02PM) [http://jbake.org]
 
 JBake v2.7.0-SNAPSHOT (2020-02-20 22:59:02PM) [http://jbake.org]

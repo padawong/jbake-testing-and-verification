@@ -304,6 +304,7 @@ public class ParserTest {
     /**/
     @Test
     public void parseInvalidHTMLFileHeaderWithEmptyStatus() {
+        config.setDefaultStatus("");
         Map<String, Object> map = parser.processFile(invalidHTMLFileHeaderWithEmptyStatus);
         Assert.assertNull(map);
     }

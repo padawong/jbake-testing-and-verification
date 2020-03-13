@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.configuration.JBakeConfigurationInspectorTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:41:08" hostname="bolt.cs.ucr.edu" time="0.081">
+<testsuite name="org.jbake.app.configuration.JBakeConfigurationInspectorTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:41" hostname="bolt.cs.ucr.edu" time="0.081">
   <properties/>
   <testcase name="shouldThrowExceptionIfContentFolderDoesNotExist()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.063"/>
   <testcase name="shouldLogWarningIfAssetFolderDoesNotExist()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.004"/>
   <testcase name="shouldThrowExceptionIfSourceFolderDoesNotExist()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.001"/>
   <testcase name="shouldThrowExceptionIfTemplateFolderDoesNotExist()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.002"/>
   <testcase name="shouldThrowExceptionIfDestinationFolderNotWritable()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.003"/>
-  <testcase name="shouldCreateDestinationFolderIfNotExists()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.003"/>
+  <testcase name="shouldCreateDestinationFolderIfNotExists()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.004"/>
   <testcase name="shouldThrowExceptionIfSourceFolderIsNotReadable()" classname="org.jbake.app.configuration.JBakeConfigurationInspectorTest" time="0.002"/>
-  <system-out><![CDATA[18:41:08.245 WARN  o.j.a.c.JBakeConfigurationInspector - No asset folder '/tmp/junit2304786217162936479/assets' was found!
+  <system-out><![CDATA[18:52:41.519 WARN  o.j.a.c.JBakeConfigurationInspector - No asset folder '/tmp/junit3911663957159361841/assets' was found!
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
