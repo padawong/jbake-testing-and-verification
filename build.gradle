@@ -183,11 +183,11 @@ subprojects {
 
 
     apply plugin: 'info.solidsoft.pitest'
+
     pitest {
         threads = 16
-        //targetClasses = ['org.jbake.app.*']
-        //excludedTestClasses = ['org.jbake.app.*']
-        targetTests = ['org.jbake.app.*Parser*']
+        //targetTests = ['org.jbake.app.*Parser*', 'org.jbake.app.Crawler.java', ]
+        targetTests = ['org.jbake.app.*']
         historyOutputLocation = ['build/reports/pitest/']
         outputFormats = ['XML', 'HTML']
     }
