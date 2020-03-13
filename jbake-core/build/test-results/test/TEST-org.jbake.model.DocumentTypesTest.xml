@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.model.DocumentTypesTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:15:22" hostname="bolt.cs.ucr.edu" time="0.023">
+<testsuite name="org.jbake.model.DocumentTypesTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:41:15" hostname="bolt.cs.ucr.edu" time="0.024">
   <properties/>
   <testcase name="shouldAddDocumentTypeOnlyOnce" classname="org.jbake.model.DocumentTypesTest" time="0.01"/>
-  <testcase name="shouldNotifyListenersWhenNewDocumentTypeIsAdded" classname="org.jbake.model.DocumentTypesTest" time="0.011"/>
-  <testcase name="shouldTellIfDocumentTypeIsKnown" classname="org.jbake.model.DocumentTypesTest" time="0.002"/>
+  <testcase name="shouldNotifyListenersWhenNewDocumentTypeIsAdded" classname="org.jbake.model.DocumentTypesTest" time="0.013"/>
+  <testcase name="shouldTellIfDocumentTypeIsKnown" classname="org.jbake.model.DocumentTypesTest" time="0.0"/>
   <testcase name="shouldAddNewDocumentType" classname="org.jbake.model.DocumentTypesTest" time="0.0"/>
   <testcase name="shouldTellIfDocumentTypeIsUnknown" classname="org.jbake.model.DocumentTypesTest" time="0.0"/>
   <testcase name="shouldReturnDefaultDocumentTypes" classname="org.jbake.model.DocumentTypesTest" time="0.0"/>

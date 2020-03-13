@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.render.IndexRendererTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:15:22" hostname="bolt.cs.ucr.edu" time="0.005">
+<testsuite name="org.jbake.render.IndexRendererTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:41:15" hostname="bolt.cs.ucr.edu" time="0.006">
   <properties/>
-  <testcase name="shouldRenderPaginatedIndex" classname="org.jbake.render.IndexRendererTest" time="0.001"/>
+  <testcase name="shouldRenderPaginatedIndex" classname="org.jbake.render.IndexRendererTest" time="0.002"/>
   <testcase name="propagatesRenderingException" classname="org.jbake.render.IndexRendererTest" time="0.001"/>
   <testcase name="returnsZeroWhenConfigDoesNotRenderIndices" classname="org.jbake.render.IndexRendererTest" time="0.001"/>
-  <testcase name="returnsOneWhenConfigRendersIndices" classname="org.jbake.render.IndexRendererTest" time="0.001"/>
-  <testcase name="shouldFallbackToStandardIndexRenderingIfPropertyIsMissing" classname="org.jbake.render.IndexRendererTest" time="0.001"/>
-  <testcase name="doesNotRenderWhenConfigDoesNotRenderIndices" classname="org.jbake.render.IndexRendererTest" time="0.0"/>
+  <testcase name="returnsOneWhenConfigRendersIndices" classname="org.jbake.render.IndexRendererTest" time="0.0"/>
+  <testcase name="shouldFallbackToStandardIndexRenderingIfPropertyIsMissing" classname="org.jbake.render.IndexRendererTest" time="0.0"/>
+  <testcase name="doesNotRenderWhenConfigDoesNotRenderIndices" classname="org.jbake.render.IndexRendererTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

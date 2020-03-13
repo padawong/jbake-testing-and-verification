@@ -1,520 +1,520 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:23:29" hostname="bolt.cs.ucr.edu" time="7.394">
+<testsuite name="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:49:33" hostname="bolt.cs.ucr.edu" time="11.828">
   <properties/>
-  <testcase name="renderIndex" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="1.09"/>
-  <testcase name="renderArchive" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="0.803"/>
-  <testcase name="checkDbTemplateModelIsPopulated" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="0.782"/>
-  <testcase name="renderTagsIndex" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="0.838"/>
-  <testcase name="renderFeed" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="0.785"/>
-  <testcase name="renderPage" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="0.751"/>
-  <testcase name="renderPost" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="0.779"/>
-  <testcase name="renderTags" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="0.786"/>
-  <testcase name="renderSitemap" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="0.778"/>
-  <system-out><![CDATA[18:23:29.932 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit7722033292521993885/documents1584062609930' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:23:30.511 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:23:30.534 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:23:30.558 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:23:30.586 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:23:30.617 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:23:30.672 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:30.672 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:30.672 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:30.673 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
-18:23:30.674 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:30.674 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:30.674 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:30.687 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
-18:23:30.691 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:30.691 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:30.691 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:30.691 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
-18:23:30.694 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:30.694 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:30.694 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:30.694 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
-18:23:30.696 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:30.696 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:30.696 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:30.696 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
-18:23:30.697 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:30.697 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:30.697 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:30.698 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
-18:23:30.699 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:30.699 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
-18:23:30.699 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
-18:23:30.699 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
-18:23:30.700 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:30.700 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:30.700 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:30.700 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
-18:23:30.701 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:30.701 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:30.701 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:30.716 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
-18:23:30.718 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:30.718 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:30.718 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:30.719 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
-18:23:30.720 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:30.720 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:30.720 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:30.720 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
-18:23:30.720 INFO  org.jbake.app.Crawler - Content detected:
-18:23:30.720 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
-18:23:30.720 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
-18:23:31.017 INFO  org.jbake.app.Renderer - Rendering masterindex [/tmp/junit7722033292521993885/index.html]... done!
-18:23:31.022 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit7722033292521993885/documents1584062609930' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:23:31.545 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:23:31.569 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:23:31.596 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:23:31.626 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:23:31.657 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:23:31.713 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:31.713 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:31.713 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:31.714 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
-18:23:31.715 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:31.715 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:31.715 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:31.728 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
-18:23:31.733 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:31.733 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:31.733 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:31.734 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
-18:23:31.736 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:31.736 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:31.736 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:31.737 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
-18:23:31.738 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:31.738 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:31.738 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:31.739 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
-18:23:31.740 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:31.740 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:31.740 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:31.740 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
-18:23:31.741 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:31.741 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
-18:23:31.741 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
-18:23:31.741 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
-18:23:31.742 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:31.742 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:31.742 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:31.743 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
-18:23:31.744 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:31.744 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:31.744 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:31.758 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
-18:23:31.761 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:31.761 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:31.761 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:31.761 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
-18:23:31.762 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:31.762 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:31.762 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:31.763 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
-18:23:31.763 INFO  org.jbake.app.Crawler - Content detected:
-18:23:31.763 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
-18:23:31.763 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
-18:23:31.821 INFO  org.jbake.app.Renderer - Rendering archive [/tmp/junit7722033292521993885/archive.html]... done!
-18:23:31.825 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit7722033292521993885/documents1584062609930' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:23:32.341 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:23:32.364 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:23:32.389 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:23:32.417 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:23:32.448 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:23:32.502 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:32.502 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:32.502 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:32.503 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
-18:23:32.504 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:32.504 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:32.504 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:32.517 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
-18:23:32.521 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:32.521 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:32.521 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:32.522 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
-18:23:32.524 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:32.524 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:32.524 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:32.525 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
-18:23:32.526 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:32.526 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:32.526 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:32.527 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
-18:23:32.528 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:32.528 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:32.528 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:32.528 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
-18:23:32.529 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:32.529 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
-18:23:32.529 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
-18:23:32.529 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
-18:23:32.530 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:32.530 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:32.530 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:32.530 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
-18:23:32.532 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:32.532 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:32.532 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:32.546 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
-18:23:32.548 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:32.548 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:32.548 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:32.549 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
-18:23:32.550 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:32.550 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:32.550 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:32.550 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
-18:23:32.550 INFO  org.jbake.app.Crawler - Content detected:
-18:23:32.550 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
-18:23:32.550 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
-18:23:32.604 INFO  org.jbake.app.Renderer - Rendering masterindex [/tmp/junit7722033292521993885/index.html]... done!
-18:23:32.608 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit7722033292521993885/documents1584062609930' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:23:33.125 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:23:33.148 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:23:33.173 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:23:33.202 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:23:33.233 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:23:33.289 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:33.289 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:33.290 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:33.290 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
-18:23:33.291 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:33.291 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:33.291 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:33.304 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
-18:23:33.308 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:33.308 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:33.308 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:33.309 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
-18:23:33.311 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:33.311 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:33.311 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:33.312 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
-18:23:33.313 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:33.313 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:33.313 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:33.314 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
-18:23:33.315 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:33.315 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:33.315 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:33.315 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
-18:23:33.316 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:33.316 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
-18:23:33.316 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
-18:23:33.316 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
-18:23:33.317 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:33.317 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:33.317 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:33.318 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
-18:23:33.319 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:33.319 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:33.319 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:33.348 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
-18:23:33.350 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:33.350 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:33.350 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:33.350 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
-18:23:33.351 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:33.351 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:33.351 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:33.352 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
-18:23:33.352 INFO  org.jbake.app.Crawler - Content detected:
-18:23:33.352 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
-18:23:33.352 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
-18:23:33.368 INFO  o.j.t.DelegatingTemplateEngine - Default template: tags.ftl was not found, searching for others...
-18:23:33.371 INFO  o.j.t.DelegatingTemplateEngine - Found alternative template file: tags.thyme using this instead
-18:23:33.420 INFO  org.jbake.app.Renderer - Rendering tag [/tmp/junit7722033292521993885/tags/blog.html]... done!
-18:23:33.422 INFO  o.j.t.DelegatingTemplateEngine - Default template: tags-index.ftl was not found, searching for others...
-18:23:33.424 INFO  o.j.t.DelegatingTemplateEngine - Found alternative template file: tags-index.thyme using this instead
-18:23:33.442 INFO  org.jbake.app.Renderer - Rendering tagindex [/tmp/junit7722033292521993885/tags/index.html]... done!
-18:23:33.446 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit7722033292521993885/documents1584062609930' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:23:33.964 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:23:33.986 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:23:34.010 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:23:34.038 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:23:34.069 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:23:34.123 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.123 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.123 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.124 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
-18:23:34.125 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.125 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.125 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.139 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
-18:23:34.143 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.143 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.143 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.143 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
-18:23:34.146 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.146 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.146 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.147 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
-18:23:34.148 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.148 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.148 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.149 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
-18:23:34.150 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.150 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.150 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.150 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
-18:23:34.151 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.151 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
-18:23:34.151 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
-18:23:34.151 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
-18:23:34.152 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.152 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.152 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.152 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
-18:23:34.154 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.154 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.154 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.168 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
-18:23:34.170 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.170 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.170 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.171 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
-18:23:34.172 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.172 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.172 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.172 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
-18:23:34.172 INFO  org.jbake.app.Crawler - Content detected:
-18:23:34.172 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
-18:23:34.172 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
-18:23:34.228 INFO  org.jbake.app.Renderer - Rendering feed [/tmp/junit7722033292521993885/feed.xml]... done!
-18:23:34.231 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit7722033292521993885/documents1584062609930' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:23:34.748 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:23:34.771 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:23:34.795 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:23:34.822 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:23:34.853 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:23:34.907 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.907 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.907 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.907 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
-18:23:34.908 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.908 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.908 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.921 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
-18:23:34.925 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.925 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.925 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.926 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
-18:23:34.928 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.928 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.928 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.928 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
-18:23:34.930 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.930 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.930 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.930 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
-18:23:34.931 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.931 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.931 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.932 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
-18:23:34.933 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.933 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
-18:23:34.933 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
-18:23:34.933 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
-18:23:34.934 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.934 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.934 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.934 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
-18:23:34.935 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.935 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.935 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.950 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
-18:23:34.952 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.952 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.952 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.952 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
-18:23:34.953 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.953 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.953 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.953 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
-18:23:34.953 INFO  org.jbake.app.Crawler - Content detected:
-18:23:34.953 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
-18:23:34.954 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
-18:23:34.966 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:34.966 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:34.966 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:34.979 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit7722033292521993885/about.html]... done!
-18:23:34.983 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit7722033292521993885/documents1584062609930' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:23:35.500 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:23:35.523 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:23:35.549 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:23:35.578 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:23:35.610 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:23:35.666 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:35.666 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:35.666 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.667 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
-18:23:35.668 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:35.668 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:35.668 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.681 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
-18:23:35.685 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:35.685 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:35.685 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.685 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
-18:23:35.688 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:35.688 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:35.688 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.688 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
-18:23:35.690 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:35.690 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:35.690 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.690 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
-18:23:35.691 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:35.691 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:35.691 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.692 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
-18:23:35.693 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.693 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
-18:23:35.693 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
-18:23:35.693 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
-18:23:35.694 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:35.694 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:35.694 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.694 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
-18:23:35.695 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:35.695 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:35.695 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.709 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
-18:23:35.711 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:35.711 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:35.711 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.712 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
-18:23:35.713 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:35.713 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:35.713 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.713 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
-18:23:35.713 INFO  org.jbake.app.Crawler - Content detected:
-18:23:35.713 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
-18:23:35.713 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
-18:23:35.724 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:35.724 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:35.724 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:35.758 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit7722033292521993885/second-post.html]... done!
-18:23:35.762 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit7722033292521993885/documents1584062609930' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:23:36.278 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:23:36.300 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:23:36.325 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:23:36.352 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:23:36.383 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:23:36.437 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:36.437 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:36.437 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:36.438 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
-18:23:36.439 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:36.439 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:36.439 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:36.452 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
-18:23:36.456 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:36.456 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:36.456 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:36.456 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
-18:23:36.459 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:36.459 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:36.459 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:36.459 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
-18:23:36.460 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:36.460 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:36.460 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:36.461 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
-18:23:36.462 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:36.462 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:36.462 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:36.462 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
-18:23:36.463 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:36.463 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
-18:23:36.463 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
-18:23:36.463 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
-18:23:36.464 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:36.464 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:36.464 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:36.465 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
-18:23:36.466 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:36.466 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:36.466 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:36.480 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
-18:23:36.482 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:36.482 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:36.482 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:36.483 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
-18:23:36.484 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:36.484 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:36.484 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:36.484 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
-18:23:36.484 INFO  org.jbake.app.Crawler - Content detected:
-18:23:36.484 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
-18:23:36.484 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
-18:23:36.500 INFO  o.j.t.DelegatingTemplateEngine - Default template: tags.ftl was not found, searching for others...
-18:23:36.500 INFO  o.j.t.DelegatingTemplateEngine - Found alternative template file: tags.thyme using this instead
-18:23:36.530 INFO  org.jbake.app.Renderer - Rendering tag [/tmp/junit7722033292521993885/tags/blog.html]... done!
-18:23:36.532 INFO  o.j.t.DelegatingTemplateEngine - Default template: tags-index.ftl was not found, searching for others...
-18:23:36.533 INFO  o.j.t.DelegatingTemplateEngine - Found alternative template file: tags-index.thyme using this instead
-18:23:36.544 INFO  org.jbake.app.Renderer - Rendering tagindex [/tmp/junit7722033292521993885/tags/index.html]... done!
-18:23:36.547 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit7722033292521993885/documents1584062609930' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:23:37.064 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:23:37.085 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:23:37.110 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:23:37.137 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:23:37.168 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:23:37.223 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:37.223 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:37.223 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:37.224 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
-18:23:37.224 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:37.224 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:37.224 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:37.237 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
-18:23:37.241 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:37.241 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:37.241 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:37.242 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
-18:23:37.244 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:37.244 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:37.244 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:37.245 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
-18:23:37.246 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:37.246 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:37.246 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:37.246 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
-18:23:37.247 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:37.247 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:37.247 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:37.248 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
-18:23:37.249 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:37.249 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
-18:23:37.249 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
-18:23:37.249 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
-18:23:37.250 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:37.250 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:37.250 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:37.250 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
-18:23:37.251 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:37.251 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:37.251 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:37.266 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
-18:23:37.268 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:37.268 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:37.268 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:37.268 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
-18:23:37.269 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:23:37.269 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:23:37.269 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:23:37.270 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
-18:23:37.270 INFO  org.jbake.app.Crawler - Content detected:
-18:23:37.270 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
-18:23:37.270 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
-18:23:37.280 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: paper
-18:23:37.283 INFO  o.j.t.DelegatingTemplateEngine - Default template: sitemap.ftl was not found, searching for others...
-18:23:37.285 INFO  o.j.t.DelegatingTemplateEngine - Found alternative template file: sitemap.thyme using this instead
-18:23:37.322 INFO  org.jbake.app.Renderer - Rendering sitemap [/tmp/junit7722033292521993885/sitemap.xml]... done!
+  <testcase name="renderIndex" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="1.524"/>
+  <testcase name="renderArchive" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="1.302"/>
+  <testcase name="checkDbTemplateModelIsPopulated" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="1.336"/>
+  <testcase name="renderTagsIndex" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="1.287"/>
+  <testcase name="renderFeed" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="1.286"/>
+  <testcase name="renderPage" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="1.271"/>
+  <testcase name="renderPost" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="1.273"/>
+  <testcase name="renderTags" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="1.27"/>
+  <testcase name="renderSitemap" classname="org.jbake.app.template.ThymeleafTemplateEngineRenderingTest" time="1.278"/>
+  <system-out><![CDATA[18:49:33.289 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit4604967501239269585/documents1584064173287' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:49:34.306 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:49:34.327 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:49:34.352 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:49:34.379 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:49:34.409 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+18:49:34.463 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:34.463 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:34.463 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:34.463 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
+18:49:34.464 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:34.464 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:34.464 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:34.477 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
+18:49:34.482 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:34.482 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:34.482 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:34.482 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
+18:49:34.485 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:34.485 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:34.485 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:34.485 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
+18:49:34.486 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:34.486 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:34.486 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:34.487 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
+18:49:34.488 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:34.488 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:34.488 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:34.488 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
+18:49:34.489 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:34.489 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
+18:49:34.489 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
+18:49:34.489 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
+18:49:34.490 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:34.490 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:34.490 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:34.491 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
+18:49:34.492 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:34.492 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:34.492 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:34.507 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
+18:49:34.509 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:34.509 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:34.509 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:34.510 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
+18:49:34.511 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:34.511 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:34.511 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:34.511 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
+18:49:34.511 INFO  org.jbake.app.Crawler - Content detected:
+18:49:34.511 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
+18:49:34.511 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
+18:49:34.808 INFO  org.jbake.app.Renderer - Rendering masterindex [/tmp/junit4604967501239269585/index.html]... done!
+18:49:34.813 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit4604967501239269585/documents1584064173287' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:49:35.836 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:49:35.859 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:49:35.884 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:49:35.912 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:49:35.944 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+18:49:35.998 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:35.998 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:35.998 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:35.999 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
+18:49:36.000 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:36.000 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:36.000 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:36.013 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
+18:49:36.018 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:36.018 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:36.018 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:36.019 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
+18:49:36.021 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:36.021 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:36.021 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:36.022 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
+18:49:36.023 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:36.023 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:36.023 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:36.024 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
+18:49:36.025 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:36.025 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:36.025 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:36.025 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
+18:49:36.026 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:36.026 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
+18:49:36.026 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
+18:49:36.026 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
+18:49:36.027 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:36.027 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:36.027 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:36.028 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
+18:49:36.029 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:36.029 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:36.029 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:36.043 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
+18:49:36.046 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:36.046 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:36.046 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:36.046 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
+18:49:36.047 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:36.047 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:36.047 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:36.048 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
+18:49:36.048 INFO  org.jbake.app.Crawler - Content detected:
+18:49:36.048 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
+18:49:36.048 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
+18:49:36.110 INFO  org.jbake.app.Renderer - Rendering archive [/tmp/junit4604967501239269585/archive.html]... done!
+18:49:36.115 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit4604967501239269585/documents1584064173287' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:49:37.181 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:49:37.204 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:49:37.229 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:49:37.257 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:49:37.288 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+18:49:37.344 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:37.344 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:37.344 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:37.345 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
+18:49:37.346 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:37.346 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:37.346 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:37.359 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
+18:49:37.363 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:37.363 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:37.363 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:37.364 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
+18:49:37.366 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:37.366 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:37.366 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:37.367 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
+18:49:37.368 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:37.368 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:37.368 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:37.369 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
+18:49:37.370 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:37.370 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:37.370 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:37.370 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
+18:49:37.371 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:37.371 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
+18:49:37.371 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
+18:49:37.371 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
+18:49:37.372 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:37.373 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:37.373 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:37.373 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
+18:49:37.375 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:37.375 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:37.375 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:37.389 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
+18:49:37.392 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:37.392 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:37.392 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:37.392 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
+18:49:37.393 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:37.393 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:37.393 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:37.394 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
+18:49:37.394 INFO  org.jbake.app.Crawler - Content detected:
+18:49:37.394 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
+18:49:37.394 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
+18:49:37.446 INFO  org.jbake.app.Renderer - Rendering masterindex [/tmp/junit4604967501239269585/index.html]... done!
+18:49:37.450 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit4604967501239269585/documents1584064173287' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:49:38.469 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:49:38.492 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:49:38.516 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:49:38.544 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:49:38.574 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+18:49:38.628 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:38.628 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:38.628 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:38.629 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
+18:49:38.630 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:38.630 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:38.630 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:38.643 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
+18:49:38.647 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:38.647 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:38.647 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:38.647 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
+18:49:38.650 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:38.650 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:38.650 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:38.650 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
+18:49:38.652 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:38.652 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:38.652 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:38.652 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
+18:49:38.653 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:38.653 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:38.653 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:38.654 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
+18:49:38.655 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:38.655 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
+18:49:38.655 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
+18:49:38.655 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
+18:49:38.656 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:38.656 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:38.656 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:38.656 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
+18:49:38.658 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:38.658 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:38.658 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:38.672 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
+18:49:38.674 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:38.674 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:38.674 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:38.674 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
+18:49:38.676 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:38.676 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:38.676 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:38.676 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
+18:49:38.676 INFO  org.jbake.app.Crawler - Content detected:
+18:49:38.676 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
+18:49:38.676 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
+18:49:38.692 INFO  o.j.t.DelegatingTemplateEngine - Default template: tags.ftl was not found, searching for others...
+18:49:38.692 INFO  o.j.t.DelegatingTemplateEngine - Found alternative template file: tags.thyme using this instead
+18:49:38.715 INFO  org.jbake.app.Renderer - Rendering tag [/tmp/junit4604967501239269585/tags/blog.html]... done!
+18:49:38.717 INFO  o.j.t.DelegatingTemplateEngine - Default template: tags-index.ftl was not found, searching for others...
+18:49:38.717 INFO  o.j.t.DelegatingTemplateEngine - Found alternative template file: tags-index.thyme using this instead
+18:49:38.734 INFO  org.jbake.app.Renderer - Rendering tagindex [/tmp/junit4604967501239269585/tags/index.html]... done!
+18:49:38.737 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit4604967501239269585/documents1584064173287' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:49:39.753 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:49:39.775 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:49:39.799 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:49:39.826 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:49:39.856 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+18:49:39.910 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:39.910 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:39.910 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:39.910 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
+18:49:39.911 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:39.911 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:39.911 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:39.924 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
+18:49:39.928 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:39.928 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:39.928 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:39.929 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
+18:49:39.939 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:39.939 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:39.939 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:39.939 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
+18:49:39.941 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:39.941 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:39.941 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:39.941 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
+18:49:39.942 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:39.943 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:39.943 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:39.943 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
+18:49:39.945 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:39.945 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
+18:49:39.945 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
+18:49:39.945 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
+18:49:39.946 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:39.946 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:39.946 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:39.946 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
+18:49:39.948 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:39.948 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:39.948 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:39.962 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
+18:49:39.964 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:39.964 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:39.964 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:39.964 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
+18:49:39.965 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:39.965 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:39.965 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:39.966 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
+18:49:39.966 INFO  org.jbake.app.Crawler - Content detected:
+18:49:39.966 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
+18:49:39.966 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
+18:49:40.020 INFO  org.jbake.app.Renderer - Rendering feed [/tmp/junit4604967501239269585/feed.xml]... done!
+18:49:40.024 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit4604967501239269585/documents1584064173287' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:49:41.041 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:49:41.064 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:49:41.089 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:49:41.117 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:49:41.147 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+18:49:41.203 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:41.203 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:41.203 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.203 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
+18:49:41.204 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:41.204 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:41.204 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.218 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
+18:49:41.222 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:41.222 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:41.222 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.222 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
+18:49:41.225 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:41.225 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:41.225 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.225 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
+18:49:41.227 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:41.227 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:41.227 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.227 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
+18:49:41.228 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:41.228 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:41.228 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.229 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
+18:49:41.230 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.230 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
+18:49:41.230 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
+18:49:41.230 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
+18:49:41.231 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:41.231 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:41.231 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.231 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
+18:49:41.233 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:41.233 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:41.233 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.247 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
+18:49:41.249 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:41.249 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:41.249 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.249 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
+18:49:41.250 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:41.250 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:41.250 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.251 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
+18:49:41.251 INFO  org.jbake.app.Crawler - Content detected:
+18:49:41.251 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
+18:49:41.251 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
+18:49:41.263 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:41.263 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:41.263 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:41.292 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit4604967501239269585/about.html]... done!
+18:49:41.295 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit4604967501239269585/documents1584064173287' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:49:42.315 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:49:42.338 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:49:42.362 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:49:42.389 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:49:42.420 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+18:49:42.475 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:42.475 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:42.475 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.475 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
+18:49:42.476 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:42.476 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:42.476 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.490 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
+18:49:42.494 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:42.494 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:42.494 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.494 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
+18:49:42.497 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:42.497 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:42.497 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.497 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
+18:49:42.499 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:42.499 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:42.499 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.499 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
+18:49:42.500 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:42.500 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:42.500 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.500 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
+18:49:42.501 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.501 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
+18:49:42.502 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
+18:49:42.502 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
+18:49:42.502 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:42.502 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:42.502 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.503 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
+18:49:42.504 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:42.504 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:42.504 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.519 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
+18:49:42.521 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:42.521 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:42.521 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.521 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
+18:49:42.522 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:42.522 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:42.522 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.523 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
+18:49:42.523 INFO  org.jbake.app.Crawler - Content detected:
+18:49:42.523 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
+18:49:42.523 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
+18:49:42.534 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:42.534 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:42.534 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:42.565 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit4604967501239269585/second-post.html]... done!
+18:49:42.569 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit4604967501239269585/documents1584064173287' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:49:43.588 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:49:43.610 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:49:43.634 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:49:43.661 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:49:43.692 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+18:49:43.746 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:43.746 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:43.746 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:43.747 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
+18:49:43.748 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:43.748 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:43.748 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:43.760 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
+18:49:43.765 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:43.765 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:43.765 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:43.765 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
+18:49:43.767 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:43.767 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:43.767 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:43.768 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
+18:49:43.769 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:43.769 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:43.769 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:43.770 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
+18:49:43.771 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:43.771 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:43.771 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:43.771 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
+18:49:43.772 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:43.772 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
+18:49:43.772 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
+18:49:43.772 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
+18:49:43.773 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:43.773 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:43.773 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:43.774 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
+18:49:43.775 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:43.775 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:43.775 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:43.789 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
+18:49:43.791 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:43.791 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:43.791 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:43.792 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
+18:49:43.793 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:43.793 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:43.793 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:43.793 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
+18:49:43.793 INFO  org.jbake.app.Crawler - Content detected:
+18:49:43.793 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
+18:49:43.793 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
+18:49:43.808 INFO  o.j.t.DelegatingTemplateEngine - Default template: tags.ftl was not found, searching for others...
+18:49:43.809 INFO  o.j.t.DelegatingTemplateEngine - Found alternative template file: tags.thyme using this instead
+18:49:43.822 INFO  org.jbake.app.Renderer - Rendering tag [/tmp/junit4604967501239269585/tags/blog.html]... done!
+18:49:43.824 INFO  o.j.t.DelegatingTemplateEngine - Default template: tags-index.ftl was not found, searching for others...
+18:49:43.824 INFO  o.j.t.DelegatingTemplateEngine - Found alternative template file: tags-index.thyme using this instead
+18:49:43.835 INFO  org.jbake.app.Renderer - Rendering tagindex [/tmp/junit4604967501239269585/tags/index.html]... done!
+18:49:43.839 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit4604967501239269585/documents1584064173287' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+18:49:44.862 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+18:49:44.884 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+18:49:44.909 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+18:49:44.936 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+18:49:44.967 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+18:49:45.022 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:45.022 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:45.022 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:45.023 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/about.html]...  : new 
+18:49:45.024 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:45.024 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:45.024 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:45.036 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/allcontent.html]...  : new 
+18:49:45.040 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:45.041 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:45.041 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:45.041 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/first-post.html]...  : new 
+18:49:45.043 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:45.043 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:45.043 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:45.044 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/second-post.html]...  : new 
+18:49:45.045 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:45.045 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:45.045 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:45.046 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/another-post.html]...  : new 
+18:49:45.047 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:45.047 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:45.047 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:45.047 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2016/draft-post.html]...  : new 
+18:49:45.048 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:45.048 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html!
+18:49:45.048 WARN  org.jbake.app.Crawler - /home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html has an invalid header, it has been ignored!
+18:49:45.048 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/invalid_header.html]...  : new 
+18:49:45.049 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:45.049 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:45.049 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:45.049 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/index2.html]...  : new 
+18:49:45.051 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:45.051 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:45.051 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:45.065 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/draft-paper.html]...  : new 
+18:49:45.067 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:45.067 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:45.067 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:45.068 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/papers/published-paper.html]...  : new 
+18:49:45.069 DEBUG org.jbake.parser.MarkupEngine - Type property found
+18:49:45.069 DEBUG org.jbake.parser.MarkupEngine - Status property found
+18:49:45.069 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+18:49:45.069 INFO  org.jbake.app.Crawler - Processing [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/projects.html]...  : new 
+18:49:45.069 INFO  org.jbake.app.Crawler - Content detected:
+18:49:45.069 INFO  org.jbake.app.Crawler - Parsed 3 files of type: page
+18:49:45.069 INFO  org.jbake.app.Crawler - Parsed 4 files of type: post
+18:49:45.080 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: paper
+18:49:45.082 INFO  o.j.t.DelegatingTemplateEngine - Default template: sitemap.ftl was not found, searching for others...
+18:49:45.082 INFO  o.j.t.DelegatingTemplateEngine - Found alternative template file: sitemap.thyme using this instead
+18:49:45.113 INFO  org.jbake.app.Renderer - Rendering sitemap [/tmp/junit4604967501239269585/sitemap.xml]... done!
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

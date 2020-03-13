@@ -49,9 +49,9 @@ public class ParserTest {
     private File validAsciiDocWithADHeaderJSONFile;
 
     /**/
-    private File invalidHTMLFileHeaderWithNoStatus;
+    private File invalidHTMLFileHeaderWithEmptyStatus;
     private File invalidHTMLFileHeaderWithNoType;
-    private String invalidHeaderNoStatus = "type=post\n~~~~~~";
+    private String invalidHeaderEmptyStatus = "type=post\n~~~~~~";
     private String invalidHeaderNoType = "status=draft\n~~~~~~";
     /**/
 
@@ -79,9 +79,9 @@ public class ParserTest {
         out.close();
 
         /**/
-        invalidHTMLFileHeaderWithNoStatus = folder.newFile("invalidNoStatus.html");
-        out = new PrintWriter(invalidHTMLFileHeaderWithNoStatus);
-        out.println(invalidHeaderNoStatus);
+        invalidHTMLFileHeaderWithEmptyStatus = folder.newFile("invalidNoStatus.html");
+        out = new PrintWriter(invalidHTMLFileHeaderWithEmptyStatus);
+        out.println(invalidHeaderEmptyStatus);
         out.close();
 
         invalidHTMLFileHeaderWithNoType = folder.newFile("invalidNoType.html");
@@ -303,8 +303,8 @@ public class ParserTest {
 
     /**/
     @Test
-    public void parseInvalidHTMLFileHeaderWithNoStatus() {
-        Map<String, Object> map = parser.processFile(invalidHTMLFileHeaderWithNoStatus);
+    public void parseInvalidHTMLFileHeaderWithEmptyStatus() {
+        Map<String, Object> map = parser.processFile(invalidHTMLFileHeaderWithEmptyStatus);
         Assert.assertNull(map);
     }
 
