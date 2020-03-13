@@ -48,6 +48,13 @@ public class ParserTest {
     private File validAsciiDocWithJSONFile;
     private File validAsciiDocWithADHeaderJSONFile;
 
+    /**/
+    private File invalidHTMLFileHeaderWithNoStatus;
+    private File invalidHTMLFileHeaderWithNoType;
+    private String invalidHeaderNoStatus = "title=This is a Title\ntype=post\n~~~~~~";
+    private String invalidHeaderNoType = "title=This is a Title\nstatus=draft\n~~~~~~";
+    /**/
+
     private String validHeader = "title=This is a Title = This is a valid Title\nstatus=draft\ntype=post\ndate=2013-09-02\n~~~~~~";
     private String invalidHeader = "title=This is a Title\n~~~~~~";
     private String sampleJsonData = "{\"numberValue\": 42, \"stringValue\": \"Answer to live, the universe and everything\", \"nullValue\": null, \"arrayValue\": [1, 2], \"objectValue\": {\"val1\": 1, \"val2\": 2}}";
@@ -70,6 +77,18 @@ public class ParserTest {
         out = new PrintWriter(invalidHTMLFile);
         out.println(invalidHeader);
         out.close();
+
+        /**/
+        invalidHTMLFileHeaderWithNoStatus = folder.newFile("invalidNoStatus.html");
+        out = new PrintWriter(invalidHTMLFileHeaderWithNoStatus);
+        out.println(invalidHeaderNoStatus);
+        out.close();
+
+        invalidHTMLFileHeaderWithNoType = folder.newFile("invalidNoType.html");
+        out = new PrintWriter(invalidHTMLFileHeaderWithNoType);
+        out.println(invalidHeaderNoType);
+        out.close();
+        /**/
 
         validAsciiDocFile = folder.newFile("valid.ad");
         out = new PrintWriter(validAsciiDocFile);
@@ -281,6 +300,20 @@ public class ParserTest {
         Map<String, Object> map = parser.processFile(invalidHTMLFile);
         Assert.assertNull(map);
     }
+
+    /**/
+    @Test
+    public void parseInvalidHTMLFileHeaderWithNoStatus() {
+        Map<String, Object> map = parser.processFile(invalidHTMLFileHeaderWithNoStatus);
+        Assert.assertNull(map);
+    }
+
+    @Test
+    public void parseInvalidHTMLFileHeaderWithNoType() {
+        Map<String, Object> map = parser.processFile(invalidHTMLFileHeaderWithNoType);
+        Assert.assertNull(map);
+    }
+    /**/
 
     @Test
     public void parseValidAsciiDocFile() {
