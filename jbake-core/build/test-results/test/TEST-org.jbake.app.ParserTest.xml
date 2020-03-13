@@ -1,62 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.ParserTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:41" hostname="bolt.cs.ucr.edu" time="6.574">
+<testsuite name="org.jbake.app.ParserTest" tests="20" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:43:12" hostname="bolt.cs.ucr.edu" time="6.506">
   <properties/>
-  <testcase name="parseValidAsciiDocFile" classname="org.jbake.app.ParserTest" time="5.75"/>
-  <testcase name="parseValidHTMLFile" classname="org.jbake.app.ParserTest" time="0.023"/>
+  <testcase name="parseValidAsciiDocFile" classname="org.jbake.app.ParserTest" time="5.912"/>
+  <testcase name="parseValidHTMLFile" classname="org.jbake.app.ParserTest" time="0.028"/>
   <testcase name="parseInvalidHTMLFile" classname="org.jbake.app.ParserTest" time="0.006"/>
-  <testcase name="parseValidAsciiDocFileWithoutHeader" classname="org.jbake.app.ParserTest" time="0.051"/>
+  <testcase name="parseValidAsciiDocFileWithoutHeader" classname="org.jbake.app.ParserTest" time="0.053"/>
   <testcase name="parseInvalidMarkdownFile" classname="org.jbake.app.ParserTest" time="0.006"/>
-  <testcase name="parseValidAsciiDocFileWithoutJBakeMetaDataUsingDefaultTypeAndStatus" classname="org.jbake.app.ParserTest" time="0.042"/>
-  <testcase name="testValidAsciiDocWithADHeaderJSONFile" classname="org.jbake.app.ParserTest" time="0.066"/>
-  <testcase name="parseMarkdownFileWithCustomHeaderSeparator" classname="org.jbake.app.ParserTest" time="0.432"/>
-  <testcase name="parseMarkdownFileWithDefaultTypeAndStatus" classname="org.jbake.app.ParserTest" time="0.032"/>
-  <testcase name="parseValidAsciiDocWithJSONFile" classname="org.jbake.app.ParserTest" time="0.043"/>
-  <testcase name="parseInvalidHTMLFileHeaderWithNoType" classname="org.jbake.app.ParserTest" time="0.008"/>
+  <testcase name="parseValidAsciiDocFileWithoutJBakeMetaDataUsingDefaultTypeAndStatus" classname="org.jbake.app.ParserTest" time="0.038"/>
+  <testcase name="testValidAsciiDocWithADHeaderJSONFile" classname="org.jbake.app.ParserTest" time="0.046"/>
+  <testcase name="parseMarkdownFileWithCustomHeaderSeparator" classname="org.jbake.app.ParserTest" time="0.259"/>
+  <testcase name="parseMarkdownFileWithDefaultTypeAndStatus" classname="org.jbake.app.ParserTest" time="0.01"/>
+  <testcase name="parseValidAsciiDocWithJSONFile" classname="org.jbake.app.ParserTest" time="0.029"/>
+  <testcase name="parseInvalidHTMLFileHeaderWithNoType" classname="org.jbake.app.ParserTest" time="0.005"/>
+  <testcase name="parseInvalidHTMLFileHeaderWithTags" classname="org.jbake.app.ParserTest" time="0.005"/>
   <testcase name="parseInvalidHTMLFileHeaderWithEmptyStatus" classname="org.jbake.app.ParserTest" time="0.006"/>
-  <testcase name="parseValidAsciiDocFileWithExampleHeaderInContent" classname="org.jbake.app.ParserTest" time="0.044"/>
+  <testcase name="parseValidAsciiDocFileWithExampleHeaderInContent" classname="org.jbake.app.ParserTest" time="0.037"/>
   <testcase name="parseInvalidAsciiDocFile" classname="org.jbake.app.ParserTest" time="0.016"/>
-  <testcase name="parseValidHTMLWithJSONFile" classname="org.jbake.app.ParserTest" time="0.006"/>
+  <testcase name="parseValidHTMLWithJSONFile" classname="org.jbake.app.ParserTest" time="0.005"/>
   <testcase name="parseInvalidAsciiDocFileWithoutHeader" classname="org.jbake.app.ParserTest" time="0.02"/>
-  <testcase name="parseInvalidExtension" classname="org.jbake.app.ParserTest" time="0.004"/>
-  <testcase name="parseInvalidMarkdownFileWithoutDefaultStatus" classname="org.jbake.app.ParserTest" time="0.006"/>
-  <testcase name="parseMarkdownFileWithDefaultStatus" classname="org.jbake.app.ParserTest" time="0.01"/>
-  <system-out><![CDATA[18:52:41.748 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:52:41.748 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:52:41.748 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:41.764 INFO  org.jbake.parser.AsciidoctorEngine - Initializing Asciidoctor engine...
-18:52:47.293 INFO  org.jbake.parser.AsciidoctorEngine - Asciidoctor engine initialized.
-18:52:47.502 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:52:47.502 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:52:47.502 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:47.509 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:47.509 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit1140250061678611678/invalid.html!
-18:52:47.566 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:47.566 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit2449021666584420829/invalidMd.md!
-18:52:47.680 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:52:47.680 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:52:47.680 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:48.133 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:48.147 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:52:48.147 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:52:48.147 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:48.190 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:52:48.191 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:48.191 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit7457021003565033748/invalidNoType.html!
-18:52:48.197 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:52:48.197 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:48.197 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit5544240012699755923/invalidNoStatus.html!
-18:52:48.247 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:48.257 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit7486942677719862874/invalid.ad!
-18:52:48.262 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:52:48.262 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:52:48.263 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:48.284 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit8055543728093322004/invalidwoheader.ad!
-18:52:48.289 ERROR org.jbake.app.Parser - Unable to find suitable markup engine for /tmp/junit5692544532671258187/invalid.invalid
-18:52:48.293 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:52:48.294 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:52:48.294 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit154847538305489728/invalidMdWithoutDefaultStatus.md!
-18:52:48.299 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:52:48.299 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+  <testcase name="parseInvalidExtension" classname="org.jbake.app.ParserTest" time="0.005"/>
+  <testcase name="parseInvalidMarkdownFileWithoutDefaultStatus" classname="org.jbake.app.ParserTest" time="0.005"/>
+  <testcase name="parseMarkdownFileWithDefaultStatus" classname="org.jbake.app.ParserTest" time="0.009"/>
+  <system-out><![CDATA[21:43:12.672 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:12.673 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:12.673 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:12.680 INFO  org.jbake.parser.AsciidoctorEngine - Initializing Asciidoctor engine...
+21:43:18.377 INFO  org.jbake.parser.AsciidoctorEngine - Asciidoctor engine initialized.
+21:43:18.588 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:18.588 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:18.588 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:18.594 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:18.595 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit4178275566889326390/invalid.html!
+21:43:18.654 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:18.654 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit6514954960694896481/invalidMd.md!
+21:43:18.743 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:18.744 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:18.744 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.004 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.015 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.015 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.015 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.045 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.045 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.045 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit2501528773212573553/invalidNoType.html!
+21:43:19.050 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.050 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit7124933324741672180/invalidWithTags.html!
+21:43:19.056 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.056 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.056 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit6933668858059357877/invalidNoStatus.html!
+21:43:19.098 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.109 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit1268658042191700635/invalid.ad!
+21:43:19.115 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.115 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.115 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.136 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit8675835492777907542/invalidwoheader.ad!
+21:43:19.141 ERROR org.jbake.app.Parser - Unable to find suitable markup engine for /tmp/junit3078880233682747504/invalid.invalid
+21:43:19.145 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.146 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.146 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit2901897809424959344/invalidMdWithoutDefaultStatus.md!
+21:43:19.150 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.150 DEBUG org.jbake.parser.MarkupEngine - Header separator found
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

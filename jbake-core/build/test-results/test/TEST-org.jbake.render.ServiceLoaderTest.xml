@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.render.ServiceLoaderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:48" hostname="bolt.cs.ucr.edu" time="0.008">
+<testsuite name="org.jbake.render.ServiceLoaderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:43:00" hostname="bolt.cs.ucr.edu" time="0.007">
   <properties/>
-  <testcase name="testLoadRenderer" classname="org.jbake.render.ServiceLoaderTest" time="0.008"/>
+  <testcase name="testLoadRenderer" classname="org.jbake.render.ServiceLoaderTest" time="0.007"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

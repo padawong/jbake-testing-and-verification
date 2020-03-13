@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.render.RendererTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:48" hostname="bolt.cs.ucr.edu" time="0.004">
+<testsuite name="org.jbake.render.RendererTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:43:01" hostname="bolt.cs.ucr.edu" time="0.006">
   <properties/>
-  <testcase name="testRenderFileWorksWhenPathHasDotInButFileDoesNot" classname="org.jbake.render.RendererTest" time="0.004"/>
-  <system-out><![CDATA[18:52:48.913 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit3474222994253280387/output/real.path/about]... done!
+  <testcase name="testRenderFileWorksWhenPathHasDotInButFileDoesNot" classname="org.jbake.render.RendererTest" time="0.006"/>
+  <system-out><![CDATA[21:43:01.128 INFO  org.jbake.app.Renderer - Rendering [/tmp/junit8650791732426093397/output/real.path/about]... done!
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

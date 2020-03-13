@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.render.DocumentsRendererTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:48" hostname="bolt.cs.ucr.edu" time="0.016">
+<testsuite name="org.jbake.render.DocumentsRendererTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:43:01" hostname="bolt.cs.ucr.edu" time="0.017">
   <properties/>
   <testcase name="shouldContainPostNavigation" classname="org.jbake.render.DocumentsRendererTest" time="0.003"/>
   <testcase name="shouldReturnZeroIfNothingHasRendered" classname="org.jbake.render.DocumentsRendererTest" time="0.001"/>
   <testcase name="shouldReturnCountOfProcessedDocuments" classname="org.jbake.render.DocumentsRendererTest" time="0.002"/>
-  <testcase name="shouldThrowAnExceptionWithCollectedErrorMessages" classname="org.jbake.render.DocumentsRendererTest" time="0.01"/>
+  <testcase name="shouldThrowAnExceptionWithCollectedErrorMessages" classname="org.jbake.render.DocumentsRendererTest" time="0.011"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

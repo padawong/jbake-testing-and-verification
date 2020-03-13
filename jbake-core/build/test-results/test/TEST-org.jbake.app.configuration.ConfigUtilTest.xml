@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.configuration.ConfigUtilTest" tests="24" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:40" hostname="bolt.cs.ucr.edu" time="1.424">
+<testsuite name="org.jbake.app.configuration.ConfigUtilTest" tests="24" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:42:58" hostname="bolt.cs.ucr.edu" time="1.456">
   <properties/>
-  <testcase name="shouldHandleCustomAssetFolder()" classname="org.jbake.app.configuration.ConfigUtilTest" time="1.069"/>
-  <testcase name="shouldHandleCustomContentFolder()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.008"/>
+  <testcase name="shouldHandleCustomAssetFolder()" classname="org.jbake.app.configuration.ConfigUtilTest" time="1.075"/>
+  <testcase name="shouldHandleCustomContentFolder()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.009"/>
   <testcase name="shouldReturnAnAsciidoctorOption()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.009"/>
   <testcase name="shouldLoadACustomConfiguration()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.011"/>
-  <testcase name="shouldLogAWarningIfAsciidocOptionCouldNotBeFound()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.046"/>
-  <testcase name="shouldReturnAnAsciidoctorOptionWithAListValue()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.017"/>
+  <testcase name="shouldLogAWarningIfAsciidocOptionCouldNotBeFound()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.048"/>
+  <testcase name="shouldReturnAnAsciidoctorOptionWithAListValue()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.022"/>
   <testcase name="shouldHandleNonExistingFiles()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.009"/>
   <testcase name="shouldLoadSiteHost()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.005"/>
-  <testcase name="shouldGetMarkdownExtensionsAsList()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.005"/>
+  <testcase name="shouldGetMarkdownExtensionsAsList()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.006"/>
   <testcase name="shouldLogWarningIfDocumentTypeNotFound()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.005"/>
-  <testcase name="shouldGetTemplateOutputExtension()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.004"/>
+  <testcase name="shouldGetTemplateOutputExtension()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.005"/>
   <testcase name="shouldReturnContentFolderFromConfiguration()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.004"/>
   <testcase name="shouldAddSourcefolderToConfiguration()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.004"/>
-  <testcase name="shouldGetTemplateFileDoctype()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.004"/>
-  <testcase name="shouldReturnAssetFolderFromConfiguration()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.004"/>
-  <testcase name="shouldThrowAnExceptionIfSourcefolderDoesNotExist()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.176"/>
+  <testcase name="shouldGetTemplateFileDoctype()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.005"/>
+  <testcase name="shouldReturnAssetFolderFromConfiguration()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.006"/>
+  <testcase name="shouldThrowAnExceptionIfSourcefolderDoesNotExist()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.192"/>
   <testcase name="shouldReturnDestinationFolderFromConfiguration()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.004"/>
   <testcase name="shouldHandleCustomTemplateFolder()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.004"/>
-  <testcase name="shouldReturnAListOfAsciidoctorOptionsKeys()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.005"/>
+  <testcase name="shouldReturnAListOfAsciidoctorOptionsKeys()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.006"/>
   <testcase name="shouldThrowAnExceptionIfSourcefolderIsNotADirectory()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.002"/>
   <testcase name="shouldReturnEmptyStringIfOptionNotAvailable()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.004"/>
-  <testcase name="shouldReturnConfiguredDocTypes()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.005"/>
+  <testcase name="shouldReturnConfiguredDocTypes()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.004"/>
   <testcase name="shouldLoadADefaultConfiguration()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.004"/>
   <testcase name="shouldReturnTemplateFolderFromConfiguration()" classname="org.jbake.app.configuration.ConfigUtilTest" time="0.004"/>
-  <system-out><![CDATA[18:52:41.131 WARN  o.j.a.c.DefaultJBakeConfiguration - Cannot find asciidoctor option 'asciidoctor.option.template_dirs'
-18:52:41.214 WARN  o.j.a.c.DefaultJBakeConfiguration - Cannot find configuration key 'template.none.file' for document type 'none'
-18:52:41.436 WARN  o.j.a.c.DefaultJBakeConfiguration - Cannot find asciidoctor option 'asciidoctor.option.template_dirs'
+  <system-out><![CDATA[21:42:59.956 WARN  o.j.a.c.DefaultJBakeConfiguration - Cannot find asciidoctor option 'asciidoctor.option.template_dirs'
+21:43:00.045 WARN  o.j.a.c.DefaultJBakeConfiguration - Cannot find configuration key 'template.none.file' for document type 'none'
+21:43:00.286 WARN  o.j.a.c.DefaultJBakeConfiguration - Cannot find asciidoctor option 'asciidoctor.option.template_dirs'
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

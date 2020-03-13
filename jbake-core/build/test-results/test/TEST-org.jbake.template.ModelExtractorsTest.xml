@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.template.ModelExtractorsTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:49" hostname="bolt.cs.ucr.edu" time="0.006">
+<testsuite name="org.jbake.template.ModelExtractorsTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:43:01" hostname="bolt.cs.ucr.edu" time="0.007">
   <properties/>
   <testcase name="shouldLoadExtractorsOnInstantiation" classname="org.jbake.template.ModelExtractorsTest" time="0.001"/>
   <testcase name="shouldRegisterExtractorsForCustomType" classname="org.jbake.template.ModelExtractorsTest" time="0.001"/>
   <testcase name="shouldRegisterExtractorsOnlyForCustomTypes" classname="org.jbake.template.ModelExtractorsTest" time="0.001"/>
-  <testcase name="shouldResetToNonCustomizedExtractors" classname="org.jbake.template.ModelExtractorsTest" time="0.002"/>
+  <testcase name="shouldResetToNonCustomizedExtractors" classname="org.jbake.template.ModelExtractorsTest" time="0.003"/>
   <testcase name="shouldThrowAnExceptionIfDocumentTypeIsUnknown" classname="org.jbake.template.ModelExtractorsTest" time="0.001"/>
-  <system-out><![CDATA[18:52:49.061 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: project
-18:52:49.063 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: project
+  <system-out><![CDATA[21:43:01.290 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: project
+21:43:01.293 INFO  org.jbake.template.ModelExtractors - register new extractors for document type: project
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

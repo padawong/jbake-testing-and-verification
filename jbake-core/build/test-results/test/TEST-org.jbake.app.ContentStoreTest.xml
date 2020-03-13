@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.ContentStoreTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:59" hostname="bolt.cs.ucr.edu" time="2.934">
+<testsuite name="org.jbake.app.ContentStoreTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:43:10" hostname="bolt.cs.ucr.edu" time="1.916">
   <properties/>
-  <testcase name="shouldGetCountForPublishedDocuments" classname="org.jbake.app.ContentStoreTest" time="1.445"/>
-  <testcase name="testMergeDocument" classname="org.jbake.app.ContentStoreTest" time="1.489"/>
-  <system-out><![CDATA[18:52:59.808 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit9040733662485324024/documents1584064379806' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:53:00.845 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:53:00.872 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:53:00.902 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:53:00.935 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:53:00.973 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:53:01.014 DEBUG org.jbake.app.ContentStore - Create document class 'allcontent'
-18:53:01.057 DEBUG org.jbake.app.ContentStore - Create document class 'tag'
-18:53:01.104 DEBUG org.jbake.app.ContentStore - Create document class 'tagsindex'
-18:53:01.155 DEBUG org.jbake.app.ContentStore - Create document class 'sitemap'
-18:53:01.252 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit9040733662485324024/documents1584064379806' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
-18:53:02.202 DEBUG org.jbake.app.ContentStore - Create document class 'page'
-18:53:02.228 DEBUG org.jbake.app.ContentStore - Create document class 'post'
-18:53:02.257 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
-18:53:02.289 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
-18:53:02.325 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
-18:53:02.363 DEBUG org.jbake.app.ContentStore - Create document class 'allcontent'
-18:53:02.404 DEBUG org.jbake.app.ContentStore - Create document class 'tag'
-18:53:02.448 DEBUG org.jbake.app.ContentStore - Create document class 'tagsindex'
-18:53:02.496 DEBUG org.jbake.app.ContentStore - Create document class 'sitemap'
+  <testcase name="shouldGetCountForPublishedDocuments" classname="org.jbake.app.ContentStoreTest" time="0.937"/>
+  <testcase name="testMergeDocument" classname="org.jbake.app.ContentStoreTest" time="0.979"/>
+  <system-out><![CDATA[21:43:10.735 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit2866176260508727539/documents1584074590733' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+21:43:11.266 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+21:43:11.294 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+21:43:11.324 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+21:43:11.358 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+21:43:11.395 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+21:43:11.435 DEBUG org.jbake.app.ContentStore - Create document class 'allcontent'
+21:43:11.478 DEBUG org.jbake.app.ContentStore - Create document class 'tag'
+21:43:11.524 DEBUG org.jbake.app.ContentStore - Create document class 'tagsindex'
+21:43:11.573 DEBUG org.jbake.app.ContentStore - Create document class 'sitemap'
+21:43:11.672 INFO  c.o.o.c.s.m.ODirectMemoryStorage - Storage 'memory:/tmp/junit2866176260508727539/documents1584074590733' is created under OrientDB distribution : 3.0.14 - Veloce (build ac128c5a9ba4c6dc9d25a32b92962d8863774423, branch 3.0.x)
+21:43:12.222 DEBUG org.jbake.app.ContentStore - Create document class 'page'
+21:43:12.255 DEBUG org.jbake.app.ContentStore - Create document class 'post'
+21:43:12.290 DEBUG org.jbake.app.ContentStore - Create document class 'masterindex'
+21:43:12.332 DEBUG org.jbake.app.ContentStore - Create document class 'archive'
+21:43:12.378 DEBUG org.jbake.app.ContentStore - Create document class 'feed'
+21:43:12.432 DEBUG org.jbake.app.ContentStore - Create document class 'allcontent'
+21:43:12.471 DEBUG org.jbake.app.ContentStore - Create document class 'tag'
+21:43:12.514 DEBUG org.jbake.app.ContentStore - Create document class 'tagsindex'
+21:43:12.561 DEBUG org.jbake.app.ContentStore - Create document class 'sitemap'
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

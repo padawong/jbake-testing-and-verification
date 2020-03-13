@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.util.HtmlUtilTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:48" hostname="bolt.cs.ucr.edu" time="0.208">
+<testsuite name="org.jbake.util.HtmlUtilTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:43:00" hostname="bolt.cs.ucr.edu" time="0.21">
   <properties/>
-  <testcase name="shouldAddContentPathForCurrentDirectory" classname="org.jbake.util.HtmlUtilTest" time="0.175"/>
+  <testcase name="shouldAddContentPathForCurrentDirectory" classname="org.jbake.util.HtmlUtilTest" time="0.181"/>
   <testcase name="shouldNotChangeForHTTPS" classname="org.jbake.util.HtmlUtilTest" time="0.004"/>
   <testcase name="shouldNotAddRootPathForNoExtension" classname="org.jbake.util.HtmlUtilTest" time="0.003"/>
-  <testcase name="shouldAddContentPath" classname="org.jbake.util.HtmlUtilTest" time="0.004"/>
-  <testcase name="shouldNotAddRootPath" classname="org.jbake.util.HtmlUtilTest" time="0.004"/>
+  <testcase name="shouldAddContentPath" classname="org.jbake.util.HtmlUtilTest" time="0.002"/>
+  <testcase name="shouldNotAddRootPath" classname="org.jbake.util.HtmlUtilTest" time="0.003"/>
   <testcase name="shouldNotAddSiteHost" classname="org.jbake.util.HtmlUtilTest" time="0.003"/>
-  <testcase name="shouldAddContentPathForNoExtension" classname="org.jbake.util.HtmlUtilTest" time="0.004"/>
+  <testcase name="shouldAddContentPathForNoExtension" classname="org.jbake.util.HtmlUtilTest" time="0.003"/>
   <testcase name="shouldNotAddBodyHTMLElement" classname="org.jbake.util.HtmlUtilTest" time="0.003"/>
   <testcase name="shouldNotChangeForHTTP" classname="org.jbake.util.HtmlUtilTest" time="0.003"/>
   <testcase name="shouldAddSiteHostWithRelativeImageToDocument" classname="org.jbake.util.HtmlUtilTest" time="0.003"/>

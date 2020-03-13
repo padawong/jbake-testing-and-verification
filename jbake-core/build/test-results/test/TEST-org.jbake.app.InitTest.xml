@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.InitTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:53:03" hostname="bolt.cs.ucr.edu" time="0.013">
+<testsuite name="org.jbake.app.InitTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:43:19" hostname="bolt.cs.ucr.edu" time="0.012">
   <properties/>
   <testcase name="initOK" classname="org.jbake.app.InitTest" time="0.006"/>
   <testcase name="initFailDestinationContainsContent" classname="org.jbake.app.InitTest" time="0.003"/>
-  <testcase name="initFailInvalidTemplateType" classname="org.jbake.app.InitTest" time="0.004"/>
+  <testcase name="initFailInvalidTemplateType" classname="org.jbake.app.InitTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[java.lang.Exception: Output folder '/tmp/junit3574548232109148026/init' already contains structure!
+  <system-err><![CDATA[java.lang.Exception: Output folder '/tmp/junit1871998451250402049/init' already contains structure!
 	at org.jbake.launcher.Init.run(Init.java:66)
 	at org.jbake.app.InitTest.initFailDestinationContainsContent(InitTest.java:54)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)

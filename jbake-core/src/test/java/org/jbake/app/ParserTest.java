@@ -51,8 +51,10 @@ public class ParserTest {
     /**/
     private File invalidHTMLFileHeaderWithEmptyStatus;
     private File invalidHTMLFileHeaderWithNoType;
+    private File invalidHTMLFileHeaderWithTags;
     private String invalidHeaderEmptyStatus = "type=post\n~~~~~~";
     private String invalidHeaderNoType = "status=draft\n~~~~~~";
+    private String invalidHeaderWithTags = "title=This is a Title\ntags=tag1,tag2\n~~~~~~";
     /**/
 
     private String validHeader = "title=This is a Title = This is a valid Title\nstatus=draft\ntype=post\ndate=2013-09-02\n~~~~~~";
@@ -87,6 +89,11 @@ public class ParserTest {
         invalidHTMLFileHeaderWithNoType = folder.newFile("invalidNoType.html");
         out = new PrintWriter(invalidHTMLFileHeaderWithNoType);
         out.println(invalidHeaderNoType);
+        out.close();
+
+        invalidHTMLFileHeaderWithTags = folder.newFile("invalidWithTags.html");
+        out = new PrintWriter(invalidHTMLFileHeaderWithTags);
+        out.println(invalidHeaderWithTags);
         out.close();
         /**/
 
@@ -312,6 +319,13 @@ public class ParserTest {
     @Test
     public void parseInvalidHTMLFileHeaderWithNoType() {
         Map<String, Object> map = parser.processFile(invalidHTMLFileHeaderWithNoType);
+        Assert.assertNull(map);
+    }
+
+    @Test
+    public void parseInvalidHTMLFileHeaderWithTags() {
+        config.setDefaultStatus("");
+        Map<String, Object> map = parser.processFile(invalidHTMLFileHeaderWithTags);
         Assert.assertNull(map);
     }
     /**/

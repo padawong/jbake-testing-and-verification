@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.AssetTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:41" hostname="bolt.cs.ucr.edu" time="0.172">
+<testsuite name="org.jbake.app.AssetTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:43:00" hostname="bolt.cs.ucr.edu" time="0.161">
   <properties/>
   <testcase name="testUnlistable()" classname="org.jbake.app.AssetTest" time="0.012"/>
-  <testcase name="testCopyCustomFolder()" classname="org.jbake.app.AssetTest" time="0.02"/>
-  <testcase name="testCopyIgnore()" classname="org.jbake.app.AssetTest" time="0.01"/>
-  <testcase name="testCopyAssetsFromContent()" classname="org.jbake.app.AssetTest" time="0.049"/>
-  <testcase name="testCopy()" classname="org.jbake.app.AssetTest" time="0.02"/>
+  <testcase name="testCopyCustomFolder()" classname="org.jbake.app.AssetTest" time="0.019"/>
+  <testcase name="testCopyIgnore()" classname="org.jbake.app.AssetTest" time="0.009"/>
+  <testcase name="testCopyAssetsFromContent()" classname="org.jbake.app.AssetTest" time="0.045"/>
+  <testcase name="testCopy()" classname="org.jbake.app.AssetTest" time="0.019"/>
   <testcase name="testIsFileAsset()" classname="org.jbake.app.AssetTest" time="0.005"/>
   <testcase name="shouldLogSkipCopyingSingleFileIfDirectory()" classname="org.jbake.app.AssetTest" time="0.004"/>
   <testcase name="testCopySingleFile()" classname="org.jbake.app.AssetTest" time="0.007"/>
   <testcase name="testJBakeIgnoredFolder()" classname="org.jbake.app.AssetTest" time="0.015"/>
-  <testcase name="testWriteProtected()" classname="org.jbake.app.AssetTest" time="0.019"/>
+  <testcase name="testWriteProtected()" classname="org.jbake.app.AssetTest" time="0.018"/>
   <testcase name="shouldSkipCopyingSingleFileIfDirectory()" classname="org.jbake.app.AssetTest" time="0.004"/>
-  <system-out><![CDATA[18:52:41.567 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/media/favicon.ico]... done!
-18:52:41.577 INFO  org.jbake.app.Asset - Copying [/tmp/junit8460136102577818556/ignoredAssets/test.txt]... done!
-18:52:41.612 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/images/custom-image.png]... done!
-18:52:41.613 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/sample.json]... done!
-18:52:41.615 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/images/custom-image.jpg]... done!
-[Ljava.io.File;@18409a21
-[Ljava.io.File;@403f0eff
-[Ljava.io.File;@337c9bc3
-[Ljava.io.File;@1dab93f3
-[Ljava.io.File;@12693f5
-[Ljava.io.File;@39d62dd8
-18:52:41.635 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap-responsive.min.css]... done!
-18:52:41.637 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap.min.css]... done!
-18:52:41.638 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings-white.png]... done!
-18:52:41.640 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings.png]... done!
-18:52:41.645 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/bootstrap.min.js]... done!
-18:52:41.646 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/html5shiv.js]... done!
-18:52:41.648 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/jquery-1.9.1.min.js]... done!
-18:52:41.659 INFO  org.jbake.app.Asset - Skip copying single asset file [/tmp/junit1547820280997208511/emptyDir]. Is a directory.
-18:52:41.664 INFO  org.jbake.app.Asset - Copying single asset file to [/tmp/junit4315980371182604360/css/bootstrap.min.css]
-18:52:41.665 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap.min.css]... done!
-18:52:41.666 INFO  org.jbake.app.Asset - Copying single asset file to [/tmp/junit4315980371182604360/blog/2013/images/custom-image.jpg]
-18:52:41.667 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/images/custom-image.jpg]... done!
-18:52:41.674 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap-responsive.min.css]... done!
-18:52:41.675 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap.min.css]... done!
-18:52:41.677 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings-white.png]... done!
-18:52:41.678 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings.png]... done!
-18:52:41.680 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/bootstrap.min.js]... done!
-18:52:41.681 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/html5shiv.js]... done!
-18:52:41.682 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/jquery-1.9.1.min.js]... done!
-18:52:41.690 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap-responsive.min.css]... done!
-18:52:41.694 ERROR org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap.min.css]... failed!
-java.io.IOException: Destination '/tmp/junit2803143488482126349/css/bootstrap.min.css' exists but is read-only
+  <system-out><![CDATA[21:43:00.411 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/media/favicon.ico]... done!
+21:43:00.420 INFO  org.jbake.app.Asset - Copying [/tmp/junit2200841028202915258/ignoredAssets/test.txt]... done!
+21:43:00.451 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/images/custom-image.png]... done!
+21:43:00.452 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2012/sample.json]... done!
+21:43:00.454 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/images/custom-image.jpg]... done!
+[Ljava.io.File;@2fc48d6c
+[Ljava.io.File;@5d44c341
+[Ljava.io.File;@362f97e6
+[Ljava.io.File;@1d4ebfc1
+[Ljava.io.File;@16eafee9
+[Ljava.io.File;@6dcf69be
+21:43:00.474 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap-responsive.min.css]... done!
+21:43:00.476 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap.min.css]... done!
+21:43:00.477 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings-white.png]... done!
+21:43:00.478 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings.png]... done!
+21:43:00.482 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/bootstrap.min.js]... done!
+21:43:00.484 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/html5shiv.js]... done!
+21:43:00.485 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/jquery-1.9.1.min.js]... done!
+21:43:00.496 INFO  org.jbake.app.Asset - Skip copying single asset file [/tmp/junit4872725431356151073/emptyDir]. Is a directory.
+21:43:00.501 INFO  org.jbake.app.Asset - Copying single asset file to [/tmp/junit358498748574403699/css/bootstrap.min.css]
+21:43:00.502 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap.min.css]... done!
+21:43:00.502 INFO  org.jbake.app.Asset - Copying single asset file to [/tmp/junit358498748574403699/blog/2013/images/custom-image.jpg]
+21:43:00.503 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/content/blog/2013/images/custom-image.jpg]... done!
+21:43:00.510 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap-responsive.min.css]... done!
+21:43:00.511 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap.min.css]... done!
+21:43:00.513 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings-white.png]... done!
+21:43:00.513 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings.png]... done!
+21:43:00.515 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/bootstrap.min.js]... done!
+21:43:00.516 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/html5shiv.js]... done!
+21:43:00.517 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/jquery-1.9.1.min.js]... done!
+21:43:00.525 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap-responsive.min.css]... done!
+21:43:00.529 ERROR org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/css/bootstrap.min.css]... failed!
+java.io.IOException: Destination '/tmp/junit4068739584317021967/css/bootstrap.min.css' exists but is read-only
 	at org.apache.commons.io.FileUtils.copyFile(FileUtils.java:1074)
 	at org.apache.commons.io.FileUtils.copyFile(FileUtils.java:1028)
 	at org.jbake.app.Asset.copyFile(Asset.java:159)
@@ -117,12 +117,12 @@ java.io.IOException: Destination '/tmp/junit2803143488482126349/css/bootstrap.mi
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:55)
 	at java.lang.Thread.run(Thread.java:748)
-18:52:41.698 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings-white.png]... done!
-18:52:41.699 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings.png]... done!
-18:52:41.700 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/bootstrap.min.js]... done!
-18:52:41.701 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/html5shiv.js]... done!
-18:52:41.702 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/jquery-1.9.1.min.js]... done!
-18:52:41.707 INFO  org.jbake.app.Asset - Skip copying single asset file [/tmp/junit7649167214887827293/emptyDir]. Is a directory.
+21:43:00.533 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings-white.png]... done!
+21:43:00.534 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/img/glyphicons-halflings.png]... done!
+21:43:00.535 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/bootstrap.min.js]... done!
+21:43:00.536 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/html5shiv.js]... done!
+21:43:00.537 INFO  org.jbake.app.Asset - Copying [/home/csmajs/jgarc271/git/jbake-testing-and-verification/jbake-core/build/resources/test/fixture/assets/js/jquery-1.9.1.min.js]... done!
+21:43:00.542 INFO  org.jbake.app.Asset - Skip copying single asset file [/tmp/junit5727858181478981647/emptyDir]. Is a directory.
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

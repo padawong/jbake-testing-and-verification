@@ -1,162 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.MdParserTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:53:02" hostname="bolt.cs.ucr.edu" time="0.311">
+<testsuite name="org.jbake.app.MdParserTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:43:19" hostname="bolt.cs.ucr.edu" time="0.277">
   <properties/>
-  <testcase name="parseValidMdFileSmartypants" classname="org.jbake.app.MdParserTest" time="0.033"/>
+  <testcase name="parseValidMdFileSmartypants" classname="org.jbake.app.MdParserTest" time="0.034"/>
   <testcase name="parseValidMdFileAtxheaderspace" classname="org.jbake.app.MdParserTest" time="0.009"/>
-  <testcase name="parseValidMdFileHardWraps" classname="org.jbake.app.MdParserTest" time="0.011"/>
-  <testcase name="parseValidMdFileRelaxedhrules" classname="org.jbake.app.MdParserTest" time="0.013"/>
+  <testcase name="parseValidMdFileHardWraps" classname="org.jbake.app.MdParserTest" time="0.009"/>
+  <testcase name="parseValidMdFileRelaxedhrules" classname="org.jbake.app.MdParserTest" time="0.012"/>
   <testcase name="parseValidMarkdownFileBasic" classname="org.jbake.app.MdParserTest" time="0.007"/>
   <testcase name="parseValidMdFileSuppressAllHTML" classname="org.jbake.app.MdParserTest" time="0.012"/>
   <testcase name="parseValidMdFileFencedCodeBlocks" classname="org.jbake.app.MdParserTest" time="0.009"/>
-  <testcase name="parseValidMdFileForcelistitempara" classname="org.jbake.app.MdParserTest" time="0.028"/>
+  <testcase name="parseValidMdFileForcelistitempara" classname="org.jbake.app.MdParserTest" time="0.011"/>
   <testcase name="parseValidMdFileTasklistitems" classname="org.jbake.app.MdParserTest" time="0.022"/>
-  <testcase name="parseWithInvalidExtension" classname="org.jbake.app.MdParserTest" time="0.007"/>
+  <testcase name="parseWithInvalidExtension" classname="org.jbake.app.MdParserTest" time="0.005"/>
   <testcase name="parseInvalidMarkdownFileBasic" classname="org.jbake.app.MdParserTest" time="0.004"/>
-  <testcase name="parseValidMdFileExtanchorlinks" classname="org.jbake.app.MdParserTest" time="0.032"/>
-  <testcase name="parseValidMdFileDefinitions" classname="org.jbake.app.MdParserTest" time="0.013"/>
-  <testcase name="parseValidMdFileAbbreviations" classname="org.jbake.app.MdParserTest" time="0.019"/>
-  <testcase name="parseValidMdFileWikilinks" classname="org.jbake.app.MdParserTest" time="0.018"/>
+  <testcase name="parseValidMdFileExtanchorlinks" classname="org.jbake.app.MdParserTest" time="0.016"/>
+  <testcase name="parseValidMdFileDefinitions" classname="org.jbake.app.MdParserTest" time="0.012"/>
+  <testcase name="parseValidMdFileAbbreviations" classname="org.jbake.app.MdParserTest" time="0.02"/>
+  <testcase name="parseValidMdFileWikilinks" classname="org.jbake.app.MdParserTest" time="0.019"/>
   <testcase name="parseValidMdFileSuppressInlineHTML" classname="org.jbake.app.MdParserTest" time="0.008"/>
-  <testcase name="parseValidMdFileAutolinks" classname="org.jbake.app.MdParserTest" time="0.009"/>
+  <testcase name="parseValidMdFileAutolinks" classname="org.jbake.app.MdParserTest" time="0.011"/>
   <testcase name="parseValidMdFileQuotes" classname="org.jbake.app.MdParserTest" time="0.007"/>
   <testcase name="parseValidMdFileSmarts" classname="org.jbake.app.MdParserTest" time="0.007"/>
   <testcase name="parseValidMdFileTables" classname="org.jbake.app.MdParserTest" time="0.03"/>
-  <testcase name="parseValidMdFileSuppressHTMLBlocks" classname="org.jbake.app.MdParserTest" time="0.008"/>
-  <system-out><![CDATA[18:53:02.612 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.612 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.612 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.629 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.629 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.629 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.629 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.635 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.635 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.635 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.638 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.638 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.638 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.638 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.644 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.644 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.644 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.647 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.647 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.647 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.647 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.656 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.656 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.656 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.660 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.660 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.660 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.660 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.668 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.668 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.668 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.675 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.675 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.675 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.681 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.681 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.681 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.681 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.687 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.688 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.688 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.690 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.690 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.690 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.690 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.714 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.714 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.714 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.718 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.718 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.718 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.718 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.725 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.725 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.725 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.736 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.736 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.736 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.736 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.748 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.748 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.748 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.748 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field 'UNDEFINED_EXTENSION', fallback to NONE
-18:53:02.754 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.754 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit1499676827620546037/invalidBasic.md!
-18:53:02.774 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.774 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.774 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.784 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.784 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.784 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.784 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.790 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.791 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.791 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.796 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.796 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.796 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.797 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.803 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.803 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.803 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.816 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.816 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.816 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.816 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.823 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.823 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.823 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.835 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.835 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.835 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.835 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.842 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.842 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.842 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.844 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.844 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.844 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.844 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.850 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.850 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.850 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.854 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.854 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.854 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.854 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.860 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.860 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.860 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.861 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.861 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.862 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.862 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.867 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.867 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.867 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.869 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.869 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.869 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.869 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.875 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.875 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.875 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.899 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.899 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.899 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.899 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
-18:53:02.906 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.906 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.906 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.907 DEBUG org.jbake.parser.MarkupEngine - Status property found
-18:53:02.907 DEBUG org.jbake.parser.MarkupEngine - Type property found
-18:53:02.907 DEBUG org.jbake.parser.MarkupEngine - Header separator found
-18:53:02.907 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+  <testcase name="parseValidMdFileSuppressHTMLBlocks" classname="org.jbake.app.MdParserTest" time="0.006"/>
+  <system-out><![CDATA[21:43:19.180 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.180 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.180 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.197 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.197 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.197 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.197 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.204 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.204 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.204 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.206 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.206 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.206 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.206 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.213 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.213 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.213 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.215 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.215 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.215 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.215 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.221 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.222 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.222 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.226 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.226 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.226 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.226 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.235 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.235 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.235 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.241 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.241 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.242 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.248 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.248 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.248 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.248 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.254 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.254 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.254 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.256 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.257 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.257 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.257 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.263 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.263 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.263 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.267 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.267 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.268 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.268 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.275 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.275 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.275 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.286 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.286 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.286 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.286 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.297 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.297 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.297 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.297 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field 'UNDEFINED_EXTENSION', fallback to NONE
+21:43:19.303 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.303 WARN  org.jbake.parser.MarkupEngine - Parsing skipped (missing type or status value in header meta data) for file /tmp/junit2956937268065378077/invalidBasic.md!
+21:43:19.307 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.307 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.307 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.316 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.317 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.317 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.317 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.323 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.323 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.323 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.330 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.330 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.330 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.330 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.336 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.336 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.336 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.351 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.351 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.351 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.351 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.357 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.357 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.357 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.369 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.369 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.369 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.369 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.376 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.376 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.376 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.378 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.378 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.378 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.378 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.384 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.384 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.384 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.388 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.388 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.388 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.388 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.394 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.394 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.394 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.396 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.396 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.396 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.396 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.401 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.401 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.401 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.403 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.403 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.403 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.403 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.409 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.409 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.409 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.434 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.434 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.434 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.434 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
+21:43:19.440 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.440 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.440 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.441 DEBUG org.jbake.parser.MarkupEngine - Status property found
+21:43:19.441 DEBUG org.jbake.parser.MarkupEngine - Type property found
+21:43:19.441 DEBUG org.jbake.parser.MarkupEngine - Header separator found
+21:43:19.441 DEBUG org.jbake.parser.MarkdownEngine - Undeclared extension field '', fallback to NONE
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.render.FeedRendererTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-13T01:52:48" hostname="bolt.cs.ucr.edu" time="0.004">
+<testsuite name="org.jbake.render.FeedRendererTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:43:01" hostname="bolt.cs.ucr.edu" time="0.004">
   <properties/>
   <testcase name="returnsZeroWhenConfigDoesNotRenderFeeds" classname="org.jbake.render.FeedRendererTest" time="0.0"/>
-  <testcase name="doesRenderWhenConfigDoesRenderFeeds" classname="org.jbake.render.FeedRendererTest" time="0.0"/>
-  <testcase name="returnsOneWhenConfigRendersFeeds" classname="org.jbake.render.FeedRendererTest" time="0.0"/>
+  <testcase name="doesRenderWhenConfigDoesRenderFeeds" classname="org.jbake.render.FeedRendererTest" time="0.001"/>
+  <testcase name="returnsOneWhenConfigRendersFeeds" classname="org.jbake.render.FeedRendererTest" time="0.001"/>
   <testcase name="doesNotRenderWhenConfigDoesNotRenderFeeds" classname="org.jbake.render.FeedRendererTest" time="0.001"/>
   <testcase name="propogatesRenderingException" classname="org.jbake.render.FeedRendererTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jbake.app.DebugUtilTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-13T02:01:26" hostname="bolt.cs.ucr.edu" time="0.002">
+<testsuite name="org.jbake.app.DebugUtilTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-13T04:51:15" hostname="bolt.cs.ucr.edu" time="0.002">
   <properties/>
   <testcase name="printMap" classname="org.jbake.app.DebugUtilTest" time="0.002"/>
   <system-out><![CDATA[
@@ -8,7 +8,7 @@ forNonSerializableVal :: java.lang.Exception: nonSerializableVal
 forNullVal :: null
 forCharset :: UTF-8
 stringKey :: stringVal
-forObject :: java.lang.Object@55989149
+forObject :: java.lang.Object@4b0f28b
 
 
 ]]></system-out>
